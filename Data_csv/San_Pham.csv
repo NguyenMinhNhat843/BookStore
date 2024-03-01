@@ -1,0 +1,101 @@
+SP_id,product_name,gia_nhap,gia_ban,loai,thue,ma_khuyen_mai
+SP003,montes nascetur ridiculus mus,10743,14910,sách,0.1,KM005
+SP003,non quam nec dui luctus,3737,3763,sách,0.1,KM005
+SP004,aliquam lacus morbi quis tortor,1384,9533,văn phòng phẩm,0.0,KM005
+SP003,et magnis dis parturient montes,2229,12797,sách,0.0,KM001
+SP003,vulputate luctus cum,18740,1872,truyện,0.1,KM003
+SP002,velit,9863,18151,truyện,0.0,KM006
+SP003,dis parturient montes nascetur ridiculus,10572,5556,truyện,0.1,KM003
+SP003,est,16397,14813,sách,0.1,KM001
+SP001,eget nunc,8800,3521,sách,0.1,KM002
+SP002,quis orci eget orci vehicula,11110,10640,sách,0.1,KM004
+SP002,quam pharetra magna ac consequat,17074,8104,truyện,0.0,KM002
+SP001,venenatis,12454,442,sách,0.0,KM001
+SP002,quisque id justo,15659,2382,truyện,0.0,KM002
+SP004,venenatis tristique fusce congue,3483,14788,truyện,0.0,KM006
+SP004,sodales sed,380,10464,sách,0.0,KM003
+SP003,erat vestibulum sed,244,7096,truyện,0.1,KM002
+SP003,integer a nibh in,4621,3167,văn phòng phẩm,0.1,KM006
+SP004,ipsum praesent,12968,17868,văn phòng phẩm,0.0,KM004
+SP001,lacus morbi sem mauris,14479,14889,sách,0.1,KM006
+SP001,placerat ante nulla justo aliquam,11480,12163,sách,0.1,KM006
+SP002,risus auctor sed tristique,2372,12202,sách,0.1,KM003
+SP003,diam,3214,10209,sách,0.0,KM001
+SP004,sit amet,7333,8845,sách,0.1,KM003
+SP001,duis ac nibh,16304,11425,sách,0.0,KM001
+SP004,libero ut massa volutpat convallis,15468,13678,sách,0.1,KM003
+SP004,nisi vulputate,3627,4169,sách,0.0,KM001
+SP001,donec semper sapien a libero,12085,1885,truyện,0.0,KM002
+SP002,sed interdum,5970,9709,sách,0.0,KM006
+SP004,fusce congue,483,12672,văn phòng phẩm,0.0,KM003
+SP004,orci,18054,7872,sách,0.1,KM005
+SP001,eros,14930,5316,sách,0.0,KM006
+SP003,magnis dis parturient montes nascetur,1131,17310,văn phòng phẩm,0.1,KM002
+SP001,quisque porta volutpat erat quisque,14762,6503,sách,0.1,KM001
+SP003,at diam nam,17599,3920,văn phòng phẩm,0.0,KM003
+SP004,a,11969,9795,truyện,0.1,KM002
+SP001,suspendisse potenti cras in purus,7935,2567,truyện,0.0,KM004
+SP004,pulvinar lobortis est,1947,9358,sách,0.0,KM003
+SP002,maecenas rhoncus,12586,16401,sách,0.1,KM004
+SP004,accumsan felis ut at dolor,4396,5242,truyện,0.0,KM002
+SP004,nulla,10353,6492,truyện,0.0,KM001
+SP003,nam ultrices,3223,813,truyện,0.1,KM003
+SP001,suspendisse potenti in,7580,15644,sách,0.0,KM001
+SP002,volutpat sapien,12078,5658,văn phòng phẩm,0.1,KM002
+SP004,purus,18421,3187,truyện,0.1,KM006
+SP003,lobortis sapien sapien,7024,14451,truyện,0.1,KM005
+SP003,nulla ultrices aliquet,14129,13958,văn phòng phẩm,0.0,KM002
+SP004,rhoncus sed vestibulum sit amet,5515,12019,truyện,0.0,KM006
+SP004,pede malesuada in,13271,18132,truyện,0.1,KM003
+SP004,dictumst morbi vestibulum velit id,7433,2693,truyện,0.1,KM001
+SP001,orci vehicula condimentum curabitur in,8307,14958,sách,0.1,KM004
+SP003,vitae mattis nibh,1501,11428,truyện,0.0,KM002
+SP003,primis in,11388,1011,truyện,0.1,KM001
+SP004,lacinia nisi venenatis tristique fusce,18850,694,sách,0.1,KM002
+SP001,adipiscing,19451,9664,truyện,0.1,KM004
+SP003,etiam faucibus,6907,10323,văn phòng phẩm,0.1,KM003
+SP003,in blandit,1851,2808,sách,0.1,KM004
+SP001,dui maecenas tristique,13271,6498,sách,0.0,KM005
+SP004,sed,19645,12719,sách,0.1,KM003
+SP001,elit proin interdum mauris non,16452,1496,văn phòng phẩm,0.0,KM003
+SP004,cum sociis,18395,7700,sách,0.1,KM006
+SP003,accumsan,1095,17200,sách,0.0,KM004
+SP003,adipiscing elit proin risus,13724,10233,truyện,0.0,KM002
+SP003,sit amet,828,15737,văn phòng phẩm,0.1,KM005
+SP002,sapien,10954,5840,văn phòng phẩm,0.0,KM004
+SP001,sit,15602,18442,sách,0.0,KM003
+SP001,nibh,17949,18509,sách,0.1,KM006
+SP001,accumsan tellus nisi eu orci,11636,16697,truyện,0.0,KM005
+SP002,augue quam sollicitudin vitae,13047,8762,văn phòng phẩm,0.1,KM001
+SP004,nulla justo aliquam,2251,964,văn phòng phẩm,0.0,KM003
+SP003,potenti cras,994,643,truyện,0.1,KM001
+SP002,egestas metus aenean fermentum donec,5638,19971,văn phòng phẩm,0.0,KM004
+SP002,nulla mollis molestie lorem quisque,8797,1829,văn phòng phẩm,0.0,KM005
+SP002,odio justo sollicitudin ut,1243,17692,văn phòng phẩm,0.0,KM002
+SP001,vestibulum quam,1484,15736,văn phòng phẩm,0.0,KM001
+SP002,proin at turpis a pede,17871,5666,văn phòng phẩm,0.1,KM005
+SP004,sed justo,15545,8719,văn phòng phẩm,0.0,KM002
+SP004,dolor morbi,12515,14326,truyện,0.1,KM003
+SP002,aenean sit amet justo morbi,8471,4547,truyện,0.1,KM005
+SP001,semper est quam,351,11919,văn phòng phẩm,0.0,KM003
+SP003,sit amet consectetuer,17258,7820,sách,0.0,KM006
+SP004,tincidunt ante vel,18405,9355,văn phòng phẩm,0.0,KM004
+SP002,at dolor,1126,8539,truyện,0.0,KM001
+SP003,etiam,17798,2511,văn phòng phẩm,0.0,KM004
+SP003,ipsum,10536,13283,truyện,0.0,KM003
+SP003,ante vestibulum,13667,9399,văn phòng phẩm,0.1,KM004
+SP004,metus arcu adipiscing molestie,14121,15033,sách,0.0,KM004
+SP004,aliquam erat,3051,16142,sách,0.1,KM004
+SP002,dapibus at,16773,10481,văn phòng phẩm,0.0,KM002
+SP003,et magnis dis parturient,14490,19793,văn phòng phẩm,0.0,KM002
+SP001,in,2831,4217,sách,0.1,KM004
+SP002,in quis justo maecenas,5180,4688,văn phòng phẩm,0.1,KM006
+SP001,quam pede lobortis,17205,12852,sách,0.1,KM005
+SP003,sociis natoque penatibus et,11387,15842,truyện,0.1,KM001
+SP001,mauris eget,13790,3060,sách,0.0,KM006
+SP003,eros suspendisse accumsan tortor quis,9610,7450,văn phòng phẩm,0.0,KM005
+SP004,sapien,14442,12623,văn phòng phẩm,0.1,KM004
+SP003,luctus ultricies,14859,15790,truyện,0.0,KM006
+SP004,suspendisse potenti,18927,19848,truyện,0.1,KM001
+SP001,venenatis turpis enim blandit mi,15112,18010,văn phòng phẩm,0.1,KM002
+SP002,luctus,4807,7539,văn phòng phẩm,0.1,KM005
