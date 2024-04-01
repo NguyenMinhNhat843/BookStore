@@ -118,7 +118,6 @@ public class NhanVien_DAO{
     
     public NhanVien GetNV_User_Name(String user_Name) {
         NhanVien nv = null;
-        
         try {
             Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));

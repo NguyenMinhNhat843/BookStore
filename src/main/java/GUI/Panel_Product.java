@@ -4,7 +4,6 @@
  */
 package GUI;
 
-
 import dao.NhaCungCap_DAO;
 import dao.SanPham_DAO;
 import entity.KhuyenMai;
@@ -14,160 +13,197 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import org.neo4j.driver.Driver;
+
+import ConnectDB.connectDB;
+import dao.KhuyenMai_DAO;
+import java.util.List;
+
 /**
  *
  * @author Asus
  */
 public class Panel_Product extends javax.swing.JPanel {
+
     private SanPham_DAO sp_dao = new SanPham_DAO();
     private NhaCungCap_DAO ncc_dao = new NhaCungCap_DAO();
-    private ArrayList<SanPham> dsSP = sp_dao.getDSSP();
+    private List<SanPham> dsSP;
+    private List<KhuyenMai> dsKM;
+    private KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
+
     /**
      * Creates new form Panel_Product
      */
     public Panel_Product() {
+        connect();
         initComponents();
-//        DocLieuLenTableSanPham();
+        loadCmbKM();
+        DocLieuLenTableSanPham();
 //        DocDuLieuLenCBoBoxNCC();
 
     }
-    
-    public void DocDuLieuLenCBoBoxNCC() {
-        ArrayList<NhaCungCap> dsNCC = ncc_dao.getAllNCC();
-        
-        for(NhaCungCap ncc : dsNCC) {
-            cbo_NCC_field.addItem(ncc);
-            cbo_LocTheoNCC.addItem(ncc.getTenNCC());
+
+    public void connect() {
+        try {
+            Driver driver = connectDB.getInstance().getDriver();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    
+
+//    public void DocDuLieuLenCBoBoxNCC() {
+//        ArrayList<NhaCungCap> dsNCC = ncc_dao.getAllNCC();
+//        
+//        for(NhaCungCap ncc : dsNCC) {
+//            cbo_NCC_field.addItem(ncc);
+//            cbo_LocTheoNCC.addItem(ncc.getTenNCC());
+//        }
+//    }
     public void LocTheoLSP() {
         int lsp_selected = cbo_LocTheoLoai.getSelectedIndex();
-        ArrayList<SanPham> locTheoLSP = new ArrayList<>();
-        
-         for(SanPham sp : dsSP) {
-           if(Integer.parseInt(sp.getLoaiSP().charAt(sp.getLoaiSP().length() - 1) + "") == lsp_selected) {
-               locTheoLSP.add(sp);
-           }
+        if (lsp_selected == 0) {
+            DocLieuLenTableSanPham();
+            return;
         }
-         
-         XoaDuLieuTableSP();
-         DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-        for(SanPham sp : locTheoLSP){
-            Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
-                sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
-            temp.addRow(obj);
-        }      
-    }
-    
-    public void LocTheoNCC() {
-        int ncc_selected = cbo_LocTheoNCC.getSelectedIndex();
-        ArrayList<SanPham> locTheoNCC = new ArrayList<>();
-        
-        for(SanPham sp : dsSP) {
-           if(Integer.parseInt(sp.getnCC().getMaNCC().charAt(sp.getnCC().getMaNCC().length() - 1) + "") == ncc_selected) {
-               locTheoNCC.add(sp);
-           }
-        }
-        
-        
-        
+        ArrayList<SanPham> locTheoLSP = new ArrayList<SanPham>();
+
         XoaDuLieuTableSP();
-        
-        if(locTheoNCC.size() != 0) {
+        for (SanPham sp : dsSP) {
+            if (Integer.parseInt(sp.getLoaiSP().charAt(sp.getLoaiSP().length() - 1) + "") == lsp_selected) {
+                locTheoLSP.add(sp);
+            }
+        }
+        if (!locTheoLSP.isEmpty()) {
             DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-            for(SanPham sp : locTheoNCC){
-                Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
-                    sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
+            for (SanPham sp : locTheoLSP) {
+                char loaiSP = sp.getLoaiSP().charAt(sp.getLoaiSP().length() - 1);
+                Object[] obj = {sp.getMaSP(), sp.getTenSP(), cbo_loaiSP_field.getItemAt(loaiSP - '0' - 1),
+                    sp.getGiaNhapHang(), sp.getGiaBan(), sp.getkM().getMuc_giam_gia()};
                 temp.addRow(obj);
-            }       
-        } else {
-            System.out.println("GUI.Panel_Product.LocTheoNCC()");
+            }
         }
     }
-    
+
+//    public void LocTheoNCC() {
+//        int ncc_selected = cbo_LocTheoNCC.getSelectedIndex();
+//        ArrayList<SanPham> locTheoNCC = new ArrayList<>();
+//        
+//        for(SanPham sp : dsSP) {
+//           if(Integer.parseInt(sp.getnCC().getMaNCC().charAt(sp.getnCC().getMaNCC().length() - 1) + "") == ncc_selected) {
+//               locTheoNCC.add(sp);
+//           }
+//        }
+//        
+//        
+//        
+//        XoaDuLieuTableSP();
+//        
+//        if(locTheoNCC.size() != 0) {
+//            DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
+//            for(SanPham sp : locTheoNCC){
+//                Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
+//                    sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
+//                temp.addRow(obj);
+//            }       
+//        } else {
+//            System.out.println("GUI.Panel_Product.LocTheoNCC()");
+//        }
+//    }
     public void DocDuLieuLenCBoBoxLoaiSP() {
-        ArrayList<SanPham> dsSP = sp_dao.getDSSP();
-        
-        for(SanPham sp : dsSP) {
+        List<SanPham> dsSP = sp_dao.getDSSP();
+
+        for (SanPham sp : dsSP) {
             cbo_loaiSP_field.addItem(sp.getLoaiSP());
         }
     }
-    
-    public boolean validData_SanPham(){
-        String maSP = maSP_field.getText().toString().trim();
+
+    public boolean validData_SanPham() {
+//        String maSP = maSP_field.getText().toString().trim();
         String tenSP = tenSP_field.getText().toString().trim();
         String giaNhap = giaNhap_field.getText().toString().trim();
         String giaBan = giaBan_field.getText().toString().trim();
-        String tonKho = tonKho_field.getText().toString().trim();
-        String khuyenMai = khuyenMai_field.getText().toString().trim();
-        String bayBan = bayban_field.getText().toString().trim();
-        
-        if(maSP.isEmpty() || (!maSP.matches("^SP\\d{3}$"))){
-            JOptionPane.showMessageDialog(this, "Mã sản phẩm phải theo mẫu SP001");
-            return false;
-        }
-        if(tenSP.isEmpty()){
+        String khuyenMai = cmb_KM.getSelectedItem().toString();
+
+//        if(maSP.isEmpty() || (!maSP.matches("^SP\\d{3}$"))){
+//            JOptionPane.showMessageDialog(this, "Mã sản phẩm phải theo mẫu SP001");
+//            return false;
+//        }
+        if (tenSP.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được rỗng!");
             return false;
         }
         double giaNhapHang = Double.parseDouble(giaNhap);
-        if(giaNhapHang <= 0 || giaNhap.isEmpty()){
+        if (giaNhapHang <= 0 || giaNhap.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Gía nhập hàng phải lớn hơn 0");
             return false;
         }
         double giaBanHang = Double.parseDouble(giaBan);
-        if(giaBanHang <= 0  || giaBan.isEmpty()){
+        if (giaBanHang <= 0 || giaBan.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Gía bán hàng phải lớn hơn 0");
             return false;
         }
-        int slBayBan = bayBan.length() == 0 ? 0 : Integer.parseInt(bayBan);
-        if(slBayBan <= 0){
-            JOptionPane.showMessageDialog(this, "Số lượng bày bán phải lớn hơn 0");
-            return false;
-        }
-        int slTonKho = Integer.parseInt(tonKho);
-        if(slTonKho <= 0){
-            JOptionPane.showMessageDialog(this, "Số lượng tồn kho phải lớn hơn 0");
-            return false;
-        }
+//        int slBayBan = bayBan.length() == 0 ? 0 : Integer.parseInt(bayBan);
+//        if(slBayBan <= 0){
+//            JOptionPane.showMessageDialog(this, "Số lượng bày bán phải lớn hơn 0");
+//            return false;
+//        }
+//        int slTonKho = Integer.parseInt(tonKho);
+//        if(slTonKho <= 0){
+//            JOptionPane.showMessageDialog(this, "Số lượng tồn kho phải lớn hơn 0");
+//            return false;
+//        }
         return true;
     }
-    public void DocLieuLenTableSanPham(){
+
+    public void loadCmbKM() {
+        dsKM = km_dao.getDSKM();
+
+        for (KhuyenMai i : dsKM) {
+            cmb_KM.addItem(i.getMaKM());
+        }
+    }
+
+    public void DocLieuLenTableSanPham() {
         dsSP = sp_dao.getDSSP();
         DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-        
-        for(SanPham sp : dsSP){
-            Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
-                sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
+
+        for (SanPham sp : dsSP) {
+            char loaiSP = sp.getLoaiSP().charAt(sp.getLoaiSP().length() - 1);
+            Object[] obj = {sp.getMaSP(), sp.getTenSP(), cbo_loaiSP_field.getItemAt(loaiSP - '1'),
+                sp.getGiaNhapHang(), sp.getGiaBan(), sp.getkM().getMuc_giam_gia()};
             temp.addRow(obj);
-        }         
+        }
     }
-    
-    public void XoaDuLieuTableSP(){
+
+    public void XoaDuLieuTableSP() {
         DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-        temp.getDataVector().removeAllElements();
+        temp.setRowCount(0);
     }
-    
-    public SanPham createSP(){
-        String maSP = maSP_field.getText();
+
+    public SanPham createSP() {
+        String maSP = sp_dao.phatSinhMaTuDong();
         String tenSP = tenSP_field.getText();
 //        String cbo_loaiSP = String.valueOf(cbo_loaiSP_field.getSelectedItem());
         String cbo_loaiSP = "LSP00" + (cbo_loaiSP_field.getSelectedIndex() + 1);
         double giaNhap = Double.parseDouble(giaNhap_field.getText());
         double giaBan = Double.parseDouble(giaBan_field.getText());
-        int tonKho = Integer.parseInt(tonKho_field.getText());
+//        int tonKho = Integer.parseInt(tonKho_field.getText());
 //        String cbo_NCC = String.valueOf(cbo_NCC_field.getSelectedItem());
-        String cbo_NCC = "NCC00" + (cbo_NCC_field.getSelectedIndex() + 1);
-        String khuyenMai = khuyenMai_field.getText();
-        int bayBan = Integer.parseInt(bayban_field.getText());
-        
-//        SanPham sp = new SanPham(maSP, khuyenMai.equals("") ? null : new KhuyenMai(khuyenMai), 
-//                new NhaCungCap(cbo_NCC), tenSP, cbo_loaiSP,giaNhap, 
-//                giaBan, bayBan, tonKho, 0);
-            SanPham sp = null;
+//        String cbo_NCC = "NCC00" + (cbo_NCC_field.getSelectedIndex() + 1);
+        String khuyenMai = cmb_KM.getSelectedItem().toString();
+        KhuyenMai km = null;
+        for (KhuyenMai i : dsKM) {
+            if (i.getMaKM().equals(khuyenMai)) {
+                km = i;
+                break;
+            }
+        }
+        SanPham sp = new SanPham(maSP, km,
+                tenSP, cbo_loaiSP, giaNhap,
+                giaBan, 0);
         return sp;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -185,12 +221,9 @@ public class Panel_Product extends javax.swing.JPanel {
         pnl_maSP = new javax.swing.JPanel();
         lbl_masp = new javax.swing.JLabel();
         maSP_field = new javax.swing.JTextField();
-        pnl_NCC = new javax.swing.JPanel();
-        lbl_NCC = new javax.swing.JLabel();
-        cbo_NCC_field = new javax.swing.JComboBox<>();
-        pnl_TonKho = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        tonKho_field = new javax.swing.JTextField();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        cmb_KM = new javax.swing.JComboBox<>();
         pnl_info2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -198,9 +231,6 @@ public class Panel_Product extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         giaNhap_field = new javax.swing.JTextField();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        khuyenMai_field = new javax.swing.JTextField();
         pnl_info3 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         lbl_loai = new javax.swing.JLabel();
@@ -209,8 +239,6 @@ public class Panel_Product extends javax.swing.JPanel {
         lbl_giaBan = new javax.swing.JLabel();
         giaBan_field = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
-        lbl_Bayban = new javax.swing.JLabel();
-        bayban_field = new javax.swing.JTextField();
         pnl_btn = new javax.swing.JPanel();
         pnl_btn_them_xoa_sua = new javax.swing.JPanel();
         btn_themMoi = new javax.swing.JButton();
@@ -226,13 +254,12 @@ public class Panel_Product extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         pn_LocTheNCC = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        lbl_LocTheoNCC = new javax.swing.JLabel();
-        cbo_LocTheoNCC = new javax.swing.JComboBox<>();
-        pnl_LocTheoLoai = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         lbl_LocTheoLoai = new javax.swing.JLabel();
         cbo_LocTheoLoai = new javax.swing.JComboBox<>();
+        pnl_LocTheoLoai = new javax.swing.JPanel();
+        btn_import = new javax.swing.JButton();
+        btn_export = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_sanPham = new javax.swing.JTable();
@@ -255,7 +282,7 @@ public class Panel_Product extends javax.swing.JPanel {
 
         lbl_masp.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_masp.setText("Mã SP: ");
-        lbl_masp.setPreferredSize(new java.awt.Dimension(75, 25));
+        lbl_masp.setPreferredSize(new java.awt.Dimension(106, 25));
         pnl_maSP.add(lbl_masp);
 
         maSP_field.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -270,40 +297,15 @@ public class Panel_Product extends javax.swing.JPanel {
 
         pnl_info1.add(pnl_maSP);
 
-        pnl_NCC.setPreferredSize(new java.awt.Dimension(370, 45));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Khuyến mãi:");
+        jPanel13.add(jLabel5);
 
-        lbl_NCC.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_NCC.setText("NCC:");
-        lbl_NCC.setPreferredSize(new java.awt.Dimension(75, 25));
-        pnl_NCC.add(lbl_NCC);
+        cmb_KM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmb_KM.setPreferredSize(new java.awt.Dimension(250, 40));
+        jPanel13.add(cmb_KM);
 
-        cbo_NCC_field.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cbo_NCC_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        cbo_NCC_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbo_NCC_fieldActionPerformed(evt);
-            }
-        });
-        pnl_NCC.add(cbo_NCC_field);
-
-        pnl_info1.add(pnl_NCC);
-
-        pnl_TonKho.setPreferredSize(new java.awt.Dimension(370, 45));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Tồn kho:");
-        pnl_TonKho.add(jLabel1);
-
-        tonKho_field.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        tonKho_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        tonKho_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tonKho_fieldActionPerformed(evt);
-            }
-        });
-        pnl_TonKho.add(tonKho_field);
-
-        pnl_info1.add(pnl_TonKho);
+        pnl_info1.add(jPanel13);
 
         pnl_info.add(pnl_info1);
 
@@ -341,16 +343,6 @@ public class Panel_Product extends javax.swing.JPanel {
 
         pnl_info2.add(jPanel10);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Khuyến mãi:");
-        jPanel13.add(jLabel5);
-
-        khuyenMai_field.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        khuyenMai_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        jPanel13.add(khuyenMai_field);
-
-        pnl_info2.add(jPanel13);
-
         pnl_info.add(pnl_info2);
 
         pnl_info3.setPreferredSize(new java.awt.Dimension(350, 150));
@@ -383,20 +375,6 @@ public class Panel_Product extends javax.swing.JPanel {
         jPanel15.add(giaBan_field);
 
         pnl_info3.add(jPanel15);
-
-        lbl_Bayban.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_Bayban.setText("Bày bán:");
-        jPanel16.add(lbl_Bayban);
-
-        bayban_field.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        bayban_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        bayban_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bayban_fieldActionPerformed(evt);
-            }
-        });
-        jPanel16.add(bayban_field);
-
         pnl_info3.add(jPanel16);
 
         pnl_info.add(pnl_info3);
@@ -503,39 +481,9 @@ public class Panel_Product extends javax.swing.JPanel {
         jPanel11.setLayout(new java.awt.GridLayout(1, 3));
 
         pn_LocTheNCC.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 30));
-        pn_LocTheNCC.setLayout(new java.awt.BorderLayout());
+        pn_LocTheNCC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel5.setLayout(new java.awt.GridLayout(2, 1));
-
-        lbl_LocTheoNCC.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_LocTheoNCC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_LocTheoNCC.setText("Lọc Theo NCC");
-        jPanel5.add(lbl_LocTheoNCC);
-
-        cbo_LocTheoNCC.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cbo_LocTheoNCC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn NCC --" }));
-        cbo_LocTheoNCC.setPreferredSize(new java.awt.Dimension(150, 35));
-        cbo_LocTheoNCC.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbo_LocTheoNCCItemStateChanged(evt);
-            }
-        });
-        cbo_LocTheoNCC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbo_LocTheoNCCActionPerformed(evt);
-            }
-        });
-        jPanel5.add(cbo_LocTheoNCC);
-
-        pn_LocTheNCC.add(jPanel5, java.awt.BorderLayout.CENTER);
-
-        jPanel11.add(pn_LocTheNCC);
-
-        pnl_LocTheoLoai.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 30));
-        pnl_LocTheoLoai.setLayout(new java.awt.BorderLayout());
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc theo thể loại"));
         jPanel6.setLayout(new java.awt.GridLayout(2, 1));
 
         lbl_LocTheoLoai.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -551,9 +499,35 @@ public class Panel_Product extends javax.swing.JPanel {
                 cbo_LocTheoLoaiItemStateChanged(evt);
             }
         });
+        cbo_LocTheoLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_LocTheoLoaiActionPerformed(evt);
+            }
+        });
         jPanel6.add(cbo_LocTheoLoai);
 
-        pnl_LocTheoLoai.add(jPanel6, java.awt.BorderLayout.CENTER);
+        pn_LocTheNCC.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 530, 107));
+
+        jPanel11.add(pn_LocTheNCC);
+
+        pnl_LocTheoLoai.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 30));
+        pnl_LocTheoLoai.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_import.setText("Import dữ liệu");
+        btn_import.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_importActionPerformed(evt);
+            }
+        });
+        pnl_LocTheoLoai.add(btn_import, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 190, 40));
+
+        btn_export.setText("Export dữ liệu");
+        btn_export.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_exportActionPerformed(evt);
+            }
+        });
+        pnl_LocTheoLoai.add(btn_export, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 190, 40));
 
         jPanel11.add(pnl_LocTheoLoai);
 
@@ -568,7 +542,7 @@ public class Panel_Product extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Loại SP", "Giá Nhập", "Giá Bán", "Tồn kho", "Nhà Cung Cấp", "Khuyến Mãi", "Bày bán"
+                "Mã SP", "Tên SP", "Loại SP", "Giá Nhập", "Giá Bán", "Khuyến Mãi"
             }
         ));
         tbl_sanPham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -591,10 +565,6 @@ public class Panel_Product extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_maSP_fieldActionPerformed
 
-    private void cbo_NCC_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_NCC_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbo_NCC_fieldActionPerformed
-
     private void giaNhap_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giaNhap_fieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_giaNhap_fieldActionPerformed
@@ -611,10 +581,6 @@ public class Panel_Product extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_timKiemActionPerformed
 
-    private void tonKho_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tonKho_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tonKho_fieldActionPerformed
-
     private void maSP_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maSP_txtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_maSP_txtActionPerformed
@@ -629,14 +595,8 @@ public class Panel_Product extends javax.swing.JPanel {
         tenSP_field.setText("");
         giaNhap_field.setText("");
         giaBan_field.setText("");
-        tonKho_field.setText("");
-        khuyenMai_field.setText("");
-        bayban_field.setText("");
+        cmb_KM.setSelectedIndex(0);
     }//GEN-LAST:event_btn_xoaTrangActionPerformed
-
-    private void bayban_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bayban_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bayban_fieldActionPerformed
 
     private void giaBan_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giaBan_fieldActionPerformed
         // TODO add your handling code here:
@@ -645,40 +605,41 @@ public class Panel_Product extends javax.swing.JPanel {
     private void tbl_sanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_sanPhamMouseClicked
         // TODO add your handling code here:
         int r = tbl_sanPham.getSelectedRow();
-        
-        if(r >= 0){
+
+        if (r >= 0) {
             maSP_field.setText(tbl_sanPham.getValueAt(r, 0).toString());
             tenSP_field.setText(tbl_sanPham.getValueAt(r, 1).toString());
             giaNhap_field.setText(tbl_sanPham.getValueAt(r, 3).toString());
             giaBan_field.setText(tbl_sanPham.getValueAt(r, 4).toString());
-            tonKho_field.setText(tbl_sanPham.getValueAt(r, 5).toString());
-            khuyenMai_field.setText(tbl_sanPham.getValueAt(r, 7) == null 
-                    ? "" : tbl_sanPham.getValueAt(r, 7).toString());
-            bayban_field.setText(tbl_sanPham.getValueAt(r, 8).toString());
-            cbo_NCC_field.setSelectedIndex(
-                    Integer.parseInt(tbl_sanPham.getValueAt(r, 6).toString().substring(3, 6)) - 1);
-            cbo_loaiSP_field.setSelectedIndex(
-                    Integer.parseInt(tbl_sanPham.getValueAt(r, 2).toString().substring(3, 6)) - 1);
-        }else{
+            String maKM = "";
+            for (KhuyenMai i : dsKM) {
+                if (i.getMuc_giam_gia() == Double.parseDouble(tbl_sanPham.getValueAt(r, 5).toString())) {
+                    maKM = i.getMaKM();
+                    break;
+                }
+            }
+            cmb_KM.setSelectedItem(maKM);
+            cbo_loaiSP_field.setSelectedItem(tbl_sanPham.getValueAt(r, 2).toString());
+        } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hàng muốn thao tác!");
         }
     }//GEN-LAST:event_tbl_sanPhamMouseClicked
 
     private void btn_themMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_themMoiMouseClicked
         // TODO add your handling code here:
-        if(validData_SanPham()){
+        if (validData_SanPham()) {
             SanPham sp = createSP();
-            ArrayList<SanPham> dsSP = sp_dao.getDSSP();
-            
-            if(true){
-                if(sp_dao.themSanPham(sp)){
+            List<SanPham> dsSP = sp_dao.getDSSP();
+
+            if (true) {
+                if (sp_dao.themSanPham(sp)) {
                     XoaDuLieuTableSP();
                     DocLieuLenTableSanPham();
                     JOptionPane.showMessageDialog(this, "Thêm thành công!");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Thêm thất bại! Có lỗi xảy ra");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại! Vui lòng kiểm tra lại");
             }
         }
@@ -687,93 +648,101 @@ public class Panel_Product extends javax.swing.JPanel {
     private void btn_timKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_timKiemMouseClicked
         // TODO add your handling code here:
         String maSP_searched = maSP_txt.getText().toString();
-        
-        if(!maSP_searched.trim().equals("")){
+
+        if (!maSP_searched.trim().equals("")) {
             XoaDuLieuTableSP();
-            
+
             SanPham sp = sp_dao.getSP_TheoMa(maSP_searched);
             DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-            
-            Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
-                sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
+            if (sp == null) {
+                return;
+            }
+            Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(),
+                sp.getGiaNhapHang(), sp.getGiaBan(), sp.getkM().getMaKM()};
             temp.addRow(obj);
-        }else{
+        } else {
             XoaDuLieuTableSP();
             DocLieuLenTableSanPham();
         }
-            
+
     }//GEN-LAST:event_btn_timKiemMouseClicked
 
     private void btn_capNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_capNhatMouseClicked
         // TODO add your handling code here:
-        
-        
+
         int r = tbl_sanPham.getSelectedRow();
-        if(r < 0){
+        if (r < 0) {
             JOptionPane.showMessageDialog(this, "Cần chọn sản phẩm cần cập nhật!");
         }
-        
-        if(validData_SanPham()){
+
+        if (validData_SanPham()) {
             String maSP = maSP_field.getText();
             String tenSP = tenSP_field.getText();
             String cbo_loaiSP = "LSP00" + (cbo_loaiSP_field.getSelectedIndex() + 1);
             double giaNhap = Double.parseDouble(giaNhap_field.getText());
             double giaBan = Double.parseDouble(giaBan_field.getText());
-            int tonKho = Integer.parseInt(tonKho_field.getText());
-            String cbo_NCC = "NCC00" + (cbo_NCC_field.getSelectedIndex() + 1);
-            String khuyenMai = khuyenMai_field.getText();
-            int bayBan = Integer.parseInt(bayban_field.getText());
+//            int tonKho = Integer.parseInt(tonKho_field.getText());
+//            String cbo_NCC = "NCC00" + (cbo_NCC_field.getSelectedIndex() + 1);
+            String khuyenMai = cmb_KM.getSelectedItem().toString();
+//            int bayBan = Integer.parseInt(bayban_field.getText());
+            KhuyenMai km = null;
+            for (KhuyenMai i : dsKM) {
+                if (i.getMaKM().equals(khuyenMai)) {
+                    km = i;
+                    break;
+                }
+            }
+            SanPham sp = new SanPham(maSP, km,
+                    tenSP, cbo_loaiSP, giaNhap,
+                    giaBan, 0);
 
-//            SanPham sp = new SanPham(maSP, new KhuyenMai(khuyenMai), new NhaCungCap(cbo_NCC), tenSP, 
-//                                    cbo_loaiSP,giaNhap, giaBan, bayBan, tonKho, 0);
-            SanPham sp = null;
-            
-            if(sp_dao.updateSP(sp)){
-                DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-                temp.removeRow(r);
-                Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
-                    sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
-                temp.insertRow(r, obj);
+            if (sp_dao.updateSP(sp)) {
+
+                maSP_field.setText("");
+                tenSP_field.setText("");
+                giaNhap_field.setText("");
+                giaBan_field.setText("");
+                cmb_KM.setSelectedIndex(0);
+                XoaDuLieuTableSP();
+                DocLieuLenTableSanPham();
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công sản phẩm có mã" + maSP);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại!!Có lỗi xảy ra!!");
             }
         }
     }//GEN-LAST:event_btn_capNhatMouseClicked
-
-    private void cbo_LocTheoNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_LocTheoNCCActionPerformed
-        // TODO add your handling code here:
-//        LocTheoNCC();
-//System.out.println("GUI.Panel_Product.cbo_LocTheoNCCActionPerformed()");
-    }//GEN-LAST:event_cbo_LocTheoNCCActionPerformed
-
-    private void cbo_LocTheoNCCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbo_LocTheoNCCItemStateChanged
-        // TODO add your handling code here:
-        if(cbo_LocTheoNCC.getSelectedIndex() != 0) {
-            LocTheoNCC();
-        }
-    }//GEN-LAST:event_cbo_LocTheoNCCItemStateChanged
 
     private void cbo_LocTheoLoaiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbo_LocTheoLoaiItemStateChanged
         // TODO add your handling code here:
         LocTheoLSP();
     }//GEN-LAST:event_cbo_LocTheoLoaiItemStateChanged
 
+    private void btn_exportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_exportActionPerformed
+
+    private void btn_importActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_importActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_importActionPerformed
+
+    private void cbo_LocTheoLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_LocTheoLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbo_LocTheoLoaiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bayban_field;
     private javax.swing.JButton btn_capNhat;
+    private javax.swing.JButton btn_export;
+    private javax.swing.JButton btn_import;
     private javax.swing.JButton btn_themMoi;
     private javax.swing.JButton btn_timKiem;
     private javax.swing.JButton btn_xoaTrang;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbo_LocTheoLoai;
-    private javax.swing.JComboBox<String> cbo_LocTheoNCC;
-    private javax.swing.JComboBox<NhaCungCap> cbo_NCC_field;
     private javax.swing.JComboBox<String> cbo_loaiSP_field;
+    private javax.swing.JComboBox<String> cmb_KM;
     private javax.swing.JTextField giaBan_field;
     private javax.swing.JTextField giaNhap_field;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -786,17 +755,12 @@ public class Panel_Product extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField khuyenMai_field;
-    private javax.swing.JLabel lbl_Bayban;
     private javax.swing.JLabel lbl_LocTheoLoai;
-    private javax.swing.JLabel lbl_LocTheoNCC;
-    private javax.swing.JLabel lbl_NCC;
     private javax.swing.JLabel lbl_giaBan;
     private javax.swing.JLabel lbl_loai;
     private javax.swing.JLabel lbl_masp;
@@ -805,9 +769,7 @@ public class Panel_Product extends javax.swing.JPanel {
     private javax.swing.JPanel pn_LocTheNCC;
     private javax.swing.JPanel pnl_Center;
     private javax.swing.JPanel pnl_LocTheoLoai;
-    private javax.swing.JPanel pnl_NCC;
     private javax.swing.JPanel pnl_Tim;
-    private javax.swing.JPanel pnl_TonKho;
     private javax.swing.JPanel pnl_Top;
     private javax.swing.JPanel pnl_btn;
     private javax.swing.JPanel pnl_btn_them_xoa_sua;
@@ -819,6 +781,5 @@ public class Panel_Product extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_sanPham;
     private javax.swing.JTable tbl_sanPham;
     private javax.swing.JTextField tenSP_field;
-    private javax.swing.JTextField tonKho_field;
     // End of variables declaration//GEN-END:variables
 }

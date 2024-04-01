@@ -39,7 +39,8 @@ public class Panel_bill extends javax.swing.JPanel {
      */
     public Panel_bill(NhanVien nv) {
         initComponents();
-        
+
+    	System.out.println("RUN");
         this.nv = nv;
         LoadDuLieuLenTable();
     }

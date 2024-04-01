@@ -53,7 +53,6 @@ public class Panel_Main extends javax.swing.JFrame {
     public void connect() {
         try {
             Driver driver = connectDB.getInstance().getDriver();
-            System.out.println("connect neo4j successfully!!!");
         } catch (Exception e) {
             e.printStackTrace();
         }
