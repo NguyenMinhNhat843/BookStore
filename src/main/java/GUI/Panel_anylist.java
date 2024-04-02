@@ -86,6 +86,9 @@ public class Panel_anylist extends javax.swing.JPanel {
         pnl_NgayKetThuc = new javax.swing.JPanel();
         lbl_NgayKetThuc = new javax.swing.JLabel();
         date_NgayKetThuc = new com.toedter.calendar.JDateChooser();
+        pn_LoaiThongKe = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        cb_LoaiThongKe = new javax.swing.JComboBox<>();
         pnl_btn_TimKiem = new javax.swing.JPanel();
         btn_TimKiem = new javax.swing.JButton();
         pnl_center = new javax.swing.JPanel();
@@ -136,37 +139,56 @@ public class Panel_anylist extends javax.swing.JPanel {
         pnl_ThongKeDoanhThu.setLayout(new java.awt.BorderLayout());
 
         pnl_top.setBorder(javax.swing.BorderFactory.createTitledBorder("Bộ lọc"));
-        pnl_top.setPreferredSize(new java.awt.Dimension(0, 180));
+        pnl_top.setPreferredSize(new java.awt.Dimension(0, 150));
         pnl_top.setLayout(new java.awt.BorderLayout());
 
-        pnl_TKDT_info.setPreferredSize(new java.awt.Dimension(0, 80));
+        pnl_TKDT_info.setPreferredSize(new java.awt.Dimension(0, 60));
         pnl_TKDT_info.setLayout(new java.awt.GridLayout(1, 3));
 
-        lbl_NgayBatDau.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnl_NgayBatDau.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 20));
+        pnl_NgayBatDau.setLayout(new java.awt.BorderLayout());
+
+        lbl_NgayBatDau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_NgayBatDau.setText("Ngày bắt đầu:");
-        pnl_NgayBatDau.add(lbl_NgayBatDau);
+        pnl_NgayBatDau.add(lbl_NgayBatDau, java.awt.BorderLayout.LINE_START);
 
         date_NgayBatDau.setPreferredSize(new java.awt.Dimension(220, 40));
-        pnl_NgayBatDau.add(date_NgayBatDau);
+        pnl_NgayBatDau.add(date_NgayBatDau, java.awt.BorderLayout.CENTER);
 
         pnl_TKDT_info.add(pnl_NgayBatDau);
 
-        lbl_NgayKetThuc.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnl_NgayKetThuc.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 20));
+        pnl_NgayKetThuc.setLayout(new java.awt.BorderLayout());
+
+        lbl_NgayKetThuc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_NgayKetThuc.setText("Ngày kết thúc:");
-        pnl_NgayKetThuc.add(lbl_NgayKetThuc);
+        pnl_NgayKetThuc.add(lbl_NgayKetThuc, java.awt.BorderLayout.LINE_START);
 
         date_NgayKetThuc.setPreferredSize(new java.awt.Dimension(220, 40));
-        pnl_NgayKetThuc.add(date_NgayKetThuc);
+        pnl_NgayKetThuc.add(date_NgayKetThuc, java.awt.BorderLayout.CENTER);
 
         pnl_TKDT_info.add(pnl_NgayKetThuc);
+
+        pn_LoaiThongKe.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pn_LoaiThongKe.setLayout(new java.awt.BorderLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Thống Kê Theo:");
+        pn_LoaiThongKe.add(jLabel2, java.awt.BorderLayout.LINE_START);
+
+        cb_LoaiThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cb_LoaiThongKe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Doanh Thu", "Sản Phẩm" }));
+        pn_LoaiThongKe.add(cb_LoaiThongKe, java.awt.BorderLayout.CENTER);
+
+        pnl_TKDT_info.add(pn_LoaiThongKe);
 
         pnl_top.add(pnl_TKDT_info, java.awt.BorderLayout.NORTH);
 
         pnl_btn_TimKiem.setPreferredSize(new java.awt.Dimension(1068, 80));
 
-        btn_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btn_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_TimKiem.setText("Tìm kiếm");
-        btn_TimKiem.setPreferredSize(new java.awt.Dimension(500, 50));
+        btn_TimKiem.setPreferredSize(new java.awt.Dimension(500, 40));
         btn_TimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_TimKiemMouseClicked(evt);
@@ -413,11 +435,13 @@ public class Panel_anylist extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_TimKiem;
     private javax.swing.JButton btn_TimKiem1;
+    private javax.swing.JComboBox<String> cb_LoaiThongKe;
     private com.toedter.calendar.JDateChooser date_NgayBatDau;
     private com.toedter.calendar.JDateChooser date_NgayBatDau1;
     private com.toedter.calendar.JDateChooser date_NgayKetThuc;
     private com.toedter.calendar.JDateChooser date_NgayKetThuc1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -441,6 +465,7 @@ public class Panel_anylist extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_TongHD_title;
     private javax.swing.JLabel lbl_TongVon;
     private javax.swing.JLabel lbl_TongVon_title;
+    private javax.swing.JPanel pn_LoaiThongKe;
     private javax.swing.JPanel pnl_DoanhThu;
     private javax.swing.JPanel pnl_LoiNhuan;
     private javax.swing.JPanel pnl_NgayBatDau;

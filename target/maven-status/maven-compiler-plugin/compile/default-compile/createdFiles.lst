@@ -19,8 +19,6 @@ GUI\Panel_Product$11.class
 GUI\Panel_Login$2.class
 dao\CTHD_NhapHang_DAO.class
 GUI\Panel_anylist.class
-GUI\Panel_Product$16.class
-GUI\Panel_Product$14.class
 GUI\Panel_Main$5.class
 GUI\Panel_Product$6.class
 GUI\Panel_customer$2.class
@@ -39,9 +37,7 @@ GUI\Panel_cart$1.class
 GUI\Panel_Login$3.class
 GUI\Panel_customer$12.class
 GUI\Panel_inventory$1.class
-GUI\Panel_Product$17.class
 GUI\Panel_staff$7.class
-GUI\Panel_Product$13.class
 GUI\Panel_Product$7.class
 entity\Enum_class$enum_LoaiSP.class
 GUI\Panel_inventory$7.class
@@ -55,13 +51,11 @@ GUI\Panel_Product$1.class
 GUI\Panel_cart$2.class
 GUI\DoiMatKhau.class
 GUI\Panel_Main$6.class
-GUI\Panel_Product$12.class
 entity\SanPham.class
 GUI\Panel_bill$5.class
 GUI\Panel_inventory$8.class
 entity\KhuyenMai.class
 GUI\Panel_Product$8.class
-GUI\Panel_Product$15.class
 GUI\Panel_Product$2.class
 GUI\Panel_staff$10.class
 GUI\Panel_staff.class

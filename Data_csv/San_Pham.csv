@@ -1,19 +1,19 @@
-SP_id,product_name,tac_gia,gia_nhap,gia_ban,loaiSP,so_luong,ma_khuyen_mai
-SP1,Lập trình Python cho người mới bắt đầu,John Paul Mueller,100.000,150.000,LSP001,100,KM001
-SP2,Giải tích cao cấp,Trần Văn Nhung,150.000,200.000,LSP001,50,KM002
-SP3,1000 câu hỏi và bài tập trắc nghiệm Toán học lớp 12,Nguyễn Bá Đạt,80.000,120.000,LSP001,200,KM003
-SP4,Tiếng Anh giao tiếp cho người đi làm,Lê Minh Hải,120.000,170.000,LSP002,150,KM004
-SP5,Harry Potter và Hòn đá Phù thủy,J.K. Rowling,150.000,200.000,LSP002,300,KM005
-SP6,Đắc nhân tâm,Dale Carnegie,180.000,230.000,LSP002,100,KM006
-SP7,Lược sử loài người,Yuval Noah Harari,200.000,250.000,LSP002,250,KM007
-SP8,Sapiens: Lược sử loài người,Yuval Noah Harari,220.000,270.000,LSP002,150,KM008
-SP9,Homo Deus: Lược sử tương lai,Yuval Noah Harari,250.000,300.000,LSP002,100,KM009
-SP10,21 bài học cho thế kỷ 21,Yuval Noah Harari,200.000,250.000,LSP002,200,KM010
-SP11,Muôn kiếp nhân sinh,Nguyên Phong,180.000,230.000,LSP003,300,KM011
-SP12,Bí mật của nước,Masaru Emoto,120.000,170.000,LSP003,150,KM012
-SP13,Đời ngắn đừng ngủ dài,Robin Sharma,150.000,200.000,LSP003,250,KM013
-SP14,Cha giàu cha nghèo,Robert Kiyosaki,180.000,230.000,LSP003,200,KM014
-SP15,Dạy con làm giàu,Robert Kiyosaki,200.000,250.000,LSP003,150,KM015
-SP16,Người giàu nhất thành Babylon,George S. Clason,120.000,170.000,LSP003,300,KM016
-SP17,Nhà giả kim,Paulo Coelho,100.000,150.000,LSP004,250,KM017
-SP18,Hoàng tử bé,Antoine de Saint-Exupéry,120.000,170.000,LSP004,200,KM018
+SP_id,product_name,gia_nhap,gia_ban,loaiSP,thue,ma_khuyen_mai
+SP001,Lập trình Python cho người mới bắt đầu,100.000,150.000,LSP001,0,KM001
+SP002,Giải tích cao cấp,150.000,200.000,LSP001,50,KM002
+SP003,1000 câu hỏi và bài tập trắc nghiệm Toán học lớp 12,80.000,120.000,LSP001,0,KM003
+SP004,Tiếng Anh giao tiếp cho người đi làm,120.000,170.000,LSP002,0.1,KM004
+SP005,Harry Potter và Hòn đá Phù thủy,150.000,200.000,LSP002,0,KM005
+SP006,Đắc nhân tâm,180.000,230.000,LSP002,0.05,KM006
+SP007,Lược sử loài người,200.000,250.000,LSP002,0,KM007
+SP008,Sapiens: Lược sử loài người,220.000,270.000,LSP002,0,KM008
+SP009,Homo Deus: Lược sử tương lai,250.000,300.000,LSP002,0,KM009
+SP010,21 bài học cho thế kỷ 21,200.000,250.000,LSP002,0,KM010
+SP011,Muôn kiếp nhân sinh,180.000,230.000,LSP003,0.06,KM011
+SP012,Bí mật của nước,120.000,170.000,LSP003,0,KM012
+SP013,Đời ngắn đừng ngủ dài,150.000,200.000,LSP003,0,KM013
+SP014,Cha giàu cha nghèo,180.000,230.000,LSP003,0.07,KM014
+SP015,Dạy con làm giàu,200.000,250.000,LSP003,0,KM015
+SP016,Người giàu nhất thành Babylon,120.000,170.000,LSP003,0,KM016
+SP017,Nhà giả kim,100.000,150.000,LSP004,0,KM017
+SP018,Hoàng tử bé,120.000,170.000,LSP004,0,KM018
