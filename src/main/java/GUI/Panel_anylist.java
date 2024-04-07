@@ -28,18 +28,18 @@ public class Panel_anylist extends javax.swing.JPanel {
 //        DocuLieuLenTable_SPBC();
     }
     
-    public void DocuLieuLenTable_SPBC() {
-        ArrayList<ChiTietHoaDon> dsCTHD = cthd_dao.ThongKe_SP_BanChay();
-        DefaultTableModel temp = (DefaultTableModel) table_SP_BanChay.getModel();
-        
-        for(ChiTietHoaDon cthd : dsCTHD) {
-            Object[] obj = {cthd.getSanPham().getMaSP(), cthd.getSanPham().getTenSP(), 
-                cthd.getSoLuong(), cthd.getTong_tien(),cthd.getSanPham().getGiaNhapHang(), 
-                cthd.getTong_tien()- cthd.getSanPham().getGiaNhapHang() };
-            
-            temp.addRow(obj);
-        }
-    }
+//    public void DocuLieuLenTable_SPBC() {
+//        ArrayList<ChiTietHoaDon> dsCTHD = cthd_dao.ThongKe_SP_BanChay();
+//        DefaultTableModel temp = (DefaultTableModel) table_SP_BanChay.getModel();
+//        
+//        for(ChiTietHoaDon cthd : dsCTHD) {
+//            Object[] obj = {cthd.getSanPham().getMaSP(), cthd.getSanPham().getTenSP(), 
+//                cthd.getSoLuong(), cthd.getTong_tien(),cthd.getSanPham().getGiaNhapHang(), 
+//                cthd.getTong_tien()- cthd.getSanPham().getGiaNhapHang() };
+//            
+//            temp.addRow(obj);
+//        }
+//    }
     
     public void DoculieuLenTable_TKDT() {
         double tongDoanhThu = 0;

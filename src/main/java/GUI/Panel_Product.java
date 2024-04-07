@@ -17,30 +17,41 @@ import org.neo4j.driver.Driver;
 
 import ConnectDB.connectDB;
 import dao.KhuyenMai_DAO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
  * @author Asus
  */
 public class Panel_Product extends javax.swing.JPanel {
-
     private SanPham_DAO sp_dao = new SanPham_DAO();
     private NhaCungCap_DAO ncc_dao = new NhaCungCap_DAO();
     private List<SanPham> dsSP;
     private List<KhuyenMai> dsKM;
     private KhuyenMai_DAO km_dao = new KhuyenMai_DAO();
 
-    /**
-     * Creates new form Panel_Product
-     */
     public Panel_Product() {
         connect();
         initComponents();
         loadCmbKM();
         DocLieuLenTableSanPham();
-//        DocDuLieuLenCBoBoxNCC();
-
     }
 
     public void connect() {
@@ -51,14 +62,6 @@ public class Panel_Product extends javax.swing.JPanel {
         }
     }
 
-//    public void DocDuLieuLenCBoBoxNCC() {
-//        ArrayList<NhaCungCap> dsNCC = ncc_dao.getAllNCC();
-//        
-//        for(NhaCungCap ncc : dsNCC) {
-//            cbo_NCC_field.addItem(ncc);
-//            cbo_LocTheoNCC.addItem(ncc.getTenNCC());
-//        }
-//    }
     public void LocTheoLSP() {
         int lsp_selected = cbo_LocTheoLoai.getSelectedIndex();
         if (lsp_selected == 0) {
@@ -83,32 +86,7 @@ public class Panel_Product extends javax.swing.JPanel {
             }
         }
     }
-
-//    public void LocTheoNCC() {
-//        int ncc_selected = cbo_LocTheoNCC.getSelectedIndex();
-//        ArrayList<SanPham> locTheoNCC = new ArrayList<>();
-//        
-//        for(SanPham sp : dsSP) {
-//           if(Integer.parseInt(sp.getnCC().getMaNCC().charAt(sp.getnCC().getMaNCC().length() - 1) + "") == ncc_selected) {
-//               locTheoNCC.add(sp);
-//           }
-//        }
-//        
-//        
-//        
-//        XoaDuLieuTableSP();
-//        
-//        if(locTheoNCC.size() != 0) {
-//            DefaultTableModel temp = (DefaultTableModel) tbl_sanPham.getModel();
-//            for(SanPham sp : locTheoNCC){
-//                Object[] obj = {sp.getMaSP(), sp.getTenSP(), sp.getLoaiSP(), 
-//                    sp.getGiaNhapHang(), sp.getGiaBan(), sp.getnCC().getMaNCC(), sp.getkM().getMaKM()};
-//                temp.addRow(obj);
-//            }       
-//        } else {
-//            System.out.println("GUI.Panel_Product.LocTheoNCC()");
-//        }
-//    }
+    
     public void DocDuLieuLenCBoBoxLoaiSP() {
         List<SanPham> dsSP = sp_dao.getDSSP();
 
@@ -118,16 +96,10 @@ public class Panel_Product extends javax.swing.JPanel {
     }
 
     public boolean validData_SanPham() {
-//        String maSP = maSP_field.getText().toString().trim();
         String tenSP = tenSP_field.getText().toString().trim();
         String giaNhap = giaNhap_field.getText().toString().trim();
         String giaBan = giaBan_field.getText().toString().trim();
         String khuyenMai = cmb_KM.getSelectedItem().toString();
-
-//        if(maSP.isEmpty() || (!maSP.matches("^SP\\d{3}$"))){
-//            JOptionPane.showMessageDialog(this, "Mã sản phẩm phải theo mẫu SP001");
-//            return false;
-//        }
         if (tenSP.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tên sản phẩm không được rỗng!");
             return false;
@@ -142,16 +114,6 @@ public class Panel_Product extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Gía bán hàng phải lớn hơn 0");
             return false;
         }
-//        int slBayBan = bayBan.length() == 0 ? 0 : Integer.parseInt(bayBan);
-//        if(slBayBan <= 0){
-//            JOptionPane.showMessageDialog(this, "Số lượng bày bán phải lớn hơn 0");
-//            return false;
-//        }
-//        int slTonKho = Integer.parseInt(tonKho);
-//        if(slTonKho <= 0){
-//            JOptionPane.showMessageDialog(this, "Số lượng tồn kho phải lớn hơn 0");
-//            return false;
-//        }
         return true;
     }
 
@@ -183,13 +145,9 @@ public class Panel_Product extends javax.swing.JPanel {
     public SanPham createSP() {
         String maSP = sp_dao.phatSinhMaTuDong();
         String tenSP = tenSP_field.getText();
-//        String cbo_loaiSP = String.valueOf(cbo_loaiSP_field.getSelectedItem());
         String cbo_loaiSP = "LSP00" + (cbo_loaiSP_field.getSelectedIndex() + 1);
         double giaNhap = Double.parseDouble(giaNhap_field.getText());
         double giaBan = Double.parseDouble(giaBan_field.getText());
-//        int tonKho = Integer.parseInt(tonKho_field.getText());
-//        String cbo_NCC = String.valueOf(cbo_NCC_field.getSelectedItem());
-//        String cbo_NCC = "NCC00" + (cbo_NCC_field.getSelectedIndex() + 1);
         String khuyenMai = cmb_KM.getSelectedItem().toString();
         KhuyenMai km = null;
         for (KhuyenMai i : dsKM) {
@@ -198,9 +156,7 @@ public class Panel_Product extends javax.swing.JPanel {
                 break;
             }
         }
-        SanPham sp = new SanPham(maSP, km,
-                tenSP, cbo_loaiSP, giaNhap,
-                giaBan, 0);
+        SanPham sp = new SanPham(maSP, km, tenSP, cbo_loaiSP, giaNhap, giaBan, 0);
         return sp;
     }
 
@@ -288,11 +244,6 @@ public class Panel_Product extends javax.swing.JPanel {
         maSP_field.setEditable(false);
         maSP_field.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         maSP_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        maSP_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maSP_fieldActionPerformed(evt);
-            }
-        });
         pnl_maSP.add(maSP_field, java.awt.BorderLayout.CENTER);
 
         pnl_info1.add(pnl_maSP);
@@ -326,11 +277,6 @@ public class Panel_Product extends javax.swing.JPanel {
 
         tenSP_field.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         tenSP_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        tenSP_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tenSP_fieldActionPerformed(evt);
-            }
-        });
         pnl_TenSP.add(tenSP_field, java.awt.BorderLayout.CENTER);
 
         pnl_info2.add(pnl_TenSP);
@@ -345,11 +291,6 @@ public class Panel_Product extends javax.swing.JPanel {
 
         giaNhap_field.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         giaNhap_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        giaNhap_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                giaNhap_fieldActionPerformed(evt);
-            }
-        });
         pnl_GiaNhap.add(giaNhap_field, java.awt.BorderLayout.CENTER);
 
         pnl_info2.add(pnl_GiaNhap);
@@ -384,11 +325,6 @@ public class Panel_Product extends javax.swing.JPanel {
 
         giaBan_field.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         giaBan_field.setPreferredSize(new java.awt.Dimension(250, 40));
-        giaBan_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                giaBan_fieldActionPerformed(evt);
-            }
-        });
         pnl_GiaBan.add(giaBan_field, java.awt.BorderLayout.CENTER);
 
         pnl_info3.add(pnl_GiaBan);
@@ -404,23 +340,14 @@ public class Panel_Product extends javax.swing.JPanel {
         pnl_Tim.setLayout(new java.awt.BorderLayout());
 
         maSP_txt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        maSP_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maSP_txtActionPerformed(evt);
-            }
-        });
         pnl_Tim.add(maSP_txt, java.awt.BorderLayout.CENTER);
 
         btn_timKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btn_timKiem.setText("Tìm kiếm");
+        btn_timKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        btn_timKiem.setPreferredSize(new java.awt.Dimension(60, 43));
         btn_timKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_timKiemMouseClicked(evt);
-            }
-        });
-        btn_timKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_timKiemActionPerformed(evt);
             }
         });
         pnl_Tim.add(btn_timKiem, java.awt.BorderLayout.EAST);
@@ -497,9 +424,9 @@ public class Panel_Product extends javax.swing.JPanel {
         btn_Xoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_Xoa.setText("Xóa");
         btn_Xoa.setPreferredSize(new java.awt.Dimension(130, 50));
-        btn_Xoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_XoaActionPerformed(evt);
+        btn_Xoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_XoaMouseClicked(evt);
             }
         });
         pn_btn_Nhap_Xuat.add(btn_Xoa);
@@ -512,6 +439,11 @@ public class Panel_Product extends javax.swing.JPanel {
         btn_NhapFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_NhapFile.setText("Nhập File");
         btn_NhapFile.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_NhapFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_NhapFileMouseClicked(evt);
+            }
+        });
         pn_btn_Nhap_Xuat.add(btn_NhapFile);
 
         btn_XuatFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -527,30 +459,6 @@ public class Panel_Product extends javax.swing.JPanel {
 
         add(jPanel3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void maSP_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maSP_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maSP_fieldActionPerformed
-
-    private void giaNhap_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giaNhap_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_giaNhap_fieldActionPerformed
-
-    private void tenSP_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenSP_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tenSP_fieldActionPerformed
-
-    private void btn_timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_timKiemActionPerformed
-
-    private void maSP_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maSP_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maSP_txtActionPerformed
-
-    private void giaBan_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giaBan_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_giaBan_fieldActionPerformed
 
     private void table_sanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_sanPhamMouseClicked
         // TODO add your handling code here:
@@ -605,11 +513,128 @@ public class Panel_Product extends javax.swing.JPanel {
     private void cbo_LocTheoLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_LocTheoLoaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbo_LocTheoLoaiActionPerformed
+    
+    // Chia file Excel thành các phần
+    private static List<String> splitExcel(String filePath) throws IOException {
+        List<String> partPaths = new ArrayList<>();
+        // Tạo thư mục để lưu trữ các phần
+        File outputDir = new File("output");
+        if (!outputDir.exists()) {
+            outputDir.mkdir();
+        }
 
-    private void btn_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaActionPerformed
+        try (FileInputStream fis = new FileInputStream(filePath);
+            XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            int totalRows = sheet.getLastRowNum();
+            int numParts = totalRows / 10000 + 1; // Chia thành các phần có 10.000 dòng
+
+            for (int i = 0; i < numParts; i++) {
+                int startRow = i * 10000;
+                int endRow = Math.min((i + 1) * 10000 - 1, totalRows);
+
+                String partFilePath = outputDir + "/part_" + i + ".xlsx";
+                partPaths.add(partFilePath);
+
+                try (XSSFWorkbook partWorkbook = new XSSFWorkbook();
+                    FileOutputStream fos = new FileOutputStream(partFilePath)) {
+                    XSSFSheet partSheet = partWorkbook.createSheet();
+
+                    for (int j = startRow; j <= endRow; j++) {
+                        Row row = sheet.getRow(j);
+                        Row newRow = partSheet.createRow(j - startRow);
+
+                        Iterator<Cell> cellIterator = row.iterator();
+                        while (cellIterator.hasNext()) {
+                            Cell cell = cellIterator.next();
+
+                            Cell newCell = newRow.createCell(cell.getColumnIndex());
+                            newCell.setCellValue(cell.getStringCellValue());
+                        }
+                    }
+                    partWorkbook.write(fos);
+                }
+            }
+        }
+        return partPaths;
+    }
+    
+    private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_XoaActionPerformed
+        JFileChooser fileChoose = new JFileChooser();
+        int result = fileChoose.showOpenDialog(this);
+        // Lay model cua table ra
+        DefaultTableModel model_SanPham = (DefaultTableModel) table_sanPham.getModel();
+        
+        if(result == JFileChooser.APPROVE_OPTION) {
+            File file = fileChoose.getSelectedFile();
+            
+            // Chia file Excel thành các phần
+            List<String> partPaths = new ArrayList<String>();
+            try {
+                partPaths = splitExcel(file.getAbsolutePath());
+            } catch (IOException ex) {
+                Logger.getLogger(Panel_Product.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // Tạo ExecutorService
+            ExecutorService executorService = Executors.newFixedThreadPool(4);
+            // Danh sách các Future
+            List<Future<List<List<String>>>> futures = new ArrayList<>();
 
+            // Tạo luồng cho mỗi phần của file Excel
+            for (int i = 0; i < partPaths.size(); i++) {
+//                futures.add(executorService.submit(new ReadExcelTask(partPaths.get(i))));
+            }
+
+            // Hợp nhất dữ liệu từ các phần
+            List<List<String>> allData = new ArrayList<>();
+            for (Future<List<List<String>>> future : futures) {
+                try {
+                    allData.addAll(future.get());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // Ghi dữ liệu vào file Excel mới
+//            writeExcel(OUTPUT_FILE_PATH, allData);
+            
+            try {
+                // doc du lieu tu file excel
+                FileInputStream fis = new FileInputStream(file);
+                XSSFWorkbook workbook = new XSSFWorkbook(fis);
+                XSSFSheet sheet = workbook.getSheetAt(0);
+                // Duyệt qua các hàng trong sheet
+                Iterator<Row> rowIterator = sheet.iterator();
+                Row row = rowIterator.next();
+                while (rowIterator.hasNext()) {
+                    row = rowIterator.next();
+                    // Lấy dữ liệu từ các ô trong row
+                    List<String> data = new ArrayList<>();
+                    for(int i = 0; i < row.getLastCellNum(); ++i) {
+                        Cell cell = row.getCell(i); 
+                        String value = "";
+                        if (cell != null) {
+                            value = cell.toString();
+                        }
+                        data.add(value);
+                    }
+                    // Thêm dữ liệu vào model
+                    model_SanPham.addRow(data.toArray());
+                }
+
+                // Cập nhật lại JTable
+                table_sanPham.setModel(model_SanPham);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btn_NhapFileMouseClicked
+
+    private void btn_XoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XoaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_XoaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_CapNhat;
