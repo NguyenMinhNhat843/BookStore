@@ -100,7 +100,6 @@ public class Panel_staff extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnl_NhanVien = new javax.swing.JPanel();
-        pnl_top = new javax.swing.JPanel();
         pnl_info_NV = new javax.swing.JPanel();
         pnl_info_1 = new javax.swing.JPanel();
         pnl_MaNV = new javax.swing.JPanel();
@@ -109,58 +108,51 @@ public class Panel_staff extends javax.swing.JPanel {
         pnl_TenNV = new javax.swing.JPanel();
         lbl_TenNV = new javax.swing.JLabel();
         txt_TenNV = new javax.swing.JTextField();
-        pnl_NS = new javax.swing.JPanel();
-        lbl_NS = new javax.swing.JLabel();
-        date_NS = new com.toedter.calendar.JDateChooser();
         pnl_info_2 = new javax.swing.JPanel();
         pnl_GioiTinh = new javax.swing.JPanel();
         lbl_GT = new javax.swing.JLabel();
         cb_GioiTinh = new javax.swing.JComboBox<>();
-        pnl_SDT = new javax.swing.JPanel();
-        lbl_SDT = new javax.swing.JLabel();
-        txt_SDT = new javax.swing.JTextField();
         pnl_ChucVu = new javax.swing.JPanel();
         lbl_ChucVu = new javax.swing.JLabel();
         cb_ChucVu = new javax.swing.JComboBox<>();
         pnl_info_3 = new javax.swing.JPanel();
+        pnl_NS = new javax.swing.JPanel();
+        lbl_NS = new javax.swing.JLabel();
+        date_NS = new com.toedter.calendar.JDateChooser();
         pnl_Email = new javax.swing.JPanel();
         lbl_Email = new javax.swing.JLabel();
         txt_Email = new javax.swing.JTextField();
+        pnl_info_4 = new javax.swing.JPanel();
         pnl_DiaChi = new javax.swing.JPanel();
         lbl_DiaChi = new javax.swing.JLabel();
         txt_DiaChi = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        pnl_List_btn = new javax.swing.JPanel();
-        btn_XoaTrang = new javax.swing.JButton();
-        btn_Sua = new javax.swing.JButton();
-        btn_Them = new javax.swing.JButton();
-        pnl_Tim = new javax.swing.JPanel();
-        txt_Tim = new javax.swing.JTextField();
-        btn_Tim = new javax.swing.JButton();
+        pnl_SDT = new javax.swing.JPanel();
+        lbl_SDT = new javax.swing.JLabel();
+        txt_SDT = new javax.swing.JTextField();
         pnl_center = new javax.swing.JPanel();
         pnl_BoLoc = new javax.swing.JPanel();
-        pnl_LocTheoChucVu_wrap = new javax.swing.JPanel();
         pnl_LocTheoChucVu = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        lbl_LocTheoCV = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         cb_LocTheoCV = new javax.swing.JComboBox<>();
-        pnl_LocTheoNamSinh_wrap = new javax.swing.JPanel();
         pnl_LocTheoNamSinh = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        lbl_LocTheoNamSinh = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         date_NgaySinh = new com.toedter.calendar.JDateChooser();
         btn_LocTheoNgaySinh = new javax.swing.JButton();
-        pnl_LocTheoGT_wrap = new javax.swing.JPanel();
         pnl_LocTheoGT = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        bl_LocGT = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         cb_LocGT = new javax.swing.JComboBox<>();
         pnl_tabel = new javax.swing.JPanel();
+        pnl_Tim = new javax.swing.JPanel();
+        txt_Tim = new javax.swing.JTextField();
+        btn_LocTheoNgaySinh1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_nhanVien = new javax.swing.JTable();
+        pnl_CRUD = new javax.swing.JPanel();
+        btn_XoaTrang = new javax.swing.JButton();
+        btn_Sua = new javax.swing.JButton();
+        btn_Them = new javax.swing.JButton();
+        btn_NhapFile = new javax.swing.JButton();
+        btn_XuatFile = new javax.swing.JButton();
         pnl_TaiKhoan = new javax.swing.JPanel();
         pnl_dsTK = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -186,79 +178,68 @@ public class Panel_staff extends javax.swing.JPanel {
 
         pnl_NhanVien.setLayout(new java.awt.BorderLayout());
 
-        pnl_top.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin nhân viên"));
-        pnl_top.setPreferredSize(new java.awt.Dimension(0, 270));
-        pnl_top.setLayout(new java.awt.BorderLayout());
-
-        pnl_info_NV.setPreferredSize(new java.awt.Dimension(0, 150));
+        pnl_info_NV.setPreferredSize(new java.awt.Dimension(0, 110));
         pnl_info_NV.setLayout(new java.awt.GridLayout(1, 4));
 
-        pnl_info_1.setLayout(new java.awt.GridLayout(3, 1));
+        pnl_info_1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        pnl_info_1.setLayout(new java.awt.GridLayout(2, 1));
 
-        lbl_MaNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnl_MaNV.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_MaNV.setLayout(new java.awt.BorderLayout());
+
+        lbl_MaNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_MaNV.setText("Mã NV:");
-        lbl_MaNV.setPreferredSize(new java.awt.Dimension(100, 25));
-        pnl_MaNV.add(lbl_MaNV);
+        lbl_MaNV.setPreferredSize(new java.awt.Dimension(60, 25));
+        pnl_MaNV.add(lbl_MaNV, java.awt.BorderLayout.LINE_START);
 
-        txt_MaNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_MaNV.setEnabled(false);
+        txt_MaNV.setEditable(false);
+        txt_MaNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_MaNV.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_MaNV.add(txt_MaNV);
+        pnl_MaNV.add(txt_MaNV, java.awt.BorderLayout.CENTER);
 
         pnl_info_1.add(pnl_MaNV);
 
-        lbl_TenNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_TenNV.setText("Tên NV:");
-        lbl_TenNV.setPreferredSize(new java.awt.Dimension(100, 25));
-        pnl_TenNV.add(lbl_TenNV);
+        pnl_TenNV.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_TenNV.setLayout(new java.awt.BorderLayout());
 
-        txt_TenNV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_TenNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_TenNV.setText("Tên NV:");
+        lbl_TenNV.setPreferredSize(new java.awt.Dimension(60, 25));
+        pnl_TenNV.add(lbl_TenNV, java.awt.BorderLayout.LINE_START);
+
+        txt_TenNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_TenNV.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_TenNV.add(txt_TenNV);
+        pnl_TenNV.add(txt_TenNV, java.awt.BorderLayout.CENTER);
 
         pnl_info_1.add(pnl_TenNV);
 
-        lbl_NS.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_NS.setText("Ngày Sinh:");
-        lbl_NS.setPreferredSize(new java.awt.Dimension(100, 25));
-        pnl_NS.add(lbl_NS);
-
-        date_NS.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_NS.add(date_NS);
-
-        pnl_info_1.add(pnl_NS);
-
         pnl_info_NV.add(pnl_info_1);
 
-        pnl_info_2.setLayout(new java.awt.GridLayout(3, 1));
+        pnl_info_2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        pnl_info_2.setLayout(new java.awt.GridLayout(2, 1));
 
-        lbl_GT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnl_GioiTinh.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_GioiTinh.setLayout(new java.awt.BorderLayout());
+
+        lbl_GT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_GT.setText("Giới tính:");
-        lbl_GT.setPreferredSize(new java.awt.Dimension(80, 25));
-        pnl_GioiTinh.add(lbl_GT);
+        lbl_GT.setPreferredSize(new java.awt.Dimension(70, 25));
+        pnl_GioiTinh.add(lbl_GT, java.awt.BorderLayout.LINE_START);
 
         cb_GioiTinh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cb_GioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         cb_GioiTinh.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_GioiTinh.add(cb_GioiTinh);
+        pnl_GioiTinh.add(cb_GioiTinh, java.awt.BorderLayout.CENTER);
 
         pnl_info_2.add(pnl_GioiTinh);
 
-        lbl_SDT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_SDT.setText("SĐT:");
-        lbl_SDT.setPreferredSize(new java.awt.Dimension(80, 25));
-        pnl_SDT.add(lbl_SDT);
+        pnl_ChucVu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_ChucVu.setLayout(new java.awt.BorderLayout());
 
-        txt_SDT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_SDT.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_SDT.add(txt_SDT);
-
-        pnl_info_2.add(pnl_SDT);
-
-        lbl_ChucVu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lbl_ChucVu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_ChucVu.setText("Chức vụ: ");
-        lbl_ChucVu.setPreferredSize(new java.awt.Dimension(80, 25));
-        pnl_ChucVu.add(lbl_ChucVu);
+        lbl_ChucVu.setPreferredSize(new java.awt.Dimension(70, 25));
+        pnl_ChucVu.add(lbl_ChucVu, java.awt.BorderLayout.LINE_START);
 
         cb_ChucVu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cb_ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quản Lý", "Nhân Viên Bán Hàng" }));
@@ -268,122 +249,90 @@ public class Panel_staff extends javax.swing.JPanel {
                 cb_ChucVuActionPerformed(evt);
             }
         });
-        pnl_ChucVu.add(cb_ChucVu);
+        pnl_ChucVu.add(cb_ChucVu, java.awt.BorderLayout.CENTER);
 
         pnl_info_2.add(pnl_ChucVu);
 
         pnl_info_NV.add(pnl_info_2);
 
-        pnl_info_3.setLayout(new java.awt.GridLayout(3, 1));
+        pnl_info_3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        pnl_info_3.setLayout(new java.awt.GridLayout(2, 1));
 
-        lbl_Email.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pnl_NS.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_NS.setLayout(new java.awt.BorderLayout());
+
+        lbl_NS.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_NS.setText("Ngày Sinh:");
+        lbl_NS.setPreferredSize(new java.awt.Dimension(80, 25));
+        pnl_NS.add(lbl_NS, java.awt.BorderLayout.LINE_START);
+
+        date_NS.setPreferredSize(new java.awt.Dimension(300, 40));
+        pnl_NS.add(date_NS, java.awt.BorderLayout.CENTER);
+
+        pnl_info_3.add(pnl_NS);
+
+        pnl_Email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_Email.setLayout(new java.awt.BorderLayout());
+
+        lbl_Email.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lbl_Email.setText("Email:");
         lbl_Email.setPreferredSize(new java.awt.Dimension(80, 25));
-        pnl_Email.add(lbl_Email);
+        pnl_Email.add(lbl_Email, java.awt.BorderLayout.LINE_START);
 
-        txt_Email.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txt_Email.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_Email.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_Email.add(txt_Email);
+        pnl_Email.add(txt_Email, java.awt.BorderLayout.CENTER);
 
         pnl_info_3.add(pnl_Email);
 
-        lbl_DiaChi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl_DiaChi.setText("Địa chỉ:");
-        lbl_DiaChi.setPreferredSize(new java.awt.Dimension(80, 25));
-        pnl_DiaChi.add(lbl_DiaChi);
-
-        txt_DiaChi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_DiaChi.setPreferredSize(new java.awt.Dimension(300, 40));
-        pnl_DiaChi.add(txt_DiaChi);
-
-        pnl_info_3.add(pnl_DiaChi);
-
         pnl_info_NV.add(pnl_info_3);
 
-        pnl_top.add(pnl_info_NV, java.awt.BorderLayout.NORTH);
+        pnl_info_4.setLayout(new java.awt.GridLayout(2, 1));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
-        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
+        pnl_DiaChi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_DiaChi.setLayout(new java.awt.BorderLayout());
 
-        btn_XoaTrang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_XoaTrang.setText("Xóa trắng");
-        btn_XoaTrang.setPreferredSize(new java.awt.Dimension(130, 50));
-        btn_XoaTrang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_XoaTrangMouseClicked(evt);
-            }
-        });
-        pnl_List_btn.add(btn_XoaTrang);
+        lbl_DiaChi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_DiaChi.setText("Địa chỉ:");
+        lbl_DiaChi.setPreferredSize(new java.awt.Dimension(60, 25));
+        pnl_DiaChi.add(lbl_DiaChi, java.awt.BorderLayout.LINE_START);
 
-        btn_Sua.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_Sua.setText("Sửa");
-        btn_Sua.setPreferredSize(new java.awt.Dimension(130, 50));
-        btn_Sua.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_SuaMouseClicked(evt);
-            }
-        });
-        pnl_List_btn.add(btn_Sua);
+        txt_DiaChi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_DiaChi.setPreferredSize(new java.awt.Dimension(300, 40));
+        pnl_DiaChi.add(txt_DiaChi, java.awt.BorderLayout.CENTER);
 
-        btn_Them.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_Them.setText("Thêm mới");
-        btn_Them.setPreferredSize(new java.awt.Dimension(130, 50));
-        btn_Them.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_ThemMouseClicked(evt);
-            }
-        });
-        pnl_List_btn.add(btn_Them);
+        pnl_info_4.add(pnl_DiaChi);
 
-        jPanel5.add(pnl_List_btn);
+        pnl_SDT.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        pnl_SDT.setLayout(new java.awt.BorderLayout());
 
-        pnl_Tim.setLayout(new java.awt.BorderLayout());
+        lbl_SDT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_SDT.setText("SĐT:");
+        lbl_SDT.setPreferredSize(new java.awt.Dimension(60, 25));
+        pnl_SDT.add(lbl_SDT, java.awt.BorderLayout.LINE_START);
 
-        txt_Tim.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_Tim.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_TimActionPerformed(evt);
-            }
-        });
-        pnl_Tim.add(txt_Tim, java.awt.BorderLayout.CENTER);
+        txt_SDT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txt_SDT.setPreferredSize(new java.awt.Dimension(300, 40));
+        pnl_SDT.add(txt_SDT, java.awt.BorderLayout.CENTER);
 
-        btn_Tim.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_Tim.setText("Tìm Kiếm");
-        btn_Tim.setPreferredSize(new java.awt.Dimension(150, 36));
-        btn_Tim.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_TimMouseClicked(evt);
-            }
-        });
-        pnl_Tim.add(btn_Tim, java.awt.BorderLayout.EAST);
+        pnl_info_4.add(pnl_SDT);
 
-        jPanel5.add(pnl_Tim);
+        pnl_info_NV.add(pnl_info_4);
 
-        pnl_top.add(jPanel5, java.awt.BorderLayout.CENTER);
-
-        pnl_NhanVien.add(pnl_top, java.awt.BorderLayout.NORTH);
+        pnl_NhanVien.add(pnl_info_NV, java.awt.BorderLayout.NORTH);
 
         pnl_center.setLayout(new java.awt.BorderLayout());
 
-        pnl_BoLoc.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc"));
-        pnl_BoLoc.setPreferredSize(new java.awt.Dimension(0, 170));
+        pnl_BoLoc.setPreferredSize(new java.awt.Dimension(0, 100));
         pnl_BoLoc.setLayout(new java.awt.GridLayout(1, 3));
 
-        pnl_LocTheoChucVu_wrap.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 40, 10, 40));
-        pnl_LocTheoChucVu_wrap.setLayout(new java.awt.BorderLayout());
+        pnl_LocTheoChucVu.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
+        pnl_LocTheoChucVu.setLayout(new java.awt.GridLayout(1, 1));
 
-        pnl_LocTheoChucVu.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pnl_LocTheoChucVu.setLayout(new java.awt.GridLayout(2, 1));
-
-        lbl_LocTheoCV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_LocTheoCV.setText("Lọc theo chức vụ");
-        jPanel4.add(lbl_LocTheoCV);
-
-        pnl_LocTheoChucVu.add(jPanel4);
-
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc Theo Chức Vụ"));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        cb_LocTheoCV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cb_LocTheoCV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cb_LocTheoCV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn chức vụ --", "Quản Lý", "Nhân Viên Bán Hàng" }));
         cb_LocTheoCV.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -394,22 +343,12 @@ public class Panel_staff extends javax.swing.JPanel {
 
         pnl_LocTheoChucVu.add(jPanel7);
 
-        pnl_LocTheoChucVu_wrap.add(pnl_LocTheoChucVu, java.awt.BorderLayout.CENTER);
+        pnl_BoLoc.add(pnl_LocTheoChucVu);
 
-        pnl_BoLoc.add(pnl_LocTheoChucVu_wrap);
+        pnl_LocTheoNamSinh.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 20));
+        pnl_LocTheoNamSinh.setLayout(new java.awt.GridLayout(1, 1));
 
-        pnl_LocTheoNamSinh_wrap.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        pnl_LocTheoNamSinh_wrap.setLayout(new java.awt.BorderLayout());
-
-        pnl_LocTheoNamSinh.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pnl_LocTheoNamSinh.setLayout(new java.awt.GridLayout(2, 1));
-
-        lbl_LocTheoNamSinh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_LocTheoNamSinh.setText("Lọc theo năm sinh");
-        jPanel8.add(lbl_LocTheoNamSinh);
-
-        pnl_LocTheoNamSinh.add(jPanel8);
-
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc Theo Năm Sinh"));
         jPanel9.setLayout(new java.awt.BorderLayout());
         jPanel9.add(date_NgaySinh, java.awt.BorderLayout.CENTER);
 
@@ -424,25 +363,14 @@ public class Panel_staff extends javax.swing.JPanel {
 
         pnl_LocTheoNamSinh.add(jPanel9);
 
-        pnl_LocTheoNamSinh_wrap.add(pnl_LocTheoNamSinh, java.awt.BorderLayout.CENTER);
+        pnl_BoLoc.add(pnl_LocTheoNamSinh);
 
-        pnl_BoLoc.add(pnl_LocTheoNamSinh_wrap);
-
-        pnl_LocTheoGT_wrap.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        pnl_LocTheoGT_wrap.setLayout(new java.awt.BorderLayout());
-
-        pnl_LocTheoGT.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        pnl_LocTheoGT.setLayout(new java.awt.GridLayout(2, 1));
-
-        bl_LocGT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        bl_LocGT.setText("Lọc theo giới tính");
-        jPanel10.add(bl_LocGT);
-
-        pnl_LocTheoGT.add(jPanel10);
+        pnl_LocTheoGT.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc Theo Giới Tính"));
+        pnl_LocTheoGT.setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel11.setLayout(new java.awt.BorderLayout());
 
-        cb_LocGT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cb_LocGT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cb_LocGT.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn giới tính --", "Nam", "Nữ" }));
         cb_LocGT.setPreferredSize(new java.awt.Dimension(250, 35));
         cb_LocGT.addItemListener(new java.awt.event.ItemListener() {
@@ -454,13 +382,34 @@ public class Panel_staff extends javax.swing.JPanel {
 
         pnl_LocTheoGT.add(jPanel11);
 
-        pnl_LocTheoGT_wrap.add(pnl_LocTheoGT, java.awt.BorderLayout.CENTER);
-
-        pnl_BoLoc.add(pnl_LocTheoGT_wrap);
+        pnl_BoLoc.add(pnl_LocTheoGT);
 
         pnl_center.add(pnl_BoLoc, java.awt.BorderLayout.NORTH);
 
+        pnl_tabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Danh Sách Nhân Viên"));
         pnl_tabel.setLayout(new java.awt.BorderLayout());
+
+        pnl_Tim.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        txt_Tim.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txt_Tim.setPreferredSize(new java.awt.Dimension(500, 50));
+        txt_Tim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_TimActionPerformed(evt);
+            }
+        });
+        pnl_Tim.add(txt_Tim);
+
+        btn_LocTheoNgaySinh1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        btn_LocTheoNgaySinh1.setPreferredSize(new java.awt.Dimension(50, 50));
+        btn_LocTheoNgaySinh1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_LocTheoNgaySinh1MouseClicked(evt);
+            }
+        });
+        pnl_Tim.add(btn_LocTheoNgaySinh1);
+
+        pnl_tabel.add(pnl_Tim, java.awt.BorderLayout.PAGE_START);
 
         tbl_nhanVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -478,6 +427,60 @@ public class Panel_staff extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tbl_nhanVien);
 
         pnl_tabel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        pnl_CRUD.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btn_XoaTrang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_XoaTrang.setText("Xóa trắng");
+        btn_XoaTrang.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_XoaTrang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_XoaTrangMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_XoaTrang);
+
+        btn_Sua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_Sua.setText("Sửa");
+        btn_Sua.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_Sua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_SuaMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_Sua);
+
+        btn_Them.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_Them.setText("Thêm mới");
+        btn_Them.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_Them.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ThemMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_Them);
+
+        btn_NhapFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_NhapFile.setText("Nhập File");
+        btn_NhapFile.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_NhapFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_NhapFileMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_NhapFile);
+
+        btn_XuatFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_XuatFile.setText("Xuất File");
+        btn_XuatFile.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_XuatFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_XuatFileMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_XuatFile);
+
+        pnl_tabel.add(pnl_CRUD, java.awt.BorderLayout.PAGE_END);
 
         pnl_center.add(pnl_tabel, java.awt.BorderLayout.CENTER);
 
@@ -611,28 +614,6 @@ public class Panel_staff extends javax.swing.JPanel {
             }
             }
     }//GEN-LAST:event_btn_ThemMouseClicked
-
-    private void btn_TimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_TimMouseClicked
-//         String maNV = txt_Tim.getText().toString();
-//        
-//         if(maNV.equals("")) {
-//             XoaDuLieuTableNV();
-//             DocDuLieuLenTableNhanVien();
-//         } else {
-//            if(!maNV.trim().equals("")){
-//                XoaDuLieuTableNV();
-//
-//                NhanVien nv = nv_dao.getNV_TheoMa(maNV);
-//                DefaultTableModel temp = (DefaultTableModel) tbl_nhanVien.getModel();
-//
-//                Object[] obj = {nv.getMaNV(), nv.getTenNV(), nv.getChucVu(), nv.getGioiTinh(), nv.getDiaChi(), nv.getEmail(), nv.getNgaySinh(), nv.getsDT()};
-//                temp.addRow(obj);
-//            }else{
-//                XoaDuLieuTableNV();
-//                DocDuLieuLenTableNhanVien();
-//            }
-//         }
-    }//GEN-LAST:event_btn_TimMouseClicked
 
     private void tbl_nhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_nhanVienMouseClicked
         int r = tbl_nhanVien.getSelectedRow();
@@ -796,6 +777,18 @@ public class Panel_staff extends javax.swing.JPanel {
 //            DocDuLieuLenTableNhanVien();
 //        }
     }//GEN-LAST:event_cb_LocGTItemStateChanged
+
+    private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_NhapFileMouseClicked
+
+    private void btn_XuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XuatFileMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_XuatFileMouseClicked
+
+    private void btn_LocTheoNgaySinh1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LocTheoNgaySinh1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_LocTheoNgaySinh1MouseClicked
     
     public NhanVien createNV() {
 //        String maNV = txt_MaNV.getText().toString();
@@ -818,12 +811,13 @@ public class Panel_staff extends javax.swing.JPanel {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bl_LocGT;
     private javax.swing.JButton btn_LocTheoNgaySinh;
+    private javax.swing.JButton btn_LocTheoNgaySinh1;
+    private javax.swing.JButton btn_NhapFile;
     private javax.swing.JButton btn_Sua;
     private javax.swing.JButton btn_Them;
-    private javax.swing.JButton btn_Tim;
     private javax.swing.JButton btn_XoaTrang;
+    private javax.swing.JButton btn_XuatFile;
     private javax.swing.JComboBox<String> cb_ChucVu;
     private javax.swing.JComboBox<String> cb_GioiTinh;
     private javax.swing.JComboBox<String> cb_LocGT;
@@ -836,16 +830,12 @@ public class Panel_staff extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -859,24 +849,19 @@ public class Panel_staff extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_DiaChi;
     private javax.swing.JLabel lbl_Email;
     private javax.swing.JLabel lbl_GT;
-    private javax.swing.JLabel lbl_LocTheoCV;
-    private javax.swing.JLabel lbl_LocTheoNamSinh;
     private javax.swing.JLabel lbl_MaNV;
     private javax.swing.JLabel lbl_NS;
     private javax.swing.JLabel lbl_SDT;
     private javax.swing.JLabel lbl_TenNV;
     private javax.swing.JPanel pnl_BoLoc;
+    private javax.swing.JPanel pnl_CRUD;
     private javax.swing.JPanel pnl_ChucVu;
     private javax.swing.JPanel pnl_DiaChi;
     private javax.swing.JPanel pnl_Email;
     private javax.swing.JPanel pnl_GioiTinh;
-    private javax.swing.JPanel pnl_List_btn;
     private javax.swing.JPanel pnl_LocTheoChucVu;
-    private javax.swing.JPanel pnl_LocTheoChucVu_wrap;
     private javax.swing.JPanel pnl_LocTheoGT;
-    private javax.swing.JPanel pnl_LocTheoGT_wrap;
     private javax.swing.JPanel pnl_LocTheoNamSinh;
-    private javax.swing.JPanel pnl_LocTheoNamSinh_wrap;
     private javax.swing.JPanel pnl_MaNV;
     private javax.swing.JPanel pnl_NS;
     private javax.swing.JPanel pnl_NhanVien;
@@ -889,10 +874,10 @@ public class Panel_staff extends javax.swing.JPanel {
     private javax.swing.JPanel pnl_info_1;
     private javax.swing.JPanel pnl_info_2;
     private javax.swing.JPanel pnl_info_3;
+    private javax.swing.JPanel pnl_info_4;
     private javax.swing.JPanel pnl_info_NV;
     private javax.swing.JPanel pnl_tabel;
     private javax.swing.JPanel pnl_thongTK;
-    private javax.swing.JPanel pnl_top;
     private javax.swing.JTable table_TK;
     private javax.swing.JTable tbl_nhanVien;
     private javax.swing.JTextField txt_DiaChi;

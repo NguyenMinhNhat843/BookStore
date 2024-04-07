@@ -491,12 +491,12 @@ public class Panel_Product extends javax.swing.JPanel {
 
         btn_Them.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_Them.setText("Thêm");
-        btn_Them.setPreferredSize(new java.awt.Dimension(97, 31));
+        btn_Them.setPreferredSize(new java.awt.Dimension(130, 50));
         pn_btn_Nhap_Xuat.add(btn_Them);
 
         btn_Xoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_Xoa.setText("Xóa");
-        btn_Xoa.setPreferredSize(new java.awt.Dimension(97, 31));
+        btn_Xoa.setPreferredSize(new java.awt.Dimension(130, 50));
         btn_Xoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_XoaActionPerformed(evt);
@@ -506,14 +506,17 @@ public class Panel_Product extends javax.swing.JPanel {
 
         btn_CapNhat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_CapNhat.setText("Cập Nhật");
+        btn_CapNhat.setPreferredSize(new java.awt.Dimension(130, 50));
         pn_btn_Nhap_Xuat.add(btn_CapNhat);
 
         btn_NhapFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_NhapFile.setText("Nhập File");
+        btn_NhapFile.setPreferredSize(new java.awt.Dimension(130, 50));
         pn_btn_Nhap_Xuat.add(btn_NhapFile);
 
         btn_XuatFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_XuatFile.setText("Xuất File");
+        btn_XuatFile.setPreferredSize(new java.awt.Dimension(130, 50));
         pn_btn_Nhap_Xuat.add(btn_XuatFile);
 
         pn_table_SanPham.add(pn_btn_Nhap_Xuat, java.awt.BorderLayout.SOUTH);

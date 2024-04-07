@@ -173,8 +173,8 @@ public class Panel_bill extends javax.swing.JPanel {
         pnl_center.setPreferredSize(new java.awt.Dimension(468, 500));
         pnl_center.setLayout(new java.awt.BorderLayout());
 
-        pnl_HD_TimKiem.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
-        pnl_HD_TimKiem.setPreferredSize(new java.awt.Dimension(10, 80));
+        pnl_HD_TimKiem.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnl_HD_TimKiem.setPreferredSize(new java.awt.Dimension(10, 70));
 
         txt_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_TimKiem.setPreferredSize(new java.awt.Dimension(700, 50));

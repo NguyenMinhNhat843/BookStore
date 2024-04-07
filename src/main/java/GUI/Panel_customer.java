@@ -45,9 +45,6 @@ public class Panel_customer extends javax.swing.JPanel {
         panel_diaChi = new javax.swing.JPanel();
         label_diaChi = new javax.swing.JLabel();
         text_diaChi = new javax.swing.JTextField();
-        panel_sĐT = new javax.swing.JPanel();
-        label_sĐT = new javax.swing.JLabel();
-        text_sĐT = new javax.swing.JTextField();
         thongTin2 = new javax.swing.JPanel();
         panel_tenKH = new javax.swing.JPanel();
         label_tenKH = new javax.swing.JLabel();
@@ -55,9 +52,6 @@ public class Panel_customer extends javax.swing.JPanel {
         panel_email = new javax.swing.JPanel();
         label_email = new javax.swing.JLabel();
         text_email = new javax.swing.JTextField();
-        panel_tieuPhi = new javax.swing.JPanel();
-        label_tieuPhiTichLuy = new javax.swing.JLabel();
-        text_tieuPhiTichLuy = new javax.swing.JTextField();
         thongTin3 = new javax.swing.JPanel();
         panel_rank = new javax.swing.JPanel();
         label_rank = new javax.swing.JLabel();
@@ -65,252 +59,211 @@ public class Panel_customer extends javax.swing.JPanel {
         panel_tichDiem = new javax.swing.JPanel();
         label_tichDiem = new javax.swing.JLabel();
         text_tichDiem = new javax.swing.JTextField();
+        thongTin4 = new javax.swing.JPanel();
+        panel_sĐT = new javax.swing.JPanel();
+        label_sĐT = new javax.swing.JLabel();
+        text_sĐT = new javax.swing.JTextField();
+        panel_tieuPhi = new javax.swing.JPanel();
+        label_tieuPhiTichLuy = new javax.swing.JLabel();
+        text_tieuPhiTichLuy = new javax.swing.JTextField();
         panel_btn = new javax.swing.JPanel();
-        pnl_list_btn = new javax.swing.JPanel();
-        btn_capNhat = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        btn_xoaTrang = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        btn_ThemMoi = new javax.swing.JButton();
         pnl_tim = new javax.swing.JPanel();
         text_timKiem = new javax.swing.JTextField();
         btn_timKiem = new javax.swing.JButton();
-        pnl_center = new javax.swing.JPanel();
-        panel_loc = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        label_locTheoRank = new javax.swing.JLabel();
+        pnl_LocTheoRank = new javax.swing.JPanel();
         cbb_locTheoRank = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        label_locTichDiem = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        txt_TDBD = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txt_TDKT = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        label_locTieuPhi = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        txt_DiemBD = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        txt_DienKT = new javax.swing.JTextField();
+        pnl_center = new javax.swing.JPanel();
         panel_bangThongTin = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table_kh = new javax.swing.JTable();
+        pnl_CRUD = new javax.swing.JPanel();
+        btn_capNhat = new javax.swing.JButton();
+        btn_xoaTrang = new javax.swing.JButton();
+        btn_ThemMoi = new javax.swing.JButton();
+        btn_NhapFile = new javax.swing.JButton();
+        btn_XuatFile = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(100, 500));
         setLayout(new java.awt.BorderLayout());
 
         Panel_ThongTin.setMinimumSize(new java.awt.Dimension(600, 85));
-        Panel_ThongTin.setPreferredSize(new java.awt.Dimension(903, 290));
+        Panel_ThongTin.setPreferredSize(new java.awt.Dimension(903, 250));
         Panel_ThongTin.setLayout(new java.awt.BorderLayout());
 
         panel_ThongTin.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"));
-        panel_ThongTin.setPreferredSize(new java.awt.Dimension(750, 180));
+        panel_ThongTin.setPreferredSize(new java.awt.Dimension(750, 160));
         panel_ThongTin.setLayout(new java.awt.GridLayout(1, 3));
 
+        thongTin1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
         thongTin1.setPreferredSize(new java.awt.Dimension(300, 350));
-        thongTin1.setLayout(new java.awt.GridLayout(3, 1));
+        thongTin1.setLayout(new java.awt.GridLayout(2, 1));
 
-        label_maKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        panel_maKH.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_maKH.setLayout(new java.awt.BorderLayout());
+
+        label_maKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         label_maKH.setText("Mã KH:");
-        panel_maKH.add(label_maKH);
+        label_maKH.setPreferredSize(new java.awt.Dimension(60, 20));
+        panel_maKH.add(label_maKH, java.awt.BorderLayout.LINE_START);
 
         text_maKH.setEditable(false);
-        text_maKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        text_maKH.setEnabled(false);
+        text_maKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         text_maKH.setPreferredSize(new java.awt.Dimension(300, 40));
         text_maKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_maKHActionPerformed(evt);
             }
         });
-        panel_maKH.add(text_maKH);
+        panel_maKH.add(text_maKH, java.awt.BorderLayout.CENTER);
 
         thongTin1.add(panel_maKH);
 
-        label_diaChi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_diaChi.setText("Địa chỉ:");
-        panel_diaChi.add(label_diaChi);
+        panel_diaChi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_diaChi.setLayout(new java.awt.BorderLayout());
 
-        text_diaChi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label_diaChi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_diaChi.setText("Địa chỉ:");
+        label_diaChi.setPreferredSize(new java.awt.Dimension(60, 20));
+        panel_diaChi.add(label_diaChi, java.awt.BorderLayout.LINE_START);
+
+        text_diaChi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         text_diaChi.setPreferredSize(new java.awt.Dimension(300, 40));
-        panel_diaChi.add(text_diaChi);
+        panel_diaChi.add(text_diaChi, java.awt.BorderLayout.CENTER);
         text_diaChi.getAccessibleContext().setAccessibleName("");
 
         thongTin1.add(panel_diaChi);
 
-        label_sĐT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_sĐT.setText("SĐT:");
-        label_sĐT.setPreferredSize(new java.awt.Dimension(63, 25));
-        panel_sĐT.add(label_sĐT);
-
-        text_sĐT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        text_sĐT.setPreferredSize(new java.awt.Dimension(300, 40));
-        panel_sĐT.add(text_sĐT);
-
-        thongTin1.add(panel_sĐT);
-
         panel_ThongTin.add(thongTin1);
 
-        thongTin2.setLayout(new java.awt.GridLayout(3, 1));
+        thongTin2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        thongTin2.setLayout(new java.awt.GridLayout(2, 1));
 
-        label_tenKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        panel_tenKH.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_tenKH.setLayout(new java.awt.BorderLayout());
+
+        label_tenKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         label_tenKH.setText("Tên KH:");
-        label_tenKH.setPreferredSize(new java.awt.Dimension(74, 25));
-        panel_tenKH.add(label_tenKH);
+        label_tenKH.setPreferredSize(new java.awt.Dimension(60, 25));
+        panel_tenKH.add(label_tenKH, java.awt.BorderLayout.LINE_START);
 
-        text_tenKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        text_tenKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         text_tenKH.setPreferredSize(new java.awt.Dimension(300, 40));
-        panel_tenKH.add(text_tenKH);
+        panel_tenKH.add(text_tenKH, java.awt.BorderLayout.CENTER);
 
         thongTin2.add(panel_tenKH);
 
-        label_email.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_email.setText("Email:");
-        label_email.setPreferredSize(new java.awt.Dimension(74, 25));
-        panel_email.add(label_email);
+        panel_email.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_email.setLayout(new java.awt.BorderLayout());
 
-        text_email.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label_email.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_email.setText("Email:");
+        label_email.setPreferredSize(new java.awt.Dimension(60, 25));
+        panel_email.add(label_email, java.awt.BorderLayout.LINE_START);
+
+        text_email.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         text_email.setPreferredSize(new java.awt.Dimension(300, 40));
         text_email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_emailActionPerformed(evt);
             }
         });
-        panel_email.add(text_email);
+        panel_email.add(text_email, java.awt.BorderLayout.CENTER);
 
         thongTin2.add(panel_email);
 
-        label_tieuPhiTichLuy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_tieuPhiTichLuy.setText("Tiêu Phí:");
-        panel_tieuPhi.add(label_tieuPhiTichLuy);
-
-        text_tieuPhiTichLuy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        text_tieuPhiTichLuy.setPreferredSize(new java.awt.Dimension(300, 40));
-        text_tieuPhiTichLuy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                text_tieuPhiTichLuyActionPerformed(evt);
-            }
-        });
-        panel_tieuPhi.add(text_tieuPhiTichLuy);
-
-        thongTin2.add(panel_tieuPhi);
-
         panel_ThongTin.add(thongTin2);
 
-        thongTin3.setLayout(new java.awt.GridLayout(3, 1));
+        thongTin3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        thongTin3.setLayout(new java.awt.GridLayout(2, 1));
 
-        label_rank.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        panel_rank.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_rank.setLayout(new java.awt.BorderLayout());
+
+        label_rank.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         label_rank.setText("Rank:");
-        label_rank.setPreferredSize(new java.awt.Dimension(117, 25));
-        panel_rank.add(label_rank);
+        label_rank.setPreferredSize(new java.awt.Dimension(100, 25));
+        panel_rank.add(label_rank, java.awt.BorderLayout.LINE_START);
 
-        txt_Rank.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_Rank.setEnabled(false);
+        txt_Rank.setEditable(false);
+        txt_Rank.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_Rank.setPreferredSize(new java.awt.Dimension(300, 40));
-        panel_rank.add(txt_Rank);
+        panel_rank.add(txt_Rank, java.awt.BorderLayout.CENTER);
 
         thongTin3.add(panel_rank);
 
-        label_tichDiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_tichDiem.setText("Điểm tích lũy:");
-        panel_tichDiem.add(label_tichDiem);
+        panel_tichDiem.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_tichDiem.setLayout(new java.awt.BorderLayout());
 
-        text_tichDiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label_tichDiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_tichDiem.setText("Điểm tích lũy:");
+        label_tichDiem.setPreferredSize(new java.awt.Dimension(100, 20));
+        panel_tichDiem.add(label_tichDiem, java.awt.BorderLayout.LINE_START);
+
+        text_tichDiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         text_tichDiem.setPreferredSize(new java.awt.Dimension(300, 40));
         text_tichDiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_tichDiemActionPerformed(evt);
             }
         });
-        panel_tichDiem.add(text_tichDiem);
+        panel_tichDiem.add(text_tichDiem, java.awt.BorderLayout.CENTER);
 
         thongTin3.add(panel_tichDiem);
 
         panel_ThongTin.add(thongTin3);
 
+        thongTin4.setLayout(new java.awt.GridLayout(2, 1));
+
+        panel_sĐT.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_sĐT.setLayout(new java.awt.BorderLayout());
+
+        label_sĐT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sĐT.setText("SĐT:");
+        label_sĐT.setPreferredSize(new java.awt.Dimension(70, 25));
+        panel_sĐT.add(label_sĐT, java.awt.BorderLayout.LINE_START);
+
+        text_sĐT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        text_sĐT.setPreferredSize(new java.awt.Dimension(300, 40));
+        panel_sĐT.add(text_sĐT, java.awt.BorderLayout.CENTER);
+
+        thongTin4.add(panel_sĐT);
+
+        panel_tieuPhi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panel_tieuPhi.setLayout(new java.awt.BorderLayout());
+
+        label_tieuPhiTichLuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_tieuPhiTichLuy.setText("Tiêu Phí:");
+        label_tieuPhiTichLuy.setPreferredSize(new java.awt.Dimension(70, 20));
+        panel_tieuPhi.add(label_tieuPhiTichLuy, java.awt.BorderLayout.LINE_START);
+
+        text_tieuPhiTichLuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        text_tieuPhiTichLuy.setPreferredSize(new java.awt.Dimension(300, 40));
+        text_tieuPhiTichLuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                text_tieuPhiTichLuyActionPerformed(evt);
+            }
+        });
+        panel_tieuPhi.add(text_tieuPhiTichLuy, java.awt.BorderLayout.CENTER);
+
+        thongTin4.add(panel_tieuPhi);
+
+        panel_ThongTin.add(thongTin4);
+
         Panel_ThongTin.add(panel_ThongTin, java.awt.BorderLayout.CENTER);
 
-        panel_btn.setPreferredSize(new java.awt.Dimension(903, 110));
+        panel_btn.setPreferredSize(new java.awt.Dimension(903, 100));
         panel_btn.setLayout(new java.awt.GridLayout(1, 2));
-
-        pnl_list_btn.setBorder(javax.swing.BorderFactory.createTitledBorder("Chức năng"));
-
-        btn_capNhat.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_capNhat.setText("Cập Nhật");
-        btn_capNhat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn_capNhat.setPreferredSize(new java.awt.Dimension(150, 50));
-        btn_capNhat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_capNhatMouseClicked(evt);
-            }
-        });
-        pnl_list_btn.add(btn_capNhat);
-
-        jPanel4.setPreferredSize(new java.awt.Dimension(70, 70));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-
-        pnl_list_btn.add(jPanel4);
-
-        btn_xoaTrang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_xoaTrang.setText("Xóa Trắng");
-        btn_xoaTrang.setPreferredSize(new java.awt.Dimension(150, 50));
-        btn_xoaTrang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_xoaTrangMouseClicked(evt);
-            }
-        });
-        pnl_list_btn.add(btn_xoaTrang);
-
-        jPanel5.setPreferredSize(new java.awt.Dimension(70, 70));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-
-        pnl_list_btn.add(jPanel5);
-
-        btn_ThemMoi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_ThemMoi.setText("Thêm mới");
-        btn_ThemMoi.setPreferredSize(new java.awt.Dimension(150, 50));
-        btn_ThemMoi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_ThemMoiMouseClicked(evt);
-            }
-        });
-        pnl_list_btn.add(btn_ThemMoi);
-
-        panel_btn.add(pnl_list_btn);
 
         pnl_tim.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         pnl_tim.setLayout(new java.awt.BorderLayout());
 
-        text_timKiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        text_timKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         text_timKiem.setPreferredSize(new java.awt.Dimension(100, 22));
         pnl_tim.add(text_timKiem, java.awt.BorderLayout.CENTER);
 
-        btn_timKiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_timKiem.setText("Tìm Kiếm");
-        btn_timKiem.setPreferredSize(new java.awt.Dimension(150, 36));
+        btn_timKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_timKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        btn_timKiem.setPreferredSize(new java.awt.Dimension(55, 50));
         btn_timKiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_timKiemMouseClicked(evt);
@@ -320,26 +273,8 @@ public class Panel_customer extends javax.swing.JPanel {
 
         panel_btn.add(pnl_tim);
 
-        Panel_ThongTin.add(panel_btn, java.awt.BorderLayout.SOUTH);
-
-        add(Panel_ThongTin, java.awt.BorderLayout.NORTH);
-
-        pnl_center.setPreferredSize(new java.awt.Dimension(1350, 500));
-        pnl_center.setLayout(new java.awt.BorderLayout());
-
-        panel_loc.setPreferredSize(new java.awt.Dimension(800, 120));
-        panel_loc.setLayout(new java.awt.GridLayout(1, 3));
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 30));
-        jPanel1.setLayout(new java.awt.BorderLayout());
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
-
-        label_locTheoRank.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_locTheoRank.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_locTheoRank.setText("Lọc Theo Rank");
-        jPanel6.add(label_locTheoRank);
+        pnl_LocTheoRank.setBorder(javax.swing.BorderFactory.createTitledBorder("Lọc Theo Rank"));
+        pnl_LocTheoRank.setLayout(new java.awt.GridLayout(1, 1));
 
         cbb_locTheoRank.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         cbb_locTheoRank.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Chọn Rank --", "Đồng", "Bạc", "Vàng", "Kim Cương" }));
@@ -356,96 +291,16 @@ public class Panel_customer extends javax.swing.JPanel {
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
-        jPanel6.add(cbb_locTheoRank);
+        pnl_LocTheoRank.add(cbb_locTheoRank);
 
-        jPanel1.add(jPanel6, java.awt.BorderLayout.CENTER);
+        panel_btn.add(pnl_LocTheoRank);
 
-        panel_loc.add(jPanel1);
+        Panel_ThongTin.add(panel_btn, java.awt.BorderLayout.SOUTH);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 30));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        add(Panel_ThongTin, java.awt.BorderLayout.NORTH);
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel7.setLayout(new java.awt.GridLayout(2, 1));
-
-        label_locTichDiem.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_locTichDiem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_locTichDiem.setText("Lọc Tích Điểm");
-        jPanel7.add(label_locTichDiem);
-
-        txt_TDBD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_TDBD.setPreferredSize(new java.awt.Dimension(130, 50));
-        txt_TDBD.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_TDBDKeyReleased(evt);
-            }
-        });
-        jPanel10.add(txt_TDBD);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("   -   ");
-        jPanel10.add(jLabel2);
-
-        txt_TDKT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_TDKT.setPreferredSize(new java.awt.Dimension(130, 50));
-        txt_TDKT.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_TDKTKeyReleased(evt);
-            }
-        });
-        jPanel10.add(txt_TDKT);
-
-        jPanel7.add(jPanel10);
-
-        jPanel2.add(jPanel7, java.awt.BorderLayout.CENTER);
-
-        panel_loc.add(jPanel2);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 30, 1, 30));
-        jPanel3.setLayout(new java.awt.BorderLayout());
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel8.setLayout(new java.awt.GridLayout(2, 1));
-
-        label_locTieuPhi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label_locTieuPhi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_locTieuPhi.setText("Lọc Theo Tiêu Phí");
-        jPanel8.add(label_locTieuPhi);
-
-        txt_DiemBD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_DiemBD.setPreferredSize(new java.awt.Dimension(130, 50));
-        txt_DiemBD.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_DiemBDKeyReleased(evt);
-            }
-        });
-        jPanel9.add(txt_DiemBD);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("   -   ");
-        jPanel9.add(jLabel1);
-
-        txt_DienKT.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txt_DienKT.setPreferredSize(new java.awt.Dimension(130, 50));
-        txt_DienKT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_DienKTActionPerformed(evt);
-            }
-        });
-        txt_DienKT.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_DienKTKeyReleased(evt);
-            }
-        });
-        jPanel9.add(txt_DienKT);
-
-        jPanel8.add(jPanel9);
-
-        jPanel3.add(jPanel8, java.awt.BorderLayout.CENTER);
-
-        panel_loc.add(jPanel3);
-
-        pnl_center.add(panel_loc, java.awt.BorderLayout.NORTH);
+        pnl_center.setPreferredSize(new java.awt.Dimension(1350, 500));
+        pnl_center.setLayout(new java.awt.BorderLayout());
 
         panel_bangThongTin.setPreferredSize(new java.awt.Dimension(1000, 350));
         panel_bangThongTin.setLayout(new java.awt.BorderLayout());
@@ -467,6 +322,76 @@ public class Panel_customer extends javax.swing.JPanel {
 
         panel_bangThongTin.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
+        pnl_CRUD.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btn_capNhat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_capNhat.setText("Cập Nhật");
+        btn_capNhat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_capNhat.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_capNhat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_capNhatMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_capNhat);
+
+        btn_xoaTrang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_xoaTrang.setText("Xóa Trắng");
+        btn_xoaTrang.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_xoaTrang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_xoaTrangMouseClicked(evt);
+            }
+        });
+        pnl_CRUD.add(btn_xoaTrang);
+
+        btn_ThemMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_ThemMoi.setText("Thêm mới");
+        btn_ThemMoi.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_ThemMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ThemMoiMouseClicked(evt);
+            }
+        });
+        btn_ThemMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ThemMoiActionPerformed(evt);
+            }
+        });
+        pnl_CRUD.add(btn_ThemMoi);
+
+        btn_NhapFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_NhapFile.setText("Nhập File");
+        btn_NhapFile.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_NhapFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_NhapFileMouseClicked(evt);
+            }
+        });
+        btn_NhapFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NhapFileActionPerformed(evt);
+            }
+        });
+        pnl_CRUD.add(btn_NhapFile);
+
+        btn_XuatFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_XuatFile.setText("Xuất File");
+        btn_XuatFile.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_XuatFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_XuatFileMouseClicked(evt);
+            }
+        });
+        btn_XuatFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_XuatFileActionPerformed(evt);
+            }
+        });
+        pnl_CRUD.add(btn_XuatFile);
+
+        panel_bangThongTin.add(pnl_CRUD, java.awt.BorderLayout.PAGE_END);
+
         pnl_center.add(panel_bangThongTin, java.awt.BorderLayout.CENTER);
 
         add(pnl_center, java.awt.BorderLayout.CENTER);
@@ -487,10 +412,6 @@ public class Panel_customer extends javax.swing.JPanel {
     private void text_tichDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_tichDiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_text_tichDiemActionPerformed
-
-    private void txt_DienKTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DienKTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_DienKTActionPerformed
 
     private void table_khMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_khMouseClicked
         // TODO add your handling code here:
@@ -627,122 +548,25 @@ public class Panel_customer extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cbb_locTheoRankItemStateChanged
 
-    private void txt_TDBDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TDBDKeyReleased
+    private void btn_ThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemMoiActionPerformed
         // TODO add your handling code here:
-        if(!txt_TDKT.getText().equals("")) {
-            ArrayList<KhachHang> locTheoTD = new ArrayList<>();
-            double batdau = txt_TDBD.getText().equals("") ? 0 : Double.parseDouble(txt_TDBD.getText());
-            double ketthuc = txt_TDKT.getText().equals("") ? 0 : Double.parseDouble(txt_TDKT.getText());
-            locTheoTD = kh_dao.LocTheoTichDiem(batdau, ketthuc);
-            
-            XoaDuLieuTableSP();
+    }//GEN-LAST:event_btn_ThemMoiActionPerformed
 
-            DefaultTableModel tmp = (DefaultTableModel) table_kh.getModel();
-            for(KhachHang kh : locTheoTD) {
-                String a = kh.getRank().getMaRank();
-                 String Rank = a.equals("R001") ? "Đồng"
-                        : a.equals("R002") ? "Bạc"
-                        : a.equals("R003") ? "Vàng"
-                        : "Kim Cương";
-
-                Object[] obj = {kh.getMaKH(), kh.getLast_name() ,kh.getSDT(), kh.getEmail(),
-                                kh.getTieuPhiTichLuy(), Rank, kh.getTichDiem()};
-
-                tmp.addRow(obj);
-            }
-        } else if(txt_TDBD.getText().equals("")) {
-            XoaDuLieuTableSP();
-            DocuLieuLenTable();
-        }
-        
-    }//GEN-LAST:event_txt_TDBDKeyReleased
-
-    private void txt_TDKTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TDKTKeyReleased
+    private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
         // TODO add your handling code here:
-        if(!txt_TDBD.getText().equals("")) {
-            ArrayList<KhachHang> locTheoTD = new ArrayList<>();
-            double batdau = txt_TDBD.getText().equals("") ? 0 : Double.parseDouble(txt_TDBD.getText());
-            double ketthuc = txt_TDKT.getText().equals("") ? 0 : Double.parseDouble(txt_TDKT.getText());
-            locTheoTD = kh_dao.LocTheoTichDiem(batdau, ketthuc);
-            
-            XoaDuLieuTableSP();
+    }//GEN-LAST:event_btn_NhapFileMouseClicked
 
-            DefaultTableModel tmp = (DefaultTableModel) table_kh.getModel();
-            for(KhachHang kh : locTheoTD) {
-                String a = kh.getRank().getMaRank();
-                 String Rank = a.equals("R001") ? "Đồng"
-                        : a.equals("R002") ? "Bạc"
-                        : a.equals("R003") ? "Vàng"
-                        : "Kim Cương";
-
-                Object[] obj = {kh.getMaKH(), kh.getLast_name(), kh.getSDT(), kh.getEmail(),
-                                kh.getTieuPhiTichLuy(), Rank, kh.getTichDiem()};
-
-                tmp.addRow(obj);
-            }
-        } else if(txt_TDKT.getText().equals("")) {
-            XoaDuLieuTableSP();
-            DocuLieuLenTable();
-        }
-    }//GEN-LAST:event_txt_TDKTKeyReleased
-
-    private void txt_DiemBDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_DiemBDKeyReleased
+    private void btn_NhapFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NhapFileActionPerformed
         // TODO add your handling code here:
-         if(!txt_DienKT.getText().equals("")) {
-            ArrayList<KhachHang> locTheoTD = new ArrayList<>();
-            double batdau = txt_DiemBD.getText().equals("") ? 0 : Double.parseDouble(txt_DiemBD.getText());
-            double ketthuc = txt_DienKT.getText().equals("") ? 0 : Double.parseDouble(txt_DienKT.getText());
-            locTheoTD = kh_dao.LocTheoTieuPhi(batdau, ketthuc);
-            
-            XoaDuLieuTableSP();
+    }//GEN-LAST:event_btn_NhapFileActionPerformed
 
-            DefaultTableModel tmp = (DefaultTableModel) table_kh.getModel();
-            for(KhachHang kh : locTheoTD) {
-                String a = kh.getRank().getMaRank();
-                 String Rank = a.equals("R001") ? "Đồng"
-                        : a.equals("R002") ? "Bạc"
-                        : a.equals("R003") ? "Vàng"
-                        : "Kim Cương";
-
-                Object[] obj = {kh.getMaKH(), kh.getLast_name(), kh.getSDT(), kh.getEmail(),
-                                kh.getTieuPhiTichLuy(), Rank, kh.getTichDiem()};
-
-                tmp.addRow(obj);
-            }
-        } else if(txt_DiemBD.getText().equals("")) {
-            XoaDuLieuTableSP();
-            DocuLieuLenTable();
-        }
-    }//GEN-LAST:event_txt_DiemBDKeyReleased
-
-    private void txt_DienKTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_DienKTKeyReleased
+    private void btn_XuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XuatFileMouseClicked
         // TODO add your handling code here:
-         if(!txt_DiemBD.getText().equals("")) {
-            ArrayList<KhachHang> locTheoTD = new ArrayList<>();
-            double batdau = txt_DiemBD.getText().equals("") ? 0 : Double.parseDouble(txt_DiemBD.getText());
-            double ketthuc = txt_DienKT.getText().equals("") ? 0 : Double.parseDouble(txt_DienKT.getText());
-            locTheoTD = kh_dao.LocTheoTieuPhi(batdau, ketthuc);
-            
-            XoaDuLieuTableSP();
+    }//GEN-LAST:event_btn_XuatFileMouseClicked
 
-            DefaultTableModel tmp = (DefaultTableModel) table_kh.getModel();
-            for(KhachHang kh : locTheoTD) {
-                String a = kh.getRank().getMaRank();
-                 String Rank = a.equals("R001") ? "Đồng"
-                        : a.equals("R002") ? "Bạc"
-                        : a.equals("R003") ? "Vàng"
-                        : "Kim Cương";
-
-                Object[] obj = {kh.getMaKH(), kh.getLast_name(), kh.getSDT(), kh.getEmail(),
-                                kh.getTieuPhiTichLuy(), Rank, kh.getTichDiem()};
-
-                tmp.addRow(obj);
-            }
-        } else if(txt_DienKT.getText().equals("")) {
-            XoaDuLieuTableSP();
-            DocuLieuLenTable();
-        }
-    }//GEN-LAST:event_txt_DienKTKeyReleased
+    private void btn_XuatFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XuatFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_XuatFileActionPerformed
 
     public void DocuLieuLenTable() {
         ArrayList<KhachHang> dsKH = kh_dao.getAllKH();
@@ -828,29 +652,16 @@ public class Panel_customer extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel_ThongTin;
+    private javax.swing.JButton btn_NhapFile;
     private javax.swing.JButton btn_ThemMoi;
+    private javax.swing.JButton btn_XuatFile;
     private javax.swing.JButton btn_capNhat;
     private javax.swing.JButton btn_timKiem;
     private javax.swing.JButton btn_xoaTrang;
     private javax.swing.JComboBox<String> cbb_locTheoRank;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label_diaChi;
     private javax.swing.JLabel label_email;
-    private javax.swing.JLabel label_locTheoRank;
-    private javax.swing.JLabel label_locTichDiem;
-    private javax.swing.JLabel label_locTieuPhi;
     private javax.swing.JLabel label_maKH;
     private javax.swing.JLabel label_rank;
     private javax.swing.JLabel label_sĐT;
@@ -862,15 +673,15 @@ public class Panel_customer extends javax.swing.JPanel {
     private javax.swing.JPanel panel_btn;
     private javax.swing.JPanel panel_diaChi;
     private javax.swing.JPanel panel_email;
-    private javax.swing.JPanel panel_loc;
     private javax.swing.JPanel panel_maKH;
     private javax.swing.JPanel panel_rank;
     private javax.swing.JPanel panel_sĐT;
     private javax.swing.JPanel panel_tenKH;
     private javax.swing.JPanel panel_tichDiem;
     private javax.swing.JPanel panel_tieuPhi;
+    private javax.swing.JPanel pnl_CRUD;
+    private javax.swing.JPanel pnl_LocTheoRank;
     private javax.swing.JPanel pnl_center;
-    private javax.swing.JPanel pnl_list_btn;
     private javax.swing.JPanel pnl_tim;
     private javax.swing.JTable table_kh;
     private javax.swing.JTextField text_diaChi;
@@ -884,10 +695,7 @@ public class Panel_customer extends javax.swing.JPanel {
     private javax.swing.JPanel thongTin1;
     private javax.swing.JPanel thongTin2;
     private javax.swing.JPanel thongTin3;
-    private javax.swing.JTextField txt_DiemBD;
-    private javax.swing.JTextField txt_DienKT;
+    private javax.swing.JPanel thongTin4;
     private javax.swing.JTextField txt_Rank;
-    private javax.swing.JTextField txt_TDBD;
-    private javax.swing.JTextField txt_TDKT;
     // End of variables declaration//GEN-END:variables
 }
