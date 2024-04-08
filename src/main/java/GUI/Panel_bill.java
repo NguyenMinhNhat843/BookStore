@@ -22,6 +22,7 @@ import java.text.*;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  *
@@ -39,8 +40,6 @@ public class Panel_bill extends javax.swing.JPanel {
      */
     public Panel_bill(NhanVien nv) {
         initComponents();
-
-    	System.out.println("RUN");
         this.nv = nv;
         LoadDuLieuLenTable();
     }
@@ -51,17 +50,13 @@ public class Panel_bill extends javax.swing.JPanel {
     }
     
     public void LoadDuLieuLenTable() {
-        ArrayList<HoaDon> dsHD = new ArrayList<HoaDon>();
+        ArrayList<Object[]> dsHD = new ArrayList<>();
         dsHD = hd_dao.getAllHD();
-        
         DefaultTableModel model_dsHD = (DefaultTableModel) table_DSHD.getModel();
-        
-        for(HoaDon hd : dsHD) {
-            Object[] obj = {hd.getMaHD(), hd.getNv().getFirst_name() + " " + hd.getNv().getLast_name(), 
-                hd.getKh().getFirst_name() + " " + hd.getKh().getLast_name(), hd.getDate(), hd.getTong_tien()};
-            
-            model_dsHD.addRow(obj);
-        }
+        dsHD.stream().forEach(obj -> {
+            Object[] tmp_obj = {obj[0], obj[2], obj[3], obj[1], obj[4]};
+            model_dsHD.addRow(tmp_obj);
+        });
     }
 
     /**
@@ -224,13 +219,12 @@ public class Panel_bill extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_XemChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XemChiTietMouseClicked
-        // TODO add your handling code here:
         int r = table_DSHD.getSelectedRow();
-
+        
         if(r >= 0) {
             ArrayList<Object[]> obj = cthd_dao.getDSSP_TheoMaHD(table_DSHD.getValueAt(r, 0).toString());
-            HoaDon hd = hd_dao.getHD_TheoMa(table_DSHD.getValueAt(r, 0).toString());
-            new DiaLog_DSSP_HD(hd, obj).setVisible(true);
+            Object[] obj_HD = hd_dao.getHD_TheoMa(table_DSHD.getValueAt(r, 0).toString());
+            new DiaLog_DSSP_HD(obj_HD, obj).setVisible(true);
         }
 
     }//GEN-LAST:event_btn_XemChiTietMouseClicked

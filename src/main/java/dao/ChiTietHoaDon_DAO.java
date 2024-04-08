@@ -99,31 +99,24 @@ public class ChiTietHoaDon_DAO{
             org.neo4j.driver.Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
+            String query = "match (hd:Hoa_Don)\n" +
+                            "where hd.HD_id = $maHD\n" +
+                            "match (cthd:Chi_Tiet_Hoa_Don)\n" +
+                            "where hd.HD_id = cthd.HD_id\n" +
+                            "match (sp:San_Pham)\n" +
+                            "where cthd.Sp_id = sp.SP_id\n" +
+                            "return sp.SP_id as maSP, sp.product_name as tenSP, sp.loai as loai, cthd.amount as sl,\n" +
+                            "hd.tong_thue as thue, hd.tong_km as km, sp.gia_ban as dongia, hd.tong_tien as thanhtien";
             
-            String query = "match (cthd:Chi_Tiet_Hoa_Don) \n" +
-                            "where cthd.HD_id = $id\n" +
-                            "optional match (cthd)-[:CTHD_HAS_PRODUCT]->(sp)\n" +
-                            "return cthd, sp";
-            Result result = trans.run(query, Values.parameters("id", maHD));
-            
+            Result result = trans.run(query, Values.parameters("maHD", maHD));
             while(result.hasNext()) {
                 org.neo4j.driver.Record record = result.next();
-                
-                if(!record.get("sp").isNull()) {
-                    Object[] obj = {
-                        record.get("sp").get("SP_id").asString(),
-                        record.get("sp").get("product_name").asString(),
-                        record.get("sp").get("loai").asString(),
-                        record.get("cthd").get("amount").asInt(),
-                        record.get("sp").get("thue").asDouble(),
-                        record.get("sp").get("ma_khuyen_mai").asString(),
-                        record.get("sp").get("gia_ban").asDouble(),
-                        record.get("cthd").get("tong_tien").asDouble()
-                    };
-                    row.add(obj);
-                }
+                Object[] obj_cthd = {
+                    record.get("maSP"), record.get("tenSP"), record.get("loai"), record.get("sl"),
+                    record.get("thue"), record.get("km"), record.get("dongia"), record.get("thanhtien")
+                };
+                row.add(obj_cthd);
             }
-            
             trans.close();
             session.close();
         } catch (Exception e) {

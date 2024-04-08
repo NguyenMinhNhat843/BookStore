@@ -19,6 +19,7 @@ import org.neo4j.driver.Session;
 import org.neo4j.driver.SessionConfig;
 import org.neo4j.driver.Transaction;
 import org.neo4j.driver.Values;
+import org.neo4j.driver.types.Node;
 
 /**
  *
@@ -29,7 +30,6 @@ public class HoaDon_DAO{
     
     public HoaDon getHD_from_Record(org.neo4j.driver.Record record) {
         HoaDon hd = new HoaDon();
-        
         hd.setMaHD(record.get("hd").get("HD_id").asString());
         KhachHang kh = new KhachHang();
         if(!record.get("kh").isNull()) {
@@ -76,23 +76,30 @@ public class HoaDon_DAO{
         return String.format("HD%03d", soLuong);
     }
     
-    public ArrayList<HoaDon> getAllHD() {
-        ArrayList<HoaDon> list_HD = new ArrayList<HoaDon>();
+    public ArrayList<Object[]> getAllHD() {
+        ArrayList<Object[]> list_HD = new ArrayList<>();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         try {
             org.neo4j.driver.Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
             String query = "match (hd:Hoa_Don)\n" +
-                            "optional match (hd)-[:HAS_CUSTOMER]->(kh)\n" +
-                            "OPTIONAL match (hd)-[:HAS_STAFF]->(nv)\n" +
-                            "return hd, kh, nv";
+                            "OPTIONAL match (nv:NhanVien)\n" +
+                            "where hd.NV_id = nv.NV_id\n" +
+                            "OPTIONAL match (kh:Khach_Hang)\n" +
+                            "where hd.KH_id = kh.KH_id\n" +
+                            "return hd.HD_id as maHD, hd.date as date, nv.last_name as tenNV, kh.last_name as tenKH, hd.tong_tien as tongtien";
             Result result = trans.run(query);
             
             while(result.hasNext()) {
                 org.neo4j.driver.Record record = result.next();
-                HoaDon kh = getHD_from_Record(record);
-                
-                list_HD.add(kh);
+                String maHD = record.get("maHD").asString();
+                LocalDateTime ngaytaoHD = LocalDateTime.parse(record.get("date").asString().substring(0, 19), dtf);
+                String tenNV = record.get("tenNV").asString();
+                String tenKH = record.get("tenKH").asString();
+                Double tongtien = record.get("tongtien").asDouble();
+                Object[] obj_hoadon = {maHD, ngaytaoHD, tenNV, tenKH, tongtien};
+                list_HD.add(obj_hoadon);
             }
             trans.close();
             session.close();
@@ -102,29 +109,43 @@ public class HoaDon_DAO{
         return list_HD;
     }
     
-    public HoaDon getHD_TheoMa(String maHD) {
-        HoaDon list_HD = new HoaDon();
+    public Object[] getHD_TheoMa(String maHD) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         try {
             org.neo4j.driver.Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
-            String query = "match (hd:Hoa_Don)\n"
-                            + "where hd.HD_id = $id \n" +
-                            "optional match (hd)-[:HAS_CUSTOMER]->(kh)\n" +
-                            "OPTIONAL match (hd)-[:HAS_STAFF]->(nv)\n" +
-                            "return hd, kh, nv";
+            String query = "match (hd:Hoa_Don)\n" +
+                            "where hd.HD_id = $id\n" +
+                            "OPTIONAL match (nv:NhanVien)\n" +
+                            "where hd.NV_id = nv.NV_id\n" +
+                            "OPTIONAL match (kh:Khach_Hang)\n" +
+                            "where hd.KH_id = kh.KH_id\n" +
+                            "return kh.last_name as tenKH, nv.last_name as tenNV, hd";
             Result result = trans.run(query, Values.parameters("id", maHD));
             
             while(result.hasNext()) {
                 org.neo4j.driver.Record record = result.next();
-                list_HD = getHD_from_Record(record);
+                Node node = record.get("hd").asNode();
+                HoaDon hd = new HoaDon();
+                hd.setDate(LocalDateTime.parse(node.get("date").asString().substring(0, 19), dtf));
+                hd.setTong_km(node.get("tong_km").asDouble());
+                hd.setSu_dung_diem(node.get("su_dung_diem").asDouble());
+                hd.setTien_thua(node.get("tien_thua").asDouble());
+                hd.setMaHD(node.get("HD_id").asString());
+                hd.setTong_thue(node.get("tong_thue").asDouble());
+                hd.setTien_nhan(node.get("tien_nhan").asDouble());
+                hd.setTong_tien(node.get("tong_tien").asDouble());
+                hd.setTien_von(node.get("tien_von").asDouble());
+                Object[] obj_HD = { record.get("tenKH").asString(), record.get("tenNV").asString(), hd };
+                return obj_HD;
             }
             trans.close();
             session.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return list_HD;
+        return null;
     }
 
     public boolean themHD(HoaDon hd) {

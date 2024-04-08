@@ -21,11 +21,14 @@ public class Panel_anylist extends javax.swing.JPanel {
     private HoaDon_DAO hd_dao = new HoaDon_DAO();
     private ChiTietHoaDon_DAO cthd_dao = new ChiTietHoaDon_DAO();
    
+//    ==========================  Constructor ==========================
     public Panel_anylist() {
         initComponents();
+    }
+    
+    // ===================== Thong ke doanh thu ==========================
+    public void ThongKeTheoDoanhThu() {
         
-//        DoculieuLenTable_TKDT();
-//        DocuLieuLenTable_SPBC();
     }
     
 //    public void DocuLieuLenTable_SPBC() {
@@ -41,26 +44,26 @@ public class Panel_anylist extends javax.swing.JPanel {
 //        }
 //    }
     
-    public void DoculieuLenTable_TKDT() {
-        double tongDoanhThu = 0;
-        double tongVon = 0;
-        
-        ArrayList<HoaDon> dsHD = hd_dao.getAllHD();
-        DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();
-        
-        for(HoaDon hd : dsHD) {
-            Object[] obj = {hd.getMaHD(), hd.getDate(), hd.getTien_von(), hd.getTong_tien(), 
-                hd.getTong_tien()- hd.getTien_von()};
-            temp.addRow(obj);
-            tongDoanhThu += hd.getTong_tien();
-            tongVon += hd.getTien_von();
-        }
-        
-        lbl_TongHD.setText(dsHD.size() + "");
-        lbl_DoanhThu.setText(tongDoanhThu + "");
-        lbl_TongVon.setText(tongVon + "");
-        lbl_LoiNhuan.setText(tongDoanhThu - tongVon + "");
-    }
+//    public void DoculieuLenTable_TKDT() {
+//        double tongDoanhThu = 0;
+//        double tongVon = 0;
+//        
+//        ArrayList<HoaDon> dsHD = hd_dao.getAllHD();
+//        DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();
+//        
+//        for(HoaDon hd : dsHD) {
+//            Object[] obj = {hd.getMaHD(), hd.getDate(), hd.getTien_von(), hd.getTong_tien(), 
+//                hd.getTong_tien()- hd.getTien_von()};
+//            temp.addRow(obj);
+//            tongDoanhThu += hd.getTong_tien();
+//            tongVon += hd.getTien_von();
+//        }
+//        
+//        lbl_TongHD.setText(dsHD.size() + "");
+//        lbl_DoanhThu.setText(tongDoanhThu + "");
+//        lbl_TongVon.setText(tongVon + "");
+//        lbl_LoiNhuan.setText(tongDoanhThu - tongVon + "");
+//    }
     
     public void XoaHetDuLieu() {
         DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();

@@ -474,7 +474,7 @@ public class Panel_cart extends javax.swing.JPanel {
                 tongKM = 0;
                 tongTienThanhToan = 0;
                 
-                new DiaLog_DSSP_HD(hd, obj_sp_temp).setVisible(true);
+//                new DiaLog_DSSP_HD(hd, obj_sp_temp).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Có lỗi xảy ra, vui lòng thử lại!!!");
             }

@@ -38,6 +38,7 @@ GUI\Panel_Login$3.class
 GUI\Panel_customer$12.class
 GUI\Panel_inventory$1.class
 GUI\Panel_staff$7.class
+dao\ThongKe.class
 entity\Enum_class$enum_LoaiSP.class
 GUI\Panel_inventory$7.class
 GUI\QuenMatKhau.class

@@ -30,12 +30,12 @@ import java.io.FileOutputStream;
  * @author Asus
  */
 public class DiaLog_DSSP_HD extends javax.swing.JFrame {
-    private static HoaDon hd;
+    private static Object[] obj_HD;
     private static ArrayList<Object[]> dsSP;
 
-    public DiaLog_DSSP_HD(HoaDon hd, ArrayList<Object[]> dsSP) {
+    public DiaLog_DSSP_HD(Object[] obj_HD, ArrayList<Object[]> dsSP) {
         initComponents();
-        this.hd = hd;
+        this.obj_HD = obj_HD;
         this.dsSP = dsSP;
         
         setDefaultCloseOperation(1);
@@ -48,8 +48,9 @@ public class DiaLog_DSSP_HD extends javax.swing.JFrame {
     }
     
     public void DocThongTinLenHD() {
-        lbl_TenKH.setText( hd.getKh() == null ? " " : hd.getKh().getFirst_name() + " " + hd.getKh().getLast_name());
-        lbl_TenNV.setText(hd.getNv().getFirst_name() + " " +  hd.getNv().getLast_name());
+        HoaDon hd = (HoaDon) obj_HD[2];
+        lbl_TenKH.setText( obj_HD[0].toString() );
+        lbl_TenNV.setText( obj_HD[1].toString() );
         lbl_MaHD.setText(hd.getMaHD());
         lbl_NgayTao.setText(String.valueOf(hd.getDate()).substring(0, 11));
         lbl_SDTD1.setText(hd.getSu_dung_diem()+ "");
@@ -68,6 +69,7 @@ public class DiaLog_DSSP_HD extends javax.swing.JFrame {
     }
     
     public void DocDuLieuHoaDon() {
+        HoaDon hd = (HoaDon) obj_HD[2];
         lbl_MaHD.setText(hd.getMaHD());
         lbl_SDTD1.setText(hd.getSu_dung_diem()+ "");
         lbl_TienNhan1.setText(hd.getTien_nhan()+ "");
@@ -390,7 +392,7 @@ public class DiaLog_DSSP_HD extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DiaLog_DSSP_HD(hd, dsSP).setVisible(true);
+                new DiaLog_DSSP_HD(obj_HD, dsSP).setVisible(true);
             }
         });
     }
