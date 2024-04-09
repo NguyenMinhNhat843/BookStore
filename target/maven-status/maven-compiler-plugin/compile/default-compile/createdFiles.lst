@@ -39,6 +39,7 @@ GUI\Panel_Login$3.class
 GUI\Panel_customer$12.class
 GUI\Panel_inventory$1.class
 GUI\Panel_staff$7.class
+GUI\Panel_Product$7.class
 dao\ThongKe.class
 entity\Enum_class$enum_LoaiSP.class
 GUI\Panel_inventory$7.class
@@ -102,6 +103,7 @@ GUI\Panel_inventory$4.class
 GUI\DoiMatKhau$1.class
 GUI\Panel_Main$11.class
 GUI\Panel_Product$4.class
+util\ExportExxcelTask.class
 entity\Rank.class
 GUI\Panel_cart$4.class
 GUI\Panel_staff$12.class

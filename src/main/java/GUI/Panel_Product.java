@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,6 +38,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import util.ExportExxcelTask;
 import util.ReadExcelTask;
 
 /**
@@ -452,6 +454,11 @@ public class Panel_Product extends javax.swing.JPanel {
         btn_XuatFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_XuatFile.setText("Xuất File");
         btn_XuatFile.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_XuatFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_XuatFileMouseClicked(evt);
+            }
+        });
         pn_btn_Nhap_Xuat.add(btn_XuatFile);
 
         pn_table_SanPham.add(pn_btn_Nhap_Xuat, java.awt.BorderLayout.SOUTH);
@@ -549,10 +556,20 @@ public class Panel_Product extends javax.swing.JPanel {
                 executor.shutdown();
                 executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
                 
-                
                 for(Future<List<Object[]>> re : results) {
                     for (Object[] data : re.get()) {
-                        model_SanPham.addRow(data);
+                        SanPham sp = new SanPham();
+                        sp.setMaSP(data[0].toString());
+                        sp.setTenSP(data[1].toString());
+                        sp.setGiaNhapHang((Double) data[3]);
+                        sp.setGiaBan((Double) data[4]);
+                        sp.setkM(new KhuyenMai("KM001"));
+                        sp.setThue((Double) data[6]);
+                        sp.setLoaiSP(data[2].toString());
+                        if(sp_dao.themSanPham(sp))
+                            model_SanPham.addRow(data);
+                        else 
+                            JOptionPane.showMessageDialog(this, "có lỗi tại sản phẩm có id = " + data[0].toString());
                     }
                 }
             } catch (Exception e) {
@@ -564,6 +581,56 @@ public class Panel_Product extends javax.swing.JPanel {
     private void btn_XoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XoaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_XoaMouseClicked
+
+    private void btn_XuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XuatFileMouseClicked
+        DefaultTableModel model = (DefaultTableModel) table_sanPham.getModel();
+        int totalRows = model.getRowCount();
+        int rowsPerThread = totalRows / 5;
+        System.out.println("total row" + totalRows);
+        System.out.println("row per " + rowsPerThread);
+        
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int result = fileChooser.showSaveDialog(null);
+        
+        if(result == JFileChooser.APPROVE_OPTION) {
+            File selectedFolder = fileChooser.getSelectedFile();
+            
+            ExecutorService executor = Executors.newFixedThreadPool(5);
+            List<ExportExxcelTask> tasks = new ArrayList<>();
+            
+            // Chia dữ liệu thành các phần nhỏ và tạo các nhiệm vụ cho mỗi phần
+            for (int i = 0; i < 5; i++) {
+                int startRow = i * rowsPerThread;
+                int endRow = (i == 4) ? totalRows : (i + 1) * rowsPerThread;
+                System.out.println("start end " + startRow + " " + endRow);
+                tasks.add(new ExportExxcelTask(model, startRow, endRow, selectedFolder));
+            }
+            
+            // Gửi các nhiệm vụ đến ExecutorService để thực thi
+            List<Future<Boolean>> results;
+            try {
+                results = executor.invokeAll(tasks);
+                executor.shutdown();
+                executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+                // Kiểm tra kết quả từ các nhiệm vụ và hiển thị thông báo tương ứng
+                for (Future<Boolean> resultFuture : results) {
+                    if (!resultFuture.get()) {
+                        JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi xuất dữ liệu ra file Excel!");
+                        return;
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null, "Dữ liệu đã được xuất thành công ra file Excel!");
+
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi xuất dữ liệu ra file Excel!");
+            }
+        }
+    }//GEN-LAST:event_btn_XuatFileMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_CapNhat;

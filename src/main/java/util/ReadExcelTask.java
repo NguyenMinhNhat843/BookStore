@@ -55,8 +55,6 @@ public class ReadExcelTask implements Callable<List<Object[]>>{
                 Object[] rowdata = new Object[row.getPhysicalNumberOfCells()];
                 for(int j = 0; j < row.getPhysicalNumberOfCells(); ++j) {
                     Cell cell = row.getCell(j);
-//                    System.out.println(cell.toString());
-//                    rowdata[j] = cell.toString();
                     switch (cell.getCellType()) {
                         case STRING:
                             rowdata[j] = cell.getStringCellValue();
