@@ -6,11 +6,13 @@ package GUI;
 
 import dao.ChiTietHoaDon_DAO;
 import dao.HoaDon_DAO;
+import dao.ThongKe;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,50 +22,12 @@ import javax.swing.table.DefaultTableModel;
 public class Panel_anylist extends javax.swing.JPanel {
     private HoaDon_DAO hd_dao = new HoaDon_DAO();
     private ChiTietHoaDon_DAO cthd_dao = new ChiTietHoaDon_DAO();
+    private ThongKe tk = new ThongKe();
    
 //    ==========================  Constructor ==========================
     public Panel_anylist() {
         initComponents();
     }
-    
-    // ===================== Thong ke doanh thu ==========================
-    public void ThongKeTheoDoanhThu() {
-        
-    }
-    
-//    public void DocuLieuLenTable_SPBC() {
-//        ArrayList<ChiTietHoaDon> dsCTHD = cthd_dao.ThongKe_SP_BanChay();
-//        DefaultTableModel temp = (DefaultTableModel) table_SP_BanChay.getModel();
-//        
-//        for(ChiTietHoaDon cthd : dsCTHD) {
-//            Object[] obj = {cthd.getSanPham().getMaSP(), cthd.getSanPham().getTenSP(), 
-//                cthd.getSoLuong(), cthd.getTong_tien(),cthd.getSanPham().getGiaNhapHang(), 
-//                cthd.getTong_tien()- cthd.getSanPham().getGiaNhapHang() };
-//            
-//            temp.addRow(obj);
-//        }
-//    }
-    
-//    public void DoculieuLenTable_TKDT() {
-//        double tongDoanhThu = 0;
-//        double tongVon = 0;
-//        
-//        ArrayList<HoaDon> dsHD = hd_dao.getAllHD();
-//        DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();
-//        
-//        for(HoaDon hd : dsHD) {
-//            Object[] obj = {hd.getMaHD(), hd.getDate(), hd.getTien_von(), hd.getTong_tien(), 
-//                hd.getTong_tien()- hd.getTien_von()};
-//            temp.addRow(obj);
-//            tongDoanhThu += hd.getTong_tien();
-//            tongVon += hd.getTien_von();
-//        }
-//        
-//        lbl_TongHD.setText(dsHD.size() + "");
-//        lbl_DoanhThu.setText(tongDoanhThu + "");
-//        lbl_TongVon.setText(tongVon + "");
-//        lbl_LoiNhuan.setText(tongDoanhThu - tongVon + "");
-//    }
     
     public void XoaHetDuLieu() {
         DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();
@@ -318,28 +282,28 @@ public class Panel_anylist extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_TimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_TimKiemMouseClicked
-        // TODO add your handling code here:
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String ngayBatDau = df.format(date_NgayBatDau.getDate());
         String ngayKetThuc = df.format(date_NgayKetThuc.getDate());
+        DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();
+        
+        Double tongvon = 0.0;
+        Double tongdoanhthu = 0.0;
         
         XoaHetDuLieu();
         
-        ArrayList<HoaDon> dsHD = hd_dao.TimHoaDonTheoThoiGian(ngayBatDau, ngayKetThuc);
-        double tongDoanhThu = 0;
-        double tongVon = 0;
-        DefaultTableModel temp = (DefaultTableModel) table_DSHD.getModel();
-        for(HoaDon hd : dsHD) {
-            Object[] obj = {hd.getMaHD(), hd.getDate(), hd.getTien_von(), hd.getTong_tien(), 
-                hd.getTong_tien()- hd.getTien_von()};
-            temp.addRow(obj);
-            tongDoanhThu += hd.getTong_tien();
-            tongVon += hd.getTien_von();
+        List<Object[]> lst_obj_thongke_hoadon = tk.THongKeTheoDoanhThu(ngayBatDau, ngayKetThuc);
+        for(Object[] obj_thongke_hd : lst_obj_thongke_hoadon) {
+            System.out.println(obj_thongke_hd[0] + " " + obj_thongke_hd[1]);
+            temp.addRow(obj_thongke_hd);
+            tongvon += (Double)obj_thongke_hd[2];
+            tongdoanhthu += (Double)obj_thongke_hd[3];
         }
-        lbl_TongHD.setText(dsHD.size() + "");
-        lbl_DoanhThu.setText(tongDoanhThu + "");
-        lbl_TongVon.setText(tongVon + "");
-        lbl_LoiNhuan.setText(tongDoanhThu - tongVon + "");
+        
+        lbl_TongHD.setText(lst_obj_thongke_hoadon.size() + "");
+        lbl_DoanhThu.setText(tongdoanhthu + "");
+        lbl_TongVon.setText(tongvon + "");
+        lbl_LoiNhuan.setText(tongdoanhthu - tongvon + "");
     }//GEN-LAST:event_btn_TimKiemMouseClicked
 
 

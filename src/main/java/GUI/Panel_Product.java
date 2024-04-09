@@ -23,9 +23,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -35,6 +37,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import util.ReadExcelTask;
 
 /**
  *
@@ -514,54 +517,7 @@ public class Panel_Product extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbo_LocTheoLoaiActionPerformed
     
-    // Chia file Excel thành các phần
-    private static List<String> splitExcel(String filePath) throws IOException {
-        List<String> partPaths = new ArrayList<>();
-        // Tạo thư mục để lưu trữ các phần
-        File outputDir = new File("output");
-        if (!outputDir.exists()) {
-            outputDir.mkdir();
-        }
-
-        try (FileInputStream fis = new FileInputStream(filePath);
-            XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
-            XSSFSheet sheet = workbook.getSheetAt(0);
-
-            int totalRows = sheet.getLastRowNum();
-            int numParts = totalRows / 10000 + 1; // Chia thành các phần có 10.000 dòng
-
-            for (int i = 0; i < numParts; i++) {
-                int startRow = i * 10000;
-                int endRow = Math.min((i + 1) * 10000 - 1, totalRows);
-
-                String partFilePath = outputDir + "/part_" + i + ".xlsx";
-                partPaths.add(partFilePath);
-
-                try (XSSFWorkbook partWorkbook = new XSSFWorkbook();
-                    FileOutputStream fos = new FileOutputStream(partFilePath)) {
-                    XSSFSheet partSheet = partWorkbook.createSheet();
-
-                    for (int j = startRow; j <= endRow; j++) {
-                        Row row = sheet.getRow(j);
-                        Row newRow = partSheet.createRow(j - startRow);
-
-                        Iterator<Cell> cellIterator = row.iterator();
-                        while (cellIterator.hasNext()) {
-                            Cell cell = cellIterator.next();
-
-                            Cell newCell = newRow.createCell(cell.getColumnIndex());
-                            newCell.setCellValue(cell.getStringCellValue());
-                        }
-                    }
-                    partWorkbook.write(fos);
-                }
-            }
-        }
-        return partPaths;
-    }
-    
     private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
-        // TODO add your handling code here:
         JFileChooser fileChoose = new JFileChooser();
         int result = fileChoose.showOpenDialog(this);
         // Lay model cua table ra
@@ -570,62 +526,35 @@ public class Panel_Product extends javax.swing.JPanel {
         if(result == JFileChooser.APPROVE_OPTION) {
             File file = fileChoose.getSelectedFile();
             
-            // Chia file Excel thành các phần
-            List<String> partPaths = new ArrayList<String>();
-            try {
-                partPaths = splitExcel(file.getAbsolutePath());
-            } catch (IOException ex) {
-                Logger.getLogger(Panel_Product.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            // Tạo ExecutorService
-            ExecutorService executorService = Executors.newFixedThreadPool(4);
-            // Danh sách các Future
-            List<Future<List<List<String>>>> futures = new ArrayList<>();
-
-            // Tạo luồng cho mỗi phần của file Excel
-            for (int i = 0; i < partPaths.size(); i++) {
-//                futures.add(executorService.submit(new ReadExcelTask(partPaths.get(i))));
-            }
-
-            // Hợp nhất dữ liệu từ các phần
-            List<List<String>> allData = new ArrayList<>();
-            for (Future<List<List<String>>> future : futures) {
-                try {
-                    allData.addAll(future.get());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // Ghi dữ liệu vào file Excel mới
-//            writeExcel(OUTPUT_FILE_PATH, allData);
-            
             try {
                 // doc du lieu tu file excel
                 FileInputStream fis = new FileInputStream(file);
                 XSSFWorkbook workbook = new XSSFWorkbook(fis);
                 XSSFSheet sheet = workbook.getSheetAt(0);
-                // Duyệt qua các hàng trong sheet
-                Iterator<Row> rowIterator = sheet.iterator();
-                Row row = rowIterator.next();
-                while (rowIterator.hasNext()) {
-                    row = rowIterator.next();
-                    // Lấy dữ liệu từ các ô trong row
-                    List<String> data = new ArrayList<>();
-                    for(int i = 0; i < row.getLastCellNum(); ++i) {
-                        Cell cell = row.getCell(i); 
-                        String value = "";
-                        if (cell != null) {
-                            value = cell.toString();
-                        }
-                        data.add(value);
-                    }
-                    // Thêm dữ liệu vào model
-                    model_SanPham.addRow(data.toArray());
+                
+                int totalRow = sheet.getPhysicalNumberOfRows();
+                int rowPerThread = totalRow / 5 + 1;
+                
+                 // tạo luồng 
+                ExecutorService executor = Executors.newFixedThreadPool(5);
+                List<ReadExcelTask> tasks = new ArrayList<>();
+                
+                for(int i = 0; i < 5; ++i) {
+                    int startRow = i * rowPerThread;
+                    int endRow = (i == 4) ? totalRow : (i +1) * rowPerThread;
+                    tasks.add(new ReadExcelTask(sheet, startRow, endRow));
                 }
-
-                // Cập nhật lại JTable
-                table_sanPham.setModel(model_SanPham);
+                
+                List<Future<List<Object[]>>> results = executor.invokeAll(tasks);
+                executor.shutdown();
+                executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+                
+                
+                for(Future<List<Object[]>> re : results) {
+                    for (Object[] data : re.get()) {
+                        model_SanPham.addRow(data);
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

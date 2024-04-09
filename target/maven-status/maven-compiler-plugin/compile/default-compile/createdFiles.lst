@@ -22,6 +22,7 @@ GUI\Panel_staff$11.class
 GUI\Panel_Main$5.class
 GUI\Panel_Product$6.class
 GUI\Panel_customer$2.class
+util\ReadExcelTask$1.class
 GUI\Panel_inventory$3.class
 dao\HoaDon_NCC_DAO.class
 GUI\QuenMatKhau$1.class
@@ -48,6 +49,7 @@ GUI\Panel_Home.class
 GUI\Panel_customer$7.class
 dao\ChiTietHoaDon_DAO.class
 GUI\Panel_Product$1.class
+util\ReadExcelTask.class
 GUI\Panel_cart$2.class
 GUI\DoiMatKhau.class
 GUI\Panel_Main$6.class

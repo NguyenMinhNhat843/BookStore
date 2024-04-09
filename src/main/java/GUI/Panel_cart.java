@@ -446,6 +446,8 @@ public class Panel_cart extends javax.swing.JPanel {
             HoaDon hd = new HoaDon(hd_dao.phatSinhMaTuDong(), nv, kh, ngayTao, Double.parseDouble(txt_TienNhan.getText()), 
                     Double.parseDouble(txt_TienThoi.getText()), 
                     tienVon, tongKM, tongThue, tongTienThanhToan, suDungTichDiem);
+            Object[] obj_HD = {nv != null ? nv.getLast_name() : " Nguyen Minh Nhat ", 
+                kh != null ? kh.getLast_name() : " Nguyen Hoai Phuc ", hd};
 
             // Them hoa don thanh cong
             if(hd_dao.themHD(hd)) {
@@ -474,7 +476,7 @@ public class Panel_cart extends javax.swing.JPanel {
                 tongKM = 0;
                 tongTienThanhToan = 0;
                 
-//                new DiaLog_DSSP_HD(hd, obj_sp_temp).setVisible(true);
+                new DiaLog_DSSP_HD(obj_HD, obj_sp_temp).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Có lỗi xảy ra, vui lòng thử lại!!!");
             }
@@ -490,7 +492,6 @@ public class Panel_cart extends javax.swing.JPanel {
     }//GEN-LAST:event_table_DanhSachSPMouseClicked
 
     private void txt_TienNhanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TienNhanKeyReleased
-        // TODO add your handling code here:
         double tienNhan = txt_TienNhan.getText().equals("") ? 0 : Double.parseDouble(txt_TienNhan.getText());
         double tienThanhToan = Double.parseDouble(txt_ThanhToan.getText());
         

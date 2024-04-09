@@ -154,6 +154,8 @@ public class HoaDon_DAO{
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
             
+            DateTimeFormatter dtf  =DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            
             String query = "CREATE (hd:Hoa_Don {\n" +
                             "    HD_id: $HD_id,\n" +
                             "    KH_id: $Kh_id,\n" +
@@ -172,7 +174,7 @@ public class HoaDon_DAO{
                         "HD_id", hd.getMaHD(),
                         "Kh_id", hd.getKh() == null ? "" : hd.getKh().getMaKH(),
                         "NV_id", hd.getNv().getNV_id(),
-                        "date", hd.getDate(),
+                        "date", hd.getDate().format(dtf).substring(0, 19),
                         "su_dung_diem", hd.getSu_dung_diem(),
                         "tien_nhan", hd.getTien_nhan(),
                         "tien_thua", hd.getTien_thua(),
