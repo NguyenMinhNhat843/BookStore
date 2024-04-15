@@ -46,7 +46,6 @@ import util.ReadExcelTask;
  * @author Asus
  */
 public class Panel_Product extends javax.swing.JPanel {
-
     private SanPham_DAO sp_dao = new SanPham_DAO();
     private NhaCungCap_DAO ncc_dao = new NhaCungCap_DAO();
     private List<SanPham> dsSP;
@@ -92,7 +91,6 @@ public class Panel_Product extends javax.swing.JPanel {
             }
         }
     }
-
     public void DocDuLieuLenCBoBoxLoaiSP() {
         List<SanPham> dsSP = sp_dao.getDSSP();
 
@@ -544,7 +542,6 @@ public class Panel_Product extends javax.swing.JPanel {
     private void cbo_LocTheoLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_LocTheoLoaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbo_LocTheoLoaiActionPerformed
-
     private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
         JFileChooser fileChoose = new JFileChooser();
         int result = fileChoose.showOpenDialog(this);
@@ -610,7 +607,6 @@ public class Panel_Product extends javax.swing.JPanel {
         int rowsPerThread = totalRows / 5;
         System.out.println("total row" + totalRows);
         System.out.println("row per " + rowsPerThread);
-
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
@@ -629,7 +625,6 @@ public class Panel_Product extends javax.swing.JPanel {
                 System.out.println("start end " + startRow + " " + endRow);
                 tasks.add(new ExportExxcelTask(model, startRow, endRow, selectedFolder));
             }
-
             // Gửi các nhiệm vụ đến ExecutorService để thực thi
             List<Future<Boolean>> results;
             try {
