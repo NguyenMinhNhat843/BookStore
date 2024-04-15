@@ -1,0 +1,5 @@
+rank_id,rank_name,muc_giam_gia,start_rank
+R001,Đồng,0.01,0
+R002,Bạc,0.02,1000000
+R003,Vàng,0.03,5000000
+R004,Kim Cương,0.05,10000000

@@ -1,0 +1,19 @@
+SP_id,product_name,gia_nhap,gia_ban,loaiSP,thue,ma_khuyen_mai
+SP001,Lập trình Python cho người mới bắt đầu,100.000,150.000,LSP001,0,KM001
+SP002,Giải tích cao cấp,150.000,200.000,LSP001,50,KM002
+SP003,1000 câu hỏi và bài tập trắc nghiệm Toán học lớp 12,80.000,120.000,LSP001,0,KM003
+SP004,Tiếng Anh giao tiếp cho người đi làm,120.000,170.000,LSP002,0.1,KM003
+SP005,Harry Potter và Hòn đá Phù thủy,150.000,200.000,LSP002,0,KM005
+SP006,Đắc nhân tâm,180.000,230.000,LSP002,0.05,KM001
+SP007,Lược sử loài người,200.000,250.000,LSP002,0,KM007
+SP008,Sapiens: Lược sử loài người,220.000,270.000,LSP002,0,KM008
+SP009,Homo Deus: Lược sử tương lai,250.000,300.000,LSP002,0,KM002
+SP010,21 bài học cho thế kỷ 21,200.000,250.000,LSP002,0,KM010
+SP011,Muôn kiếp nhân sinh,180.000,230.000,LSP003,0.06,KM011
+SP012,Bí mật của nước,120.000,170.000,LSP003,0,KM012
+SP013,Đời ngắn đừng ngủ dài,150.000,200.000,LSP003,0,KM02
+SP014,Cha giàu cha nghèo,180.000,230.000,LSP003,0.07,KM07
+SP015,Dạy con làm giàu,200.000,250.000,LSP003,0,KM015
+SP016,Người giàu nhất thành Babylon,120.000,170.000,LSP003,0,KM03
+SP017,Nhà giả kim,100.000,150.000,LSP004,0,KM017
+SP018,Hoàng tử bé,120.000,170.000,LSP004,0,KM018
