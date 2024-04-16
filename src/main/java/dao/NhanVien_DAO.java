@@ -36,7 +36,7 @@ public class NhanVien_DAO{
         
         // birth day
         String birth_date = record.get("n").get("birth_date").asString();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         nv.setBirth_date(LocalDate.parse(birth_date, dtf));
         
         nv.setEmail(record.get("n").get("email").asString());
@@ -46,12 +46,12 @@ public class NhanVien_DAO{
         nv.setPhone(record.get("n").get("phone").asString());
         nv.setRole(record.get("n").get("role").asString());
         nv.setUser_name(record.get("n").get("user_name").asString());
-                
+        nv.setGender(record.get("n").get("gender").asString());
         return nv;
     }
 
     public ArrayList<NhanVien> getAllNV() {
-        ArrayList<NhanVien> list_NV = new ArrayList<>();
+         ArrayList<NhanVien> list_NV = new ArrayList<>();
         try {
             Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
@@ -77,15 +77,17 @@ public class NhanVien_DAO{
         Driver driver = connectDB.getInstance().getDriver();
         Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
         Transaction trans = session.beginTransaction();
-        String query = "match (n:NhanVien) return count(kh) as total";
+
+        String query = "MATCH (n:NhanVien) RETURN count(n) AS total";
         Result result = trans.run(query);
-        
+
         int soLuong = 0;
         if(result.hasNext()) {
             org.neo4j.driver.Record record = result.next();
             soLuong = record.get("total").asInt();
         }
-        return String.format("NV%3d", soLuong);
+
+        return String.format("NV%03d", soLuong);
     }
     
     public NhanVien getNV_TheoMa(String maNV) {
@@ -112,12 +114,31 @@ public class NhanVien_DAO{
         return nv;
     }
     
-    public ArrayList<NhanVien> getNV_TheoNgaySinh(String ngayBatDau, String ngayKetThuc) {
-        return null;
+    public ArrayList<NhanVien> getNV_TheoNgaySinh(String ngayBatDau, String ngayKT) {
+        ArrayList<NhanVien> danhSachNhanVien = new ArrayList<>();
+        String query = "MATCH (n:NhanVien) WHERE n.birth_date >= $ngayBatDau AND n.birth_date < $ngayKT RETURN n";
+
+        try  {
+            Driver driver = connectDB.getInstance().getDriver();
+            Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
+            Result result = session.run(query, Values.parameters("ngayBatDau", ngayBatDau, "ngayKT", ngayKT));
+
+            while (result.hasNext()) {
+                org.neo4j.driver.Record record =  result.next();
+                // Đọc thông tin của nhân viên từ node và thêm vào danh sách
+                NhanVien nhanVien = getNV_from_Record(record);
+                danhSachNhanVien.add(nhanVien);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return danhSachNhanVien;
     }
     
     public NhanVien GetNV_User_Name(String user_Name) {
         NhanVien nv = null;
+        
         try {
             Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
@@ -140,49 +161,36 @@ public class NhanVien_DAO{
     }
 
     public boolean ThemNV(NhanVien nv) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        
         try {
             Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
 
-            String query = "create(nv:NhanVien {"
-                        + "nv.NV_id = $id "
-                        + "nv.email = $email "
-                        + "nv.first_name = $first_name "
-                        + "nv.last_name = $last_name "
-                        + "nv.gender = $gender "
-                        + "nv.phone = $phone "
-                        + "nv.address = $address "
-                        + "nv.user_name = $user_name "
-                        + "nv.pass_word = $pass_word "
-                        + "nv.role = $role "
-                        + "nv.birth_date = $birth_date}";
+            String query = "CREATE (nv:NhanVien) SET nv.NV_id = $id, nv.email = $email, nv.first_name = $first_name, nv.last_name = $last_name, nv.gender = $gender, nv.phone = $phone, nv.address = $address, nv.user_name = $user_name, nv.pass_word = $pass_word, nv.role = $role, nv.birth_date = $birth_date";
 
             Result result = trans.run(query, Values.parameters(
-                        "id", phatSinhMaTuDong(),
-                        "email", nv.getEmail(),
-                        "first_name", nv.getFirst_name(),
-                        "last_name", nv.getLast_name(),
-                        "gender", nv.getGender(),
-                        "phone", nv.getPhone(),
-                        "address", nv.getAddress(),
-                        "user_name", nv.getUser_name(),
-                        "pass_word", nv.getPass_word(),
-                        "role", nv.getRole(),
-                        "birth_date", nv.getBirth_date()
-                        ));
+                "id", phatSinhMaTuDong(),
+                "email", nv.getEmail(),
+                "first_name", nv.getFirst_name(),
+                "last_name", nv.getLast_name(),
+                "gender", nv.getGender(),
+                "phone", nv.getPhone(),
+                "address", nv.getAddress(),
+                "user_name", nv.getUser_name(),
+                "pass_word", nv.getPass_word(),
+                "role", nv.getRole(),
+                "birth_date", nv.getBirth_date().format(formatter)
+            ));
 
-            if(result.hasNext()) {
-                    trans.commit();
-                    return true;
-            }
-
-            trans.close();
+            trans.commit();
             session.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return false;
     }
 
@@ -191,27 +199,28 @@ public class NhanVien_DAO{
     }
 
     public boolean CapNhatNV(NhanVien nv) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         try {
             Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
             
-            String query = "match(nv:NhanVien set "
-                        + "nv.NV_id = $id "
-                        + "nv.email = $email "
-                        + "nv.first_name = $first_name "
-                        + "nv.last_name = $last_name "
-                        + "nv.gender = $gender "
-                        + "nv.phone = $phone "
-                        + "nv.address = $address "
-                        + "nv.user_name = $user_name "
-                        + "nv.pass_word = $pass_word "
-                        + "nv.role = $role "
+            String query = "match(nv:NhanVien) where  "
+                        + "nv.NV_id = $id \n"
+                        + "set nv.email = $email ,"
+                        + "nv.first_name = $first_name, "
+                        + "nv.last_name = $last_name, "
+                        + "nv.gender = $gender, "
+                        + "nv.phone = $phone, "
+                        + "nv.address = $address, "
+                        + "nv.user_name = $user_name, "
+                        + "nv.pass_word = $pass_word, "
+                        + "nv.role = $role, "
                         + "nv.birth_date = $birth_date "
                         + "return nv";
 
             Result result = trans.run(query, Values.parameters(
-                        "id", phatSinhMaTuDong(),
+                        "id", nv.getNV_id(),
                         "email", nv.getEmail(),
                         "first_name", nv.getFirst_name(),
                         "last_name", nv.getLast_name(),
@@ -221,7 +230,7 @@ public class NhanVien_DAO{
                         "user_name", nv.getUser_name(),
                         "pass_word", nv.getPass_word(),
                         "role", nv.getRole(),
-                        "birth_date", nv.getBirth_date()
+                        "birth_date", nv.getBirth_date().format(formatter)
                         ));
             
             if(result.hasNext()) {

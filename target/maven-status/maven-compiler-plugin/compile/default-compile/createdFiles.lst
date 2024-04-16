@@ -21,6 +21,7 @@ GUI\Panel_anylist.class
 GUI\Panel_staff$11.class
 GUI\Panel_Main$5.class
 GUI\Panel_Product$6.class
+GUI\Panel_staff$14.class
 GUI\Panel_customer$2.class
 util\ReadExcelTask$1.class
 GUI\Panel_inventory$3.class
@@ -36,6 +37,7 @@ GUI\Panel_customer$6.class
 entity\ChiTietHD_NCC.class
 GUI\Panel_cart$1.class
 GUI\Panel_Login$3.class
+GUI\Panel_staff$15.class
 GUI\Panel_customer$12.class
 GUI\Panel_inventory$1.class
 GUI\Panel_staff$7.class
@@ -44,6 +46,7 @@ dao\ThongKe.class
 entity\Enum_class$enum_LoaiSP.class
 GUI\Panel_inventory$7.class
 GUI\QuenMatKhau.class
+GUI\Panel_staff$16.class
 GUI\Panel_staff$6.class
 dao\KhuyenMai_DAO.class
 GUI\Panel_Home.class
