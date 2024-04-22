@@ -3,15 +3,10 @@ GUI\Panel_customer$10.class
 GUI\Panel_Main$10.class
 GUI\Panel_Login.class
 GUI\Panel_inventory$6.class
-<<<<<<< HEAD
 GUI\Panel_Product$9.class
 entity\HoaDonNCC.class
 dao\NhanVien_DAO.class
 GUI\Panel_inventory$12.class
-=======
-entity\HoaDonNCC.class
-dao\NhanVien_DAO.class
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 GUI\Panel_cart$6.class
 GUI\Panel_inventory.class
 GUI\Panel_inventory$9.class
@@ -22,6 +17,7 @@ GUI\Panel_customer.class
 GUI\Panel_staff$9.class
 entity\NhanVien.class
 GUI\Panel_staff$1.class
+GUI\Panel_Product$11.class
 GUI\Panel_Login$2.class
 dao\CTHD_NhapHang_DAO.class
 GUI\Panel_anylist.class
@@ -40,10 +36,7 @@ GUI\Panel_customer$5.class
 dao\HoaDon_DAO.class
 GUI\Panel_Product$3.class
 GUI\Panel_Main$8.class
-<<<<<<< HEAD
 GUI\Panel_inventory$14.class
-=======
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 GUI\Panel_customer$6.class
 entity\ChiTietHD_NCC.class
 GUI\Panel_cart$1.class
@@ -61,10 +54,7 @@ GUI\Panel_staff$16.class
 GUI\Panel_staff$6.class
 dao\KhuyenMai_DAO.class
 GUI\Panel_Home.class
-<<<<<<< HEAD
 GUI\Panel_inventory$15.class
-=======
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 GUI\Panel_customer$7.class
 dao\ChiTietHoaDon_DAO.class
 GUI\Panel_Product$1.class
@@ -76,10 +66,7 @@ entity\SanPham.class
 GUI\Panel_bill$5.class
 GUI\Panel_inventory$8.class
 entity\KhuyenMai.class
-<<<<<<< HEAD
 GUI\Panel_Product$8.class
-=======
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 GUI\Panel_Product$2.class
 GUI\Panel_staff$10.class
 GUI\Panel_staff.class
@@ -88,10 +75,7 @@ entity\KhachHang.class
 GUI\QuenMatKhau$2.class
 GUI\DiaLog_DSSP_HD$1.class
 entity\HoaDon.class
-<<<<<<< HEAD
 GUI\Panel_inventory$16.class
-=======
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 entity\ChiTietHoaDon.class
 GUI\Panel_Main$7.class
 entity\Enum_class.class
@@ -112,11 +96,8 @@ entity\NhaCungCap.class
 GUI\Panel_inventory$10.class
 GUI\Panel_cart.class
 GUI\Panel_bill.class
-<<<<<<< HEAD
 GUI\Panel_Product$10.class
 GUI\Panel_inventory$13.class
-=======
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 GUI\Panel_customer$14.class
 GUI\Panel_Main$12.class
 GUI\Panel_staff$5.class
@@ -128,13 +109,9 @@ GUI\Panel_customer$15.class
 GUI\DiaLog_DSSP_HD.class
 GUI\Panel_anylist$1.class
 GUI\Panel_staff$3.class
-<<<<<<< HEAD
 GUI\Panel_inventory$17.class
 GUI\Panel_customer$9.class
 GUI\Panel_inventory$11.class
-=======
-GUI\Panel_customer$9.class
->>>>>>> 8ab59cb5fa6f4df789229866f213de13ed1d0aca
 GUI\DiaLog_DSSP_HD$2.class
 GUI\Panel_inventory$4.class
 GUI\DoiMatKhau$1.class
@@ -154,4 +131,5 @@ GUI\Panel_customer$3.class
 GUI\Panel_Login$1.class
 GUI\Panel_Product$5.class
 GUI\DoiMatKhau$2.class
+GUI\Panel_staff$13.class
 GUI\Panel_cart$5.class

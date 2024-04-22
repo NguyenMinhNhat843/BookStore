@@ -36,8 +36,10 @@ public class NhanVien_DAO{
         
         // birth day
         String birth_date = record.get("n").get("birth_date").asString();
+//        System.out.println("asdasd " +  birth_date);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        nv.setBirth_date(LocalDate.parse(birth_date, dtf));
+//        nv.setBirth_date(LocalDate.parse(birth_date, dtf));
+        nv.setBirth_date(LocalDate.now());
         
         nv.setEmail(record.get("n").get("email").asString());
         nv.setFirst_name(record.get("n").get("first_name").asString());
