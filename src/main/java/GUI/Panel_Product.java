@@ -91,7 +91,6 @@ public class Panel_Product extends javax.swing.JPanel {
             }
         }
     }
-    
     public void DocDuLieuLenCBoBoxLoaiSP() {
         List<SanPham> dsSP = sp_dao.getDSSP();
 
@@ -424,6 +423,11 @@ public class Panel_Product extends javax.swing.JPanel {
         btn_Them.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_Them.setText("Thêm");
         btn_Them.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_Them.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ThemActionPerformed(evt);
+            }
+        });
         pn_btn_Nhap_Xuat.add(btn_Them);
 
         btn_Xoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -434,11 +438,21 @@ public class Panel_Product extends javax.swing.JPanel {
                 btn_XoaMouseClicked(evt);
             }
         });
+        btn_Xoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_XoaActionPerformed(evt);
+            }
+        });
         pn_btn_Nhap_Xuat.add(btn_Xoa);
 
         btn_CapNhat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_CapNhat.setText("Cập Nhật");
         btn_CapNhat.setPreferredSize(new java.awt.Dimension(130, 50));
+        btn_CapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CapNhatActionPerformed(evt);
+            }
+        });
         pn_btn_Nhap_Xuat.add(btn_CapNhat);
 
         btn_NhapFile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -447,6 +461,11 @@ public class Panel_Product extends javax.swing.JPanel {
         btn_NhapFile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_NhapFileMouseClicked(evt);
+            }
+        });
+        btn_NhapFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_NhapFileActionPerformed(evt);
             }
         });
         pn_btn_Nhap_Xuat.add(btn_NhapFile);
@@ -523,40 +542,39 @@ public class Panel_Product extends javax.swing.JPanel {
     private void cbo_LocTheoLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_LocTheoLoaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbo_LocTheoLoaiActionPerformed
-    
     private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
         JFileChooser fileChoose = new JFileChooser();
         int result = fileChoose.showOpenDialog(this);
         // Lay model cua table ra
         DefaultTableModel model_SanPham = (DefaultTableModel) table_sanPham.getModel();
-        
-        if(result == JFileChooser.APPROVE_OPTION) {
+
+        if (result == JFileChooser.APPROVE_OPTION) {
             File file = fileChoose.getSelectedFile();
-            
+
             try {
                 // doc du lieu tu file excel
                 FileInputStream fis = new FileInputStream(file);
                 XSSFWorkbook workbook = new XSSFWorkbook(fis);
                 XSSFSheet sheet = workbook.getSheetAt(0);
-                
+
                 int totalRow = sheet.getPhysicalNumberOfRows();
                 int rowPerThread = totalRow / 5 + 1;
-                
-                 // tạo luồng 
+
+                // tạo luồng 
                 ExecutorService executor = Executors.newFixedThreadPool(5);
                 List<ReadExcelTask> tasks = new ArrayList<>();
-                
-                for(int i = 0; i < 5; ++i) {
+
+                for (int i = 0; i < 5; ++i) {
                     int startRow = i * rowPerThread;
-                    int endRow = (i == 4) ? totalRow : (i +1) * rowPerThread;
+                    int endRow = (i == 4) ? totalRow : (i + 1) * rowPerThread;
                     tasks.add(new ReadExcelTask(sheet, startRow, endRow));
                 }
-                
+
                 List<Future<List<Object[]>>> results = executor.invokeAll(tasks);
                 executor.shutdown();
                 executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-                
-                for(Future<List<Object[]>> re : results) {
+
+                for (Future<List<Object[]>> re : results) {
                     for (Object[] data : re.get()) {
                         SanPham sp = new SanPham();
                         sp.setMaSP(data[0].toString());
@@ -566,10 +584,11 @@ public class Panel_Product extends javax.swing.JPanel {
                         sp.setkM(new KhuyenMai("KM001"));
                         sp.setThue((Double) data[6]);
                         sp.setLoaiSP(data[2].toString());
-                        if(sp_dao.themSanPham(sp))
+                        if (sp_dao.themSanPham(sp)) {
                             model_SanPham.addRow(data);
-                        else 
+                        } else {
                             JOptionPane.showMessageDialog(this, "có lỗi tại sản phẩm có id = " + data[0].toString());
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -588,18 +607,17 @@ public class Panel_Product extends javax.swing.JPanel {
         int rowsPerThread = totalRows / 5;
         System.out.println("total row" + totalRows);
         System.out.println("row per " + rowsPerThread);
-        
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         int result = fileChooser.showSaveDialog(null);
-        
-        if(result == JFileChooser.APPROVE_OPTION) {
+
+        if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFolder = fileChooser.getSelectedFile();
-            
+
             ExecutorService executor = Executors.newFixedThreadPool(5);
             List<ExportExxcelTask> tasks = new ArrayList<>();
-            
+
             // Chia dữ liệu thành các phần nhỏ và tạo các nhiệm vụ cho mỗi phần
             for (int i = 0; i < 5; i++) {
                 int startRow = i * rowsPerThread;
@@ -607,7 +625,6 @@ public class Panel_Product extends javax.swing.JPanel {
                 System.out.println("start end " + startRow + " " + endRow);
                 tasks.add(new ExportExxcelTask(model, startRow, endRow, selectedFolder));
             }
-            
             // Gửi các nhiệm vụ đến ExecutorService để thực thi
             List<Future<Boolean>> results;
             try {
@@ -632,6 +649,83 @@ public class Panel_Product extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_XuatFileMouseClicked
 
+    private void btn_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CapNhatActionPerformed
+        // TODO add your handling code here:
+         int r = table_sanPham.getSelectedRow();
+        if (r < 0) {
+            JOptionPane.showMessageDialog(this, "Cần chọn sản phẩm cần cập nhật!");
+        }
+
+        if (validData_SanPham()) {
+            String maSP = maSP_field.getText();
+            String tenSP = tenSP_field.getText();
+            String cbo_loaiSP = "LSP00" + (cbo_loaiSP_field.getSelectedIndex() + 1);
+            double giaNhap = Double.parseDouble(giaNhap_field.getText());
+            double giaBan = Double.parseDouble(giaBan_field.getText());
+//            int tonKho = Integer.parseInt(tonKho_field.getText());
+//            String cbo_NCC = "NCC00" + (cbo_NCC_field.getSelectedIndex() + 1);
+            String khuyenMai = cmb_KM.getSelectedItem().toString();
+//            int bayBan = Integer.parseInt(bayban_field.getText());
+            KhuyenMai km = null;
+            for (KhuyenMai i : dsKM) {
+                if (i.getMaKM().equals(khuyenMai)) {
+                    km = i;
+                    break;
+                }
+            }
+            SanPham sp = new SanPham(maSP, km,
+                    tenSP, cbo_loaiSP, giaNhap,
+                    giaBan, 0);
+
+            if (sp_dao.updateSP(sp)) {
+
+                maSP_field.setText("");
+                tenSP_field.setText("");
+                giaNhap_field.setText("");
+                giaBan_field.setText("");
+                cmb_KM.setSelectedIndex(0);
+                XoaDuLieuTableSP();
+                DocLieuLenTableSanPham();
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công sản phẩm có mã" + maSP);
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại!!Có lỗi xảy ra!!");
+            }
+        }
+
+    }//GEN-LAST:event_btn_CapNhatActionPerformed
+
+    private void btn_ThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemActionPerformed
+        // TODO add your handling code here:
+        if (validData_SanPham()) {
+            SanPham sp = createSP();
+            ArrayList<SanPham> dsSP = sp_dao.getDSSP();
+            if (true) {
+                if (sp_dao.themSanPham(sp)) {
+                    XoaDuLieuTableSP();
+                    DocLieuLenTableSanPham();
+                    JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại! Có lỗi xảy ra");
+                }
+            } 
+    }//GEN-LAST:event_btn_ThemActionPerformed
+    else {
+                JOptionPane.showMessageDialog(this, "Sản phẩm đã tồn tại! Vui lòng kiểm tra lại");
+            }
+    }
+    private void btn_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaActionPerformed
+        // TODO add your handling code here:
+        maSP_field.setText("");
+        tenSP_field.setText("");
+        giaNhap_field.setText("");
+        giaBan_field.setText("");
+        cmb_KM.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_XoaActionPerformed
+
+    private void btn_NhapFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NhapFileActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_NhapFileActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_CapNhat;
     private javax.swing.JButton btn_NhapFile;

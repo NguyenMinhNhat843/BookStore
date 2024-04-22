@@ -82,7 +82,7 @@ public class SanPham_DAO {
 
             String query = "MATCH (sp:San_Pham)\n"
                     + "where sp.SP_id = $id \n"
-                    + "OPTIONAL MATCH (sp)-[:HAS_PROMOTION]->(km:Khuyen_Mai)\n"
+                    + "OPTIONAL MATCH (sp)-[:Sp_Co_KM]->(km:Khuyen_Mai)\n"
                     + "RETURN sp, km";
             Result result = trans.run(query, Values.parameters("id", maSP));
 
@@ -105,14 +105,14 @@ public class SanPham_DAO {
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
 
-            String query = "match (p:San_Pham) where (p.SP_id = $id) optional match (p)-[r:HAS_PROMOTION]-() delete r set"
+            String query = "match (p:San_Pham) where (p.SP_id = $id) optional match (p)-[r:Sp_Co_KM]-() delete r set"
                     + "  p.product_name = $product_name,"
                     + "  p.gia_nhap = $gia_nhap,"
                     + "  p.gia_ban = $gia_ban,"
                     + "  p.loai = $loai,"
                     + "  p.thue = $thue,"
                     + "  p.ma_khuyen_mai = $ma_khuyen_mai"
-                    + " with p optional match(km: Khuyen_Mai {KM_id: $km_id}) merge (p)-[:HAS_PROMOTION]->(km)";
+                    + " with p optional match(km: Khuyen_Mai {KM_id: $km_id}) merge (p)-[:Sp_Co_KM]->(km)";
             String maKM = sp.getkM() != null ? sp.getkM().getMaKM() : "";
             Result res = trans.run(query, Values.parameters(
                     "id", sp.getMaSP(),
@@ -149,7 +149,7 @@ public class SanPham_DAO {
                     + "  loai: $loai,\n"
                     + "  thue: $thue,\n"
                     + "  ma_khuyen_mai: $ma_khuyen_mai\n"
-                    + "}) with p optional match(km: Khuyen_Mai {KM_id: $km_id}) merge (p)-[:HAS_PROMOTION]->(km)";
+                    + "}) with p optional match(km: Khuyen_Mai {KM_id: $km_id}) merge (p)-[:Sp_Co_KM]->(km)";
             Result res = trans.run(query, Values.parameters(
                     "SP_id", sp.getMaSP(),
                     "product_name", sp.getTenSP(),
@@ -176,7 +176,7 @@ public class SanPham_DAO {
             Driver driver = connectDB.getInstance().getDriver();
             Session session = driver.session(SessionConfig.forDatabase(DB_NAME));
             Transaction trans = session.beginTransaction();
-            String query = "match (sp:San_Pham) OPTIONAL MATCH (sp)-[:HAS_PROMOTION]->(km:Khuyen_Mai) RETURN sp, km order by sp.SP_id";
+            String query = "match (sp:San_Pham) OPTIONAL MATCH (sp)-[:Sp_Co_KM]->(km:Khuyen_Mai) RETURN sp, km order by sp.SP_id";
             Result result = trans.run(query);
 
             while (result.hasNext()) {

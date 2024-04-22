@@ -22,90 +22,102 @@ import javax.swing.table.DefaultTableModel;
  * @author Asus
  */
 public class Panel_inventory extends javax.swing.JPanel {
+
     private NhaCungCap_DAO ncc_dao = new NhaCungCap_DAO();
     private SanPham_DAO sp_dao = new SanPham_DAO();
     private HoaDon_NCC_DAO hdnh_dao = new HoaDon_NCC_DAO();
     private CTHD_NhapHang_DAO cthd_nh_dao = new CTHD_NhapHang_DAO();
+    private ArrayList<HoaDonNCC> listHDNCC = new ArrayList<HoaDonNCC>();
+    private ArrayList<NhaCungCap> listNCC = new ArrayList<NhaCungCap>();
+
     private double tongTien = 0;
+
     /**
      * Creates new form Panel_inventory
      */
     public Panel_inventory() {
         initComponents();
-        
-//        DocDuLieuLenTableNCC();
-//        DocDuLieuLenComBoBox_DSNCC();
+
+        DocDuLieuLenTableNCC();
+        DocDuLieuLenComBoBox_DSNCC();
+        docDuLieuHoaDon();
     }
-    
+
     public void DocDuLieuLenComBoBox_DSNCC() {
-        ArrayList<NhaCungCap> dsNCC = ncc_dao.getAllNCC();
-        
-        for(NhaCungCap ncc : dsNCC) {
+        listNCC = ncc_dao.getAllNCC();
+        NhaCungCap temp = new NhaCungCap("");
+        temp.setTenNCC("Tất cả");
+        cbo_NCC.addItem(temp);
+        for (NhaCungCap ncc : listNCC) {
             cbo_ncc.addItem(ncc);
+            cbo_NCC.addItem(ncc);
         }
     }
-    
+
+    public void docDuLieuHoaDon() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        listHDNCC = hdnh_dao.getAllHDNCC();
+        for (HoaDonNCC hd : listHDNCC) {
+            String trangThai = hd.isIsThanhToan() ? "Đã thanh toán" : "Chưa thanh toán";
+            model.addRow(new Object[]{hd.getMaHDNCC(), hd.getNgayNhap().toString(), hd.getNCC(), trangThai, hd.getGhiChu()});
+        }
+    }
+
     public boolean valiData_NCC() {
-        String maNCC = txt_MaNCC.getText().toString().trim();
         String tenNCC = txt_TenNCC.getText().toString().trim();
         String email = txt_Email.getText().toString().trim();
         String sDT = txt_SDT.getText().toString().trim();
         String diaChi = txt_DiaChi.getText().toString().trim();
-        
-        if(maNCC.isEmpty() || (!maNCC.matches("^NCC\\d{3}$"))) {
-            JOptionPane.showMessageDialog(this, "Mã NCC phải theo mẫu NCC001");
-            return false;
-        }
-        
-        if(tenNCC.isEmpty()) {
+
+        if (tenNCC.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tên NCC không được rỗng!!!");
             return false;
         }
-        
-        if(email.isEmpty() || !email.matches("[a-zA-Z0-9]+@gmail.com")) {
+
+        if (email.isEmpty() || !email.matches("[a-zA-Z0-9]+@gmail.com")) {
             JOptionPane.showMessageDialog(this, "Email theo mẫu abc123@gmail.com");
             return false;
         }
-        
-        if(sDT.isEmpty() || !sDT.matches("0\\d{9}")) {
+
+        if (sDT.isEmpty() || !sDT.matches("0\\d{9}")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 số");
             return false;
         }
-        
-        if(diaChi.isEmpty()) {
+
+        if (diaChi.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Địa chỉ khoogn được rỗng!!!");
             return false;
         }
-                
-        
+
         return true;
     }
-    
+
     public void DocDuLieuLenTableNCC() {
         ArrayList<NhaCungCap> dsNCC = ncc_dao.getAllNCC();
         DefaultTableModel temp = (DefaultTableModel) table_NCC.getModel();
-        
-        for(NhaCungCap ncc : dsNCC) {
+
+        for (NhaCungCap ncc : dsNCC) {
             Object[] obj = {ncc.getMaNCC(), ncc.getTenNCC(), ncc.getDiaChi(), ncc.getEmail(), ncc.getSDT()};
-            
+
             temp.addRow(obj);
         }
     }
-    
+
     public void XoaDuLieuTableNCC() {
         DefaultTableModel temp = (DefaultTableModel) table_NCC.getModel();
         temp.getDataVector().removeAllElements();
     }
-    
+
     public NhaCungCap createNCC() {
         String maNCC = txt_MaNCC.getText().toString();
         String tenNCC = txt_TenNCC.getText().toString();
         String email = txt_Email.getText().toString();
         String sDT = txt_SDT.getText().toString();
         String diaChi = txt_DiaChi.getText().toString();
-        
+
         NhaCungCap ncc = new NhaCungCap(maNCC, tenNCC, diaChi, sDT, email);
-        
+
         return ncc;
     }
 
@@ -330,6 +342,11 @@ public class Panel_inventory extends javax.swing.JPanel {
                 btn_ThemMoiMouseClicked(evt);
             }
         });
+        btn_ThemMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ThemMoiActionPerformed(evt);
+            }
+        });
         pnl_btn_ncc.add(btn_ThemMoi);
 
         btn_XoaTrang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -348,6 +365,11 @@ public class Panel_inventory extends javax.swing.JPanel {
         btn_CapNhat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_CapNhatMouseClicked(evt);
+            }
+        });
+        btn_CapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CapNhatActionPerformed(evt);
             }
         });
         pnl_btn_ncc.add(btn_CapNhat);
@@ -459,7 +481,6 @@ public class Panel_inventory extends javax.swing.JPanel {
         pnl_tongtien.add(lbl_tongtien, java.awt.BorderLayout.LINE_START);
 
         txt_tongtien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_tongtien.setText("13.600.000");
         txt_tongtien.setPreferredSize(new java.awt.Dimension(270, 50));
         pnl_tongtien.add(txt_tongtien, java.awt.BorderLayout.CENTER);
 
@@ -475,6 +496,11 @@ public class Panel_inventory extends javax.swing.JPanel {
                 btn_TaoHoaDonNCCMouseClicked(evt);
             }
         });
+        btn_TaoHoaDonNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TaoHoaDonNCCActionPerformed(evt);
+            }
+        });
         pnl_taophieu_thongtin3.add(btn_TaoHoaDonNCC);
 
         pnl_TaoPhieu_ThongTin.add(pnl_taophieu_thongtin3);
@@ -486,6 +512,11 @@ public class Panel_inventory extends javax.swing.JPanel {
 
         txt_TimKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txt_TimKiem.setText("Nhập mã SP...");
+        txt_TimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_TimKiemActionPerformed(evt);
+            }
+        });
         pnl_TimKiem.add(txt_TimKiem, java.awt.BorderLayout.CENTER);
 
         btn_TimSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -512,12 +543,16 @@ public class Panel_inventory extends javax.swing.JPanel {
         pnl_HDNH_TimKiem.setLayout(new java.awt.BorderLayout());
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextField2.setText("Nhập mã hóa đơn...");
         pnl_HDNH_TimKiem.add(jTextField2, java.awt.BorderLayout.CENTER);
 
         btn_timKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_timKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         btn_timKiem.setPreferredSize(new java.awt.Dimension(70, 50));
+        btn_timKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_timKiemActionPerformed(evt);
+            }
+        });
         pnl_HDNH_TimKiem.add(btn_timKiem, java.awt.BorderLayout.EAST);
 
         pnl_Top.add(pnl_HDNH_TimKiem);
@@ -526,7 +561,11 @@ public class Panel_inventory extends javax.swing.JPanel {
         pnl_LocTheoNcc.setLayout(new java.awt.BorderLayout());
 
         cbo_NCC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbo_NCC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhà cung cấp Gò Vấp", "Nhà Cung Cấp Phương Nam", "Nhà Cung Cấp Quận 1" }));
+        cbo_NCC.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbo_NCCItemStateChanged(evt);
+            }
+        });
         pnl_LocTheoNcc.add(cbo_NCC, java.awt.BorderLayout.CENTER);
 
         pnl_Top.add(pnl_LocTheoNcc);
@@ -540,9 +579,17 @@ public class Panel_inventory extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Phiếu nhập", "Ngày nhập", "Người nhập", "Nhà cung cấp", "Trạng thái", "Tổng tiền", "In phiếu nhập"
+                "Phiếu nhập", "Ngày nhập", "Nhà cung cấp", "Trạng thái", "Tổng tiền"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         pnl_Center.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -557,8 +604,8 @@ public class Panel_inventory extends javax.swing.JPanel {
     private void table_NCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_NCCMouseClicked
         // TODO add your handling code here:
         int r = table_NCC.getSelectedRow();
-        
-        if(r >= 0) {
+
+        if (r >= 0) {
             txt_MaNCC.setText(table_NCC.getValueAt(r, 0).toString());
             txt_TenNCC.setText(table_NCC.getValueAt(r, 1).toString());
             txt_SDT.setText(table_NCC.getValueAt(r, 4).toString());
@@ -571,12 +618,20 @@ public class Panel_inventory extends javax.swing.JPanel {
 
     private void btn_ThemMoiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ThemMoiMouseClicked
         // TODO add your handling code here:
-        if(valiData_NCC()) {
+        if (valiData_NCC()) {
             NhaCungCap ncc = createNCC();
+            ncc.setMaNCC(ncc_dao.phatSinhMaTuDong());
             ArrayList<NhaCungCap> dsNCC = ncc_dao.getAllNCC();
 
-            if(true) {
-                if(ncc_dao.ThemNCC(ncc)) {
+            if (true) {
+                if (ncc_dao.ThemNCC(ncc)) {
+                    txt_MaNCC.setText("");
+                    txt_TenNCC.setText("");
+                    txt_DiaChi.setText("");
+                    txt_Email.setText("");
+                    txt_SDT.setText("");
+
+                    txt_MaNCC.setFocusable(true);
                     XoaDuLieuTableNCC();
                     DocDuLieuLenTableNCC();
                     JOptionPane.showMessageDialog(this, "Thêm thành công!!!");
@@ -591,13 +646,23 @@ public class Panel_inventory extends javax.swing.JPanel {
 
     private void btn_TimKiem_NCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_TimKiem_NCCMouseClicked
         // TODO add your handling code here:
-        String maNCC_searched = txt_TimKiem_NCC.getText().toString();
-        
-        if(!maNCC_searched.trim().equals("")) {
+        String maNCC_searched = txt_TimKiem_NCC.getText().toString().trim();
+
+        if (!maNCC_searched.trim().equals("")) {
             XoaDuLieuTableNCC();
-            
-            NhaCungCap ncc = ncc_dao.getNCC_TheoMa(maNCC_searched);
-            
+
+            NhaCungCap ncc = null;
+
+            for (NhaCungCap i : listNCC) {
+                if (i.getMaNCC().equals(maNCC_searched)) {
+                    ncc = i;
+                    break;
+                }
+            }
+            if (ncc == null) {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy");
+                return;
+            }
             DefaultTableModel temp = (DefaultTableModel) table_NCC.getModel();
             Object[] obj = {ncc.getMaNCC(), ncc.getTenNCC(), ncc.getDiaChi(), ncc.getEmail(), ncc.getSDT()};
             temp.addRow(obj);
@@ -609,14 +674,13 @@ public class Panel_inventory extends javax.swing.JPanel {
 
     private void btn_CapNhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CapNhatMouseClicked
         // TODO add your handling code here:
-        
-        
+
         int r = table_NCC.getSelectedRow();
-        if(r < 0) {
+        if (r < 0) {
             JOptionPane.showMessageDialog(this, "Chọn NCC cần cập nhật!!!");
-        } 
-        
-        if(valiData_NCC()) {
+        }
+
+        if (valiData_NCC()) {
             String maNCC = txt_MaNCC.getText().toString();
             String tenNCC = txt_TenNCC.getText().toString();
             String email = txt_Email.getText().toString();
@@ -624,19 +688,26 @@ public class Panel_inventory extends javax.swing.JPanel {
             String diaChi = txt_DiaChi.getText().toString();
 
             NhaCungCap ncc = new NhaCungCap(maNCC, tenNCC, diaChi, sDT, email);
-            
-            if(ncc_dao.CapNhatNCC(ncc)) {
-                DefaultTableModel temp = (DefaultTableModel)table_NCC.getModel();
+
+            if (ncc_dao.CapNhatNCC(ncc)) {
+                txt_MaNCC.setText("");
+                txt_TenNCC.setText("");
+                txt_DiaChi.setText("");
+                txt_Email.setText("");
+                txt_SDT.setText("");
+
+                txt_MaNCC.setFocusable(true);
+                DefaultTableModel temp = (DefaultTableModel) table_NCC.getModel();
                 temp.removeRow(r);
                 Object[] obj = {ncc.getMaNCC(), ncc.getTenNCC(), ncc.getDiaChi(), ncc.getEmail(), ncc.getSDT()};
                 temp.insertRow(r, obj);
-                
+
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công NCC có mã = " + maNCC);
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bai!!! Có lỗi xảy ra!!!");
             }
         }
-        
+
     }//GEN-LAST:event_btn_CapNhatMouseClicked
 
     private void btn_XoaTrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XoaTrangMouseClicked
@@ -646,7 +717,7 @@ public class Panel_inventory extends javax.swing.JPanel {
         txt_DiaChi.setText("");
         txt_Email.setText("");
         txt_SDT.setText("");
-        
+
         txt_MaNCC.setFocusable(true);
     }//GEN-LAST:event_btn_XoaTrangMouseClicked
 
@@ -658,48 +729,46 @@ public class Panel_inventory extends javax.swing.JPanel {
         // TODO add your handling code here:
         String maSP = txt_TimKiem.getText();
         SanPham sp = sp_dao.getSP_TheoMa(maSP);
-        
-        
-        if(maSP.compareTo("") != 0 && sp != null) {
+
+        if (maSP.compareTo("") != 0 && sp != null) {
 //            tmp.add(sp);
 //            tienVon += sp.getGiaNhapHang();
 //            tongKM += sp.getkM().getLoaiKM().equals("LKM001") 
 //                        ? sp.getGiaBan() * sp.getkM().getGiaTriKhuyenMai()
 //                        : sp.getkM().getGiaTriKhuyenMai();
 //            tongThue += sp.getThue();
-            
+
             // Nhập số lượng sản phẩm
             int soLuong = Integer.parseInt(JOptionPane.showInputDialog(null, "Nhập số lượng", 0));
-            
+
             // Tính tổng tiền thanh toán
-            tongTien += sp.getGiaNhapHang()* soLuong;
+            tongTien += sp.getGiaNhapHang() * soLuong;
             txt_tongtien.setText(tongTien + "");
-            
+
             // Lấy số lượng hàng đang có
             int n = table_DanhSachSP.getModel().getRowCount();
-            
+
             // Kiểm tra sản phẩm trùng lặp: cộng dồn số lượng và thành tiền
-            for(int i = 0; i < n; ++i) {
+            for (int i = 0; i < n; ++i) {
                 String maSP_Cheked = table_DanhSachSP.getModel().getValueAt(i, 0).toString();
-                if(maSP_Cheked.compareTo(maSP) == 0) {
+                if (maSP_Cheked.compareTo(maSP) == 0) {
                     int soLuongHienTai = Integer.parseInt(table_DanhSachSP.getModel().getValueAt(i, 2).toString());
                     int soLuongMoi = soLuongHienTai + soLuong;
                     table_DanhSachSP.getModel().setValueAt(soLuongMoi, i, 2);
-                    
-                    
+
                     table_DanhSachSP.getModel().setValueAt(
                             Double.parseDouble(table_DanhSachSP.getValueAt(i, 3).toString()) * soLuongMoi, i, 4);
                     return;
                 }
             }
-            
+
             // Them sp vao giao hang
 //            Object[] obj;
 //                double donGia = sp.getGiaBan() * (1 - sp.getkM().getGiaTriKhuyenMai() + sp.getThue());
-               Object[] obj = {sp.getMaSP(), sp.getTenSP(),  soLuong, 
-                                        sp.getGiaNhapHang() ,sp.getGiaNhapHang() * soLuong};
-               DefaultTableModel model_DSSP = (DefaultTableModel)table_DanhSachSP.getModel();
-                model_DSSP.addRow(obj);
+            Object[] obj = {sp.getMaSP(), sp.getTenSP(), soLuong,
+                sp.getGiaNhapHang(), sp.getGiaNhapHang() * soLuong};
+            DefaultTableModel model_DSSP = (DefaultTableModel) table_DanhSachSP.getModel();
+            model_DSSP.addRow(obj);
 //            if(sp.getkM().getLoaiKM().equals("LKM001")) {
 //            } else {
 //                double donGia = sp.getGiaBan() * (1 - sp.getThue()) - sp.getkM().getGiaTriKhuyenMai();
@@ -717,41 +786,43 @@ public class Panel_inventory extends javax.swing.JPanel {
         DefaultTableModel temp = (DefaultTableModel) table_DanhSachSP.getModel();
         temp.getDataVector().removeAllElements();
     }
-    
+
     private void btn_TaoHoaDonNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_TaoHoaDonNCCMouseClicked
         // TODO add your handling code here:
-        
+
         // Luu hoa don nhap hang
         String maHDNH = hdnh_dao.TuPhatSinhMa();
         int n = cbo_ncc.getSelectedIndex() + 1;
-        String maNCC = n < 10 ? "NCC00" +  n
+        String maNCC = n < 10 ? "NCC00" + n
                 : n < 100 ? "NCC0" + n
-                : "NCC" + n;
+                        : "NCC" + n;
         LocalDateTime ngayNhap = LocalDateTime.now();
         String ghiChu = area_ghiChu.getText();
-        boolean isThanhToan = false;
-        
+        boolean isThanhToan = radio_nhan.isSelected();
+
         HoaDonNCC hdnh = new HoaDonNCC(maHDNH, new NhaCungCap(maNCC), ngayNhap, ghiChu, isThanhToan);
-        if(hdnh_dao.ThemHDNCCVaoCSDL(hdnh)) {
+        if (hdnh_dao.ThemHDNCCVaoCSDL(hdnh)) {
+            docDuLieuHoaDon();
             JOptionPane.showMessageDialog(this, "Lưu hóa đơn thành công!");
-            
+
             // Luu chi tiet hoa don
             int soLuongSp = table_DanhSachSP.getRowCount();
-            for(int i = 0; i < soLuongSp ; i++) {
+            for (int i = 0; i < soLuongSp; i++) {
                 String maSP = table_DanhSachSP.getValueAt(i, 0).toString();
-                String maHDNH_1 = maHDNH;
                 int soLuong = Integer.parseInt(table_DanhSachSP.getValueAt(i, 2).toString());
-                
-                ChiTietHD_NCC temp = null;
-//                ChiTietHD_NCC temp = new ChiTietHD_NCC(new SanPham(maSP), new HoaDonNCC(maHDNH), soLuong);
+
+//                ChiTietHD_NCC temp = null;
+                SanPham sp = new SanPham();
+                sp.setMaSP(maSP);
+                ChiTietHD_NCC temp = new ChiTietHD_NCC(sp, hdnh, soLuong);
                 cthd_nh_dao.ThemVaoCSDL(temp);
             }
-            
+
             area_ghiChu.setText("");
             cbo_ncc.setSelectedIndex(0);
             XoaHetDuLieuSP_HDNH();
         }
-        
+
     }//GEN-LAST:event_btn_TaoHoaDonNCCMouseClicked
 
     private void btn_NhapFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_NhapFileMouseClicked
@@ -761,6 +832,70 @@ public class Panel_inventory extends javax.swing.JPanel {
     private void btn_XuatFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_XuatFileMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_XuatFileMouseClicked
+
+    private void txt_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_TimKiemActionPerformed
+
+    private void btn_TaoHoaDonNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TaoHoaDonNCCActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btn_TaoHoaDonNCCActionPerformed
+
+    private void cbo_NCCItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbo_NCCItemStateChanged
+        // TODO add your handling code here:
+        NhaCungCap ncc = (NhaCungCap) cbo_NCC.getSelectedItem();
+        if (ncc.getMaNCC().equals("")) {
+            docDuLieuHoaDon();
+        } else {
+            ArrayList<HoaDonNCC> temp = new ArrayList<HoaDonNCC>();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+            for (HoaDonNCC i : listHDNCC) {
+                if (i.getNCC().getMaNCC().equals(ncc.getMaNCC())) {
+                    temp.add(i);
+                }
+            }
+
+            model.setRowCount(0);
+            for (HoaDonNCC hd : temp) {
+                String trangThai = hd.isIsThanhToan() ? "Đã thanh toán" : "Chưa thanh toán";
+                model.addRow(new Object[]{hd.getMaHDNCC(), hd.getNgayNhap().toString(), hd.getNCC(), trangThai, hd.getGhiChu()});
+            }
+        }
+    }//GEN-LAST:event_cbo_NCCItemStateChanged
+
+    private void btn_timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_timKiemActionPerformed
+        // TODO add your handling code here:
+        String timKiemText = jTextField2.getText().toString().trim();
+        HoaDonNCC hd = null;
+        ArrayList<HoaDonNCC> temp = new ArrayList<HoaDonNCC>();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (timKiemText.equals("")) {
+            docDuLieuHoaDon();
+            return;
+        }
+        for (HoaDonNCC i : listHDNCC) {
+            if (i.getMaHDNCC().equals(timKiemText)) {
+                hd = i;
+            }
+        }
+        if (hd != null) {
+            model.setRowCount(0);
+            String trangThai = hd.isIsThanhToan() ? "Đã thanh toán" : "Chưa thanh toán";
+            model.addRow(new Object[]{hd.getMaHDNCC(), hd.getNgayNhap().toString(), hd.getNCC(), trangThai, hd.getGhiChu()});
+        } else
+            JOptionPane.showMessageDialog(this, "Không tìm thấy");
+    }//GEN-LAST:event_btn_timKiemActionPerformed
+
+    private void btn_ThemMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemMoiActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btn_ThemMoiActionPerformed
+
+    private void btn_CapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CapNhatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_CapNhatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -775,7 +910,7 @@ public class Panel_inventory extends javax.swing.JPanel {
     private javax.swing.JButton btn_XoaTrang;
     private javax.swing.JButton btn_XuatFile;
     private javax.swing.JButton btn_timKiem;
-    private javax.swing.JComboBox<String> cbo_NCC;
+    private javax.swing.JComboBox<NhaCungCap> cbo_NCC;
     private javax.swing.JComboBox<NhaCungCap> cbo_ncc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;

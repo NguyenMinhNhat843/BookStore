@@ -50,3 +50,30 @@ match (hd:Hoa_Don)
 match (nv:NhanVien)
 where hd.NV_id = nv.NV_id
 create (hd)-[:HD_Co_NV]->(nv)
+
+
+
+
+
+
+load csv with headers from 'file:///HoaDon_NCC.csv' as row
+create (hdncc:HoaDon_NCC {HDNCC_id:row.HDNCC_id, NCC_id:row.ncc_id,ngayNhap:row.ngayNhap,ghiChu:row.ghiChu,isThanhToan:row.isThanhToan});
+
+load csv with headers from 'file:///CTHDNCC.csv' as row
+create (cthd_ncc:CTHD_NCC {HDNCC_id:row.HDNCC_id, sp_id: row.sanPhamId, soLuongNhap: row.soLuongNhap});
+
+match(hdncc:HoaDon_NCC)
+match (ncc:Nha_Cung_Cap)
+where hdncc.NCC_id = ncc.NCC_id
+create (hdncc) -[:Mua_tu]->(ncc);
+
+match(hdncc:HoaDon_NCC)
+match (cthd_ncc:CTHD_NCC)
+where hdncc.HDNCC_id = cthd_ncc.HDNCC_id
+create (cthd_ncc) -[:Thuoc_ve]->(hdncc);
+
+match(sp:San_Pham)
+match (cthd_ncc:CTHD_NCC)
+where cthd_ncc.sp_id = sp.SP_id
+create (cthd_ncc) -[:ban_sp]->(sp);
+
